@@ -6,14 +6,12 @@ import React from 'react'
 const Home = () => {
   return (
     <div>
-      <button className="btn btn-primary">Home</button>
+      {/* <button className="btn btn-primary">Home</button> */}
 
 
-      <InputWithLabel />
+      {/* <InputWithLabel />
       <SelectWithLabel />
-      <TextAreaWithLabel />
-
-
+      <TextAreaWithLabel /> */}
     </div>
   )
 }

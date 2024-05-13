@@ -22,8 +22,7 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning={true}>
         <Providers>
           <Loader />
-          <Header />
-          <main className="container-fluid">{children}</main>
+          {children}
           <Footer />
         </Providers>
       </body>
