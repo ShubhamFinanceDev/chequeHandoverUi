@@ -2,7 +2,7 @@
 
 
 import React from 'react'
-const defaultClassNameArray = ["row mt-3", "col-12", "col-12"]
+const defaultClassNameArray = ["row mb-2", "col-12", "col-12"]
 
 const InputWithLabel = (props) => {
     const {
@@ -32,7 +32,7 @@ const InputWithLabel = (props) => {
         <div className={className[0]}>
             {label &&
                 <div className={className[1]}>
-                    <label>{label}{isRequired && <span />}</label>
+                    <label>{label} {isRequired && <span />}</label>
                 </div>
             }
             <div className={className[2]}>

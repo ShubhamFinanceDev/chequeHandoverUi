@@ -1,0 +1,28 @@
+.login-page-outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .login-form-inner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 400px;
+    padding: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 0.5rem;
+
+    img {
+      margin-bottom: 2rem;
+      height: 125px;
+      width: 125px;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+    div {
+      width: 100%;
+    }
+  }
+}

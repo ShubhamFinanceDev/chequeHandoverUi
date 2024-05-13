@@ -4,7 +4,7 @@ import React from 'react'
 const Header = () => {
     return (
         <header className="container-fluid p-2">
-            <img src={icons.LOGO} alt="logo" />
+            <img src={icons.NAVLOGO} alt="logo" />
         </header>
     )
 }
