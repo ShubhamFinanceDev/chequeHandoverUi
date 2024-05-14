@@ -7,7 +7,6 @@ function LayoutPage({ children }) {
         <>
             <Header />
             <main className="container-fluid">{children}
-
             </main>
         </>
 
