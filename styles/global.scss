@@ -248,6 +248,48 @@ hr {
   }
 }
 
+.table-container {
+  table {
+    thead {
+      tr {
+        th {
+          background-color: $primary !important;
+          color: white;
+          font-size: 0.9rem;
+          font-weight: 600;
+
+          &:nth-of-type(1) {
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+          }
+
+          &:nth-last-of-type(1) {
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+          }
+        }
+      }
+    }
+
+    tbody {
+      td {
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: $text-color;
+        a {
+          font-size: 0.9rem !important;
+          font-weight: 600;
+          color: $text-color;
+
+          &:hover {
+            color: $primary;
+          }
+        }
+      }
+    }
+  }
+}
+
 @import "./core.style.scss";
 @import "./page.styles.scss";
 @import "./header.styles.scss";

@@ -44,7 +44,7 @@ function useAuthHooks() {
             Cookies.set("user", JSON.stringify(user || {}))
 
             if (isAdmin) {
-                router.push(pageRoutes.ADMIN_DASHBOARD_PAGE())
+                router.push(pageRoutes.MANAGE_USER_PAGE())
             } else {
                 router.push(pageRoutes.DASHBOARD_PAGE())
             }
