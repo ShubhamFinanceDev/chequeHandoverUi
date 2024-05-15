@@ -14,7 +14,7 @@ import pageRoutes from '@/utils/pageRoutes';
 
 const authIninitalBody = {
     email: "",
-    password: ""
+    password: "",
 }
 
 const otpInitialState = {
@@ -23,6 +23,8 @@ const otpInitialState = {
 }
 
 function useAuthHooks() {
+    const { setError } = useActionDispatch()
+
     const router = useRouter();
     const [authBody, setAuthBody] = useState({ ...authIninitalBody })
     const [showOtpInput, setShowOtpInput] = useState(false)
@@ -31,9 +33,14 @@ function useAuthHooks() {
 
 
     const siginSubmitHandler = async (e) => {
-        e.preventDefault()
-        // await axios.post(API.(), body)
-        router.push(pageRoutes.DASHBOARD_PAGE())
+        try {
+            e.preventDefault()
+            const body = { ...authBody }
+            const { data } = await axios.post(endpoint.login(), body)
+            router.push(pageRoutes.DASHBOARD_PAGE())
+        } catch (error) {
+            setError(error)
+        }
     }
 
     const forgotSubmitHandler = (e) => {

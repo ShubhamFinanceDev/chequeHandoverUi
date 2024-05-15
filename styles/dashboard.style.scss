@@ -1,0 +1,36 @@
+.search-input {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 1rem;
+  margin-top: 1rem;
+
+  .search-input-form {
+    background: #f8f8f8;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+
+    input {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      font-size: 0.9rem;
+      font-weight: 600;
+      width: 100%;
+      color: $text-color;
+    }
+  }
+
+  img {
+    height: 1.25rem;
+    width: 1.25rem;
+    object-fit: cover;
+    margin-right: 0.5rem;
+  }
+}

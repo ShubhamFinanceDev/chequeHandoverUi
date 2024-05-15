@@ -3,13 +3,13 @@
 import React from 'react'
 import icons from '@/env/icons'
 import { InputWithLabel } from '@/components/core/Input'
-import useFormHooks from '@/hooks/useFormHooks'
 import Link from 'next/link'
 import pageRoutes from '@/utils/pageRoutes'
+import useAuthHooks from '@/hooks/helper/useAuthHooks'
 
 
 function ForgotPasswordPage() {
-    const { showOtpInput, otpGeneratesState, showPasswordInput, requestOTPSubmitHandler, forgotSubmitHandler, otpChangeHandler } = useFormHooks()
+    const { showOtpInput, otpGeneratesState, showPasswordInput, requestOTPSubmitHandler, forgotSubmitHandler, otpChangeHandler } = useAuthHooks()
     return (
         <div className="container">
             <div className="login-page-outer-container">
