@@ -1,5 +1,4 @@
 import Footer from '@/components/core/Footer';
-import Header from '@/components/core/Header';
 import Loader from '@/components/core/Loader';
 import { Providers } from '@/redux/provider';
 import '@/styles/global.scss'

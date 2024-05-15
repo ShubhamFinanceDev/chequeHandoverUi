@@ -1,11 +1,16 @@
-import icons from '@/env/icons'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import icons from '@/env/icons'
+import useAuthHooks from '@/hooks/helper/useAuthHooks'
 
 const Header = () => {
+    const { email } = useSelector(state => state.authSlice)
+    const { logoutActionHandler } = useAuthHooks()
+
     return (
         <header className="container-fluid p-2">
             <img src={icons.NAVLOGO} alt="logo" />
-            <button></button>
+            <button className='btn btn-primary' onClick={logoutActionHandler}>Logout {email && `(${email})`}</button>
         </header>
     )
 }

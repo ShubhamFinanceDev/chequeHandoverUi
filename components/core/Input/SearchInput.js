@@ -1,15 +1,18 @@
+"use client"
+
 import React from 'react'
 import icons from '@/env/icons'
 
-function SearchInput() {
+function SearchInput(props) {
+    const { state = "", setState = () => { } } = props
     return (
         <div className="search-input">
             <div className="search-input-form">
                 <input
                     type="text"
-                    placeholder="Search by Name"
-                // value={searchQuery}
-                // onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search"
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
                 />
                 <img src={icons.Icon1} alt="search" />
             </div>

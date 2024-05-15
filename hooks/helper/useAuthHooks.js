@@ -23,7 +23,7 @@ const otpInitialState = {
 
 function useAuthHooks() {
     const router = useRouter();
-    const { setError, setUserAuthCred } = useActionDispatch()
+    const { setError, setUserAuthCred, removeUserAuthCred } = useActionDispatch()
 
     const [authBody, setAuthBody] = useState({ ...authIninitalBody })
 
@@ -42,6 +42,7 @@ function useAuthHooks() {
             const user = { token, email, isAdmin }
             setUserAuthCred(user)
             Cookies.set("user", JSON.stringify(user || {}))
+
             if (isAdmin) {
                 router.push(pageRoutes.ADMIN_DASHBOARD_PAGE())
             } else {
@@ -50,6 +51,12 @@ function useAuthHooks() {
         } catch (error) {
             setError(error)
         }
+    }
+
+    const logoutActionHandler = () => {
+        router.push(pageRoutes.SIGIN_PAGE())
+        Cookies.remove("user")
+        removeUserAuthCred()
     }
 
     const forgotSubmitHandler = (e) => {
@@ -78,10 +85,11 @@ function useAuthHooks() {
         otpGeneratesState,
 
         // SubmitHandler
-
         forgotSubmitHandler,
         requestOTPSubmitHandler,
 
+        // ActionHandler
+        logoutActionHandler
 
     })
 }
