@@ -8,7 +8,7 @@ function UserDashboardPage() {
         <div>
             <SearchInput />
             <hr />
-            <Table header={["Metric", "Unit | Denomination | Currency", "Year", "Month/Quater", "Value", "Action"]} >
+            <Table header={["Application Number", "Applicant Name", "Branch", "Region", "Hub", "Product Name", "Loan Amount", "Sanction Date", "Disbursal Date", "Cheque Amount", "Cheque Status"]} >
 
                 {/* {metricBudget.filter(r => r?.name.toLowerCase().includes(searchQuery.toLowerCase())).map((m) => {
                     const unit_currency_denomination = [m.unit_name, m.currency_name, m.denomination_name].filter((d) => d != null).join(" | ")

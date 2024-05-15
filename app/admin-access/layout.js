@@ -28,7 +28,7 @@ function LayoutPage({ children }) {
                         <div className='p-3'>
                             {adminNavitem.map((i) => (
                                 <Link href={i.path} className='row mt-2'>
-                                    <button className={`btn text-start ${pathname == i.path ? "btn-primary" : "btn-secondary"}`}>{i.label}</button>
+                                    <button className={`btn text-start ${pathname.includes(i.path) ? "btn-primary" : "btn-secondary"}`}>{i.label}</button>
                                 </Link>
                             ))}
                         </div>
