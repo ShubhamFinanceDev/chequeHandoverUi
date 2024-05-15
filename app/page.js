@@ -21,19 +21,22 @@ function SingInPages() {
           <InputWithLabel
             feilds={{
               label: "Email",
-              name: "email",
-              state: authBody,
-              onChangeHandler: siginChangeHandler
+              name: "emailId",
+              type: "email",
+              isRequired: true,
             }}
+            state={authBody}
+            onChangeHandler={siginChangeHandler}
           />
           <InputWithLabel
             feilds={{
               label: "Password",
               name: "password",
               type: "password",
-              state: authBody,
-              onChangeHandler: siginChangeHandler
+              isRequired: true,
             }}
+            state={authBody}
+            onChangeHandler={siginChangeHandler}
           />
 
           <div className="row">
@@ -44,7 +47,7 @@ function SingInPages() {
           <div className="row">
             <div className="col-12">
               <Link href={pageRoutes.FORGOT_PASSWORD()}>
-                <button className={`btn btn-outline-primary w-100 mt-3`}>Forgot password</button>
+                <button className={`btn btn-link w-100 mt-2`}>Forgotten password?</button>
               </Link>
 
             </div>

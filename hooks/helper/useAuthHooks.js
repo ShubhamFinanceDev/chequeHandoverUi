@@ -1,19 +1,18 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from "next/navigation";
 // Services
 import axios from '@/services/axios';
 import endpoint from '@/services/endpoint';
 // Hooks
 import useActionDispatch from '@/hooks/useActionDispatch';
-import { conditionRequiredFields, requiredFields } from '@/hooks/helper/requiredFields';
 import { changeHandlerHelper } from './changeHandler';
-import { sign } from 'jsonwebtoken';
 import pageRoutes from '@/utils/pageRoutes';
+import Cookies from 'js-cookie';
 
 
 
 const authIninitalBody = {
-    email: "",
+    emailId: "",
     password: "",
 }
 
@@ -23,21 +22,31 @@ const otpInitialState = {
 }
 
 function useAuthHooks() {
-    const { setError } = useActionDispatch()
-
     const router = useRouter();
+    const { setError, setUserAuthCred } = useActionDispatch()
+
     const [authBody, setAuthBody] = useState({ ...authIninitalBody })
+
+
     const [showOtpInput, setShowOtpInput] = useState(false)
     const [showPasswordInput, setShowPasswordInput] = useState(false)
     const [otpGeneratesState, setOtpGeneratesState] = useState({ ...otpInitialState })
 
 
     const siginSubmitHandler = async (e) => {
+        e.preventDefault()
         try {
-            e.preventDefault()
             const body = { ...authBody }
             const { data } = await axios.post(endpoint.login(), body)
-            router.push(pageRoutes.DASHBOARD_PAGE())
+            const { token, emailId: email, role: isAdmin } = data
+            const user = { token, email, isAdmin }
+            setUserAuthCred(user)
+            Cookies.set("user", JSON.stringify(user || {}))
+            if (isAdmin) {
+                router.push(pageRoutes.ADMIN_DASHBOARD_PAGE())
+            } else {
+                router.push(pageRoutes.DASHBOARD_PAGE())
+            }
         } catch (error) {
             setError(error)
         }
@@ -57,20 +66,22 @@ function useAuthHooks() {
 
     }
 
+    const siginChangeHandler = (e) => changeHandlerHelper(e, authBody, setAuthBody)
+    const otpChangeHandler = (e) => changeHandlerHelper(e, otpGeneratesState, setOtpGeneratesState)
+
     return ({
-        authBody,
-        showOtpInput,
+        authBody, siginChangeHandler, siginSubmitHandler,
+        showOtpInput, otpChangeHandler,
+
+
         showPasswordInput,
         otpGeneratesState,
 
         // SubmitHandler
-        siginSubmitHandler,
+
         forgotSubmitHandler,
         requestOTPSubmitHandler,
 
-        // changeHandler
-        siginChangeHandler: (e) => changeHandlerHelper(e, authBody, setAuthBody),
-        otpChangeHandler: (e) => changeHandlerHelper(e, otpGeneratesState, setOtpGeneratesState)
 
     })
 }

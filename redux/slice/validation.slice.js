@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    error: false,
-    success: false,
-    msg: ''
+    type: 'success',
+    msg: 'Shubham Housing Development Finance Company Limited'
 }
 
 const validationSlice = createSlice({
@@ -11,16 +10,15 @@ const validationSlice = createSlice({
     initialState,
     reducers: {
         setError: (state, action) => {
-            state.error = true
+            state.type = 'error'
             state.msg = action.payload
         },
         setSuccess: (state, action) => {
-            state.success = true
+            state.type = 'success'
             state.msg = action.payload
         },
         resetValidation: (state) => {
-            state.error = false
-            state.success = false
+            state.type = ""
             state.msg = ""
         },
     },

@@ -1,4 +1,5 @@
 const pageRoutes = {
+    ADMIN_DASHBOARD_PAGE: () => `/admin-access`,
     DASHBOARD_PAGE: () => `/dashboard`,
     FORGOT_PASSWORD: () => `/forgot-password`,
     SIGIN_PAGE: () => `/`
