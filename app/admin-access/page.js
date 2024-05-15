@@ -5,7 +5,6 @@ function AdminDashboardPage() {
     return (
         <div>
             <SearchInput />
-            <hr />
         </div>
     )
 }
