@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import useAuthHooks from '@/hooks/helper/useAuthHooks'
+import useAuthHooks from '@/hooks/useAuthHooks'
 import UserEmailForm from '@/components/page/forgot-password/UserEmailForm'
 import ValidateOTPForm from '@/components/page/forgot-password/ValidateOTPForm'
 import NewPasswordForm from '@/components/page/forgot-password/NewPasswordForm'

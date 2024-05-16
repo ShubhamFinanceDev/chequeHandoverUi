@@ -5,7 +5,7 @@ import { InputWithLabel } from '@/components/core/Input'
 import icons from '@/env/icons'
 import Link from 'next/link'
 import pageRoutes from '@/utils/pageRoutes'
-import useAuthHooks from '@/hooks/helper/useAuthHooks'
+import useAuthHooks from '@/hooks/useAuthHooks'
 
 
 function SingInPages() {
