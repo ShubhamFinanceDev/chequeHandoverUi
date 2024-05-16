@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useRouter } from "next/navigation";
+import Cookies from 'js-cookie';
 // Services
 import axios from '@/services/axios';
 import endpoint from '@/services/endpoint';
+import pageRoutes from '@/utils/pageRoutes';
 // Hooks
 import useActionDispatch from '@/hooks/useActionDispatch';
-import { changeHandlerHelper } from './changeHandler';
-import pageRoutes from '@/utils/pageRoutes';
-import Cookies from 'js-cookie';
+import { changeHandlerHelper } from '@/hooks/helper/changeHandler';
 
 
 const passwordResetTestState = {
