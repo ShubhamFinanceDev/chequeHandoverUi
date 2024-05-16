@@ -27,7 +27,7 @@ const SelectWithLabel = (props) => {
     return (
         <div className={className[0]}>
             {label && <div className={className[1]}>
-                <label htmlFor={id || name}>{label}{isRequired && <span />}</label>
+                <label htmlFor={id || name}>{label} {isRequired && <span />}</label>
             </div>}
 
             <div className={className[2]}>

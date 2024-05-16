@@ -1,8 +1,9 @@
-const { default: InputWithLabel } = require("@/components/core/Input/InputWithLabel")
-const { default: SelectWithLabel } = require("@/components/core/Input/SelectWithLabel")
-const { default: TextAreaWithLabel } = require("@/components/core/Input/TextAreaWithLabel")
+import InputWithLabel from '@/components/core/Input/InputWithLabel'
+import SelectWithLabel from '@/components/core/Input/SelectWithLabel'
+import TextAreaWithLabel from '@/components/core/Input/TextAreaWithLabel'
 
-module.exports = {
+
+export {
     InputWithLabel,
     SelectWithLabel,
     TextAreaWithLabel

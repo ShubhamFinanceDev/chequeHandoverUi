@@ -47,6 +47,7 @@ function useAuthHooks() {
             const user = { token, email, isAdmin }
             setUserAuthCred(user)
             Cookies.set("user", JSON.stringify(user || {}))
+            Cookies.set("token", token)
 
             if (isAdmin) {
                 router.push(pageRoutes.MANAGE_USER_PAGE())
