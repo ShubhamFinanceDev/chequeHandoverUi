@@ -1,7 +1,7 @@
 import icons from '@/env/icons'
 import { InputWithLabel } from '@/components/core/Input'
 
-const UserEmailForm = ({ useAuthHooksFn }) => {
+const ValidateOTPForm = ({ useAuthHooksFn }) => {
     const { passwordReset, passwordResetChangeHandler, passwordResetOTPValidate } = useAuthHooksFn
 
     return (
@@ -34,7 +34,6 @@ const UserEmailForm = ({ useAuthHooksFn }) => {
                         onChangeHandler={passwordResetChangeHandler}
                     />
 
-
                     <div className="row mt-2">
                         <div className="col-12">
                             <button type="submit" className={`btn btn-primary w-100`}>Validate OTP</button>
@@ -46,4 +45,4 @@ const UserEmailForm = ({ useAuthHooksFn }) => {
     )
 }
 
-export default UserEmailForm
+export default ValidateOTPForm

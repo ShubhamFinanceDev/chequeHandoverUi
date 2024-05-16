@@ -10,6 +10,12 @@ import pageRoutes from '@/utils/pageRoutes';
 import Cookies from 'js-cookie';
 
 
+const passwordResetTestState = {
+    emailId: "saurabhsingh2757@gmail.com",
+    otpCode: "",
+    newPassword: "saurabh8585",
+    confirmNewPassword: "saurabh8585",
+}
 
 const authIninitalBody = {
     emailId: "",
@@ -21,6 +27,7 @@ const passwordResetInitialState = {
     otpCode: "",
     newPassword: "",
     confirmNewPassword: "",
+    // ...passwordResetTestState
 }
 
 function useAuthHooks() {
@@ -60,10 +67,11 @@ function useAuthHooks() {
     const passwordResetOTPGenerate = async (e) => {
         e.preventDefault()
         try {
-            setShowOtpInput(true)
             const body = { ...passwordReset }
             const { data } = await axios.post(endpoint.generateOTPResetPwd(), { emailId: body.emailId })
-
+            body.otpCode = data?.otpCode || ""
+            setPasswordReset(body)
+            setPasswordResetSection("VALIDATE_OTP")
         } catch (error) {
             setError(error)
         }
@@ -72,9 +80,17 @@ function useAuthHooks() {
     const passwordResetOTPValidate = async (e) => {
         e.preventDefault()
         try {
-            // setShowOtpInput(true)
-            // const body = { ...passwordReset }
-            // const { data } = await axios.post(endpoint.generateOTPResetPwd(), { emailId: body.emailId })
+            const body = { ...passwordReset }
+            const { data } = await axios.post(endpoint.validateOTP(), {
+                emailId: body.emailId, otpCode: body.otpCode
+            })
+
+            if (data.code === "1111") {
+                alert(data.msg)
+                return
+            }
+
+            setPasswordResetSection("NEW_PASSWORD")
 
         } catch (error) {
             setError(error)
@@ -84,10 +100,18 @@ function useAuthHooks() {
     const passwordResetSubmitHandler = async (e) => {
         e.preventDefault()
         try {
-            // setShowOtpInput(true)
-            // const body = { ...passwordReset }
-            // const { data } = await axios.post(endpoint.generateOTPResetPwd(), { emailId: body.emailId })
+            const { emailId, newPassword, confirmNewPassword } = passwordReset
+            const { data } = await axios.post(endpoint.resetPassword(), {
+                emailId, newPassword, confirmNewPassword
+            })
 
+            if (data.code === "1111") {
+                alert(data.msg)
+                return
+            } else {
+                alert(data.msg)
+                router.push(pageRoutes.SIGIN_PAGE())
+            }
         } catch (error) {
             setError(error)
         }

@@ -1,15 +1,13 @@
 import icons from '@/env/icons'
 import { InputWithLabel } from '@/components/core/Input'
-import Link from 'next/link'
-import pageRoutes from '@/utils/pageRoutes'
 
-const UserEmailForm = ({ useAuthHooksFn }) => {
-    const { passwordReset, passwordResetChangeHandler, passwordResetOTPGenerate, passwordResetOTPValidate, passwordResetSubmitHandler } = useAuthHooksFn
+const NewPasswordForm = ({ useAuthHooksFn }) => {
+    const { passwordReset, passwordResetChangeHandler, passwordResetSubmitHandler } = useAuthHooksFn
 
     return (
         <div className="container">
             <div className="login-page-outer-container">
-                <form className="login-form-inner-container">
+                <form className="login-form-inner-container" onSubmit={passwordResetSubmitHandler}>
 
                     <img src={icons.LOGO} alt="Logo" />
                     <h2>Reset your password</h2>
@@ -45,8 +43,6 @@ const UserEmailForm = ({ useAuthHooksFn }) => {
                         onChangeHandler={passwordResetChangeHandler}
                     />
 
-
-
                     <div className="row mt-2">
                         <div className="col-12">
                             <button type="submit" className={`btn btn-primary w-100`}>Submit</button>
@@ -58,4 +54,4 @@ const UserEmailForm = ({ useAuthHooksFn }) => {
     )
 }
 
-export default UserEmailForm
+export default NewPasswordForm
