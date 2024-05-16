@@ -1,10 +1,13 @@
-import React from 'react'
+"use client"
+
+import React, { useEffect } from 'react'
 import {
     InputWithLabel,
     SelectWithLabel,
     TextAreaWithLabel
 } from '@/components/core/Input'
 import MultiCheckboxWithLabel from '@/components/core/Input/MultiCheckboxWithLabel'
+import useFetchDataHooks from '@/hooks/useFetchDataHooks'
 
 const input = {
     select: SelectWithLabel,
@@ -54,6 +57,10 @@ const formFeilds = [
 ]
 
 const AddUserForm = () => {
+    const { fetchBranchList } = useFetchDataHooks()
+    useEffect(() => {
+        fetchBranchList()
+    }, [])
     return (
         <form className='mb-4'>
             <div className="row">

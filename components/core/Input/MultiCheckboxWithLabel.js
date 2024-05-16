@@ -26,14 +26,17 @@ const MultiCheckboxWithLabel = (props) => {
     return (
         <div className={className[0]}>
             {label && <div className={className[1]}>
-                <label htmlFor={id || name}>{label} {isRequired && <span />}</label>
+                <label>{label} {isRequired && <span />}</label>
             </div>}
 
-            {options?.map((o) => (
+            {options?.map((o, idx) => (
                 <>
-                    <div className={className[2]}>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
+                    <div className={className[2]} key={`checkbox_${name}_${idx}`}>
+                        <div className="form-check">
+
+                            <input className="form-check-input" type="checkbox"
+
+                                id={`checkbox_${name}_${idx}`}
                                 name={name}
                                 checked={state?.[name]}
                                 onChange={(e) => {
@@ -46,7 +49,7 @@ const MultiCheckboxWithLabel = (props) => {
                                 hidden={isHidden}
                                 required={isRequired}
                             />
-                            <label class="form-check-label" for="flexCheckChecked">{o.name}</label>
+                            <label className="form-check-label" htmlFor={`checkbox_${name}_${idx}`}>{o.name}</label>
                         </div>
                     </div>
                 </>

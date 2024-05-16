@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    type: 'success',
-    msg: 'Shubham Housing Development Finance Company Limited'
+    type: '',
+    msg: ''
 }
 
 const validationSlice = createSlice({

@@ -62,6 +62,7 @@ function useAuthHooks() {
     const logoutActionHandler = () => {
         router.push(pageRoutes.SIGIN_PAGE())
         Cookies.remove("user")
+        Cookies.remove("token")
         removeUserAuthCred()
     }
 
