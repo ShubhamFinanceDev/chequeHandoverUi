@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import icons from '@/env/icons'
-import useAuthHooks from '@/hooks/helper/useAuthHooks'
+import useAuthHooks from '@/hooks/useAuthHooks'
 
 const Header = () => {
     const { email } = useSelector(state => state.authSlice)
