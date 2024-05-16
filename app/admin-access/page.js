@@ -4,7 +4,7 @@ import React from 'react'
 function AdminDashboardPage() {
     return (
         <div>
-            <SearchInput />
+            {/* <SearchInput /> */}
         </div>
     )
 }
