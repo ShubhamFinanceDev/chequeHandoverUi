@@ -16,9 +16,11 @@ const authIninitalBody = {
     password: "",
 }
 
-const otpInitialState = {
-    email: "",
-    otp: "",
+const passwordResetInitialState = {
+    emailId: "",
+    otpCode: "",
+    newPassword: "",
+    confirmNewPassword: "",
 }
 
 function useAuthHooks() {
@@ -26,12 +28,8 @@ function useAuthHooks() {
     const { setError, setUserAuthCred, removeUserAuthCred } = useActionDispatch()
 
     const [authBody, setAuthBody] = useState({ ...authIninitalBody })
-
-
-    const [showOtpInput, setShowOtpInput] = useState(false)
-    const [showPasswordInput, setShowPasswordInput] = useState(false)
-    const [otpGeneratesState, setOtpGeneratesState] = useState({ ...otpInitialState })
-
+    const [passwordReset, setPasswordReset] = useState({ ...passwordResetInitialState })
+    const [passwordResetSection, setPasswordResetSection] = useState("GENERATE_OTP")
 
     const siginSubmitHandler = async (e) => {
         e.preventDefault()
@@ -59,34 +57,55 @@ function useAuthHooks() {
         removeUserAuthCred()
     }
 
-    const forgotSubmitHandler = (e) => {
+    const passwordResetOTPGenerate = async (e) => {
         e.preventDefault()
-        setShowPasswordInput(true)
-        if (showPasswordInput) {
-            router.push(pageRoutes.SIGIN_PAGE())
+        try {
+            setShowOtpInput(true)
+            const body = { ...passwordReset }
+            const { data } = await axios.post(endpoint.generateOTPResetPwd(), { emailId: body.emailId })
+
+        } catch (error) {
+            setError(error)
         }
     }
 
-    const requestOTPSubmitHandler = (e) => {
+    const passwordResetOTPValidate = async (e) => {
         e.preventDefault()
-        setShowOtpInput(true)
+        try {
+            // setShowOtpInput(true)
+            // const body = { ...passwordReset }
+            // const { data } = await axios.post(endpoint.generateOTPResetPwd(), { emailId: body.emailId })
 
+        } catch (error) {
+            setError(error)
+        }
     }
 
+    const passwordResetSubmitHandler = async (e) => {
+        e.preventDefault()
+        try {
+            // setShowOtpInput(true)
+            // const body = { ...passwordReset }
+            // const { data } = await axios.post(endpoint.generateOTPResetPwd(), { emailId: body.emailId })
+
+        } catch (error) {
+            setError(error)
+        }
+    }
+
+    // change handler
     const siginChangeHandler = (e) => changeHandlerHelper(e, authBody, setAuthBody)
-    const otpChangeHandler = (e) => changeHandlerHelper(e, otpGeneratesState, setOtpGeneratesState)
+    const passwordResetChangeHandler = (e) => changeHandlerHelper(e, passwordReset, setPasswordReset)
+
 
     return ({
         authBody, siginChangeHandler, siginSubmitHandler,
-        showOtpInput, otpChangeHandler,
+        passwordReset, passwordResetChangeHandler,
+        passwordResetOTPGenerate,
+        passwordResetOTPValidate,
+        passwordResetSubmitHandler,
 
-
-        showPasswordInput,
-        otpGeneratesState,
-
-        // SubmitHandler
-        forgotSubmitHandler,
-        requestOTPSubmitHandler,
+        passwordResetSection,
 
         // ActionHandler
         logoutActionHandler

@@ -7,7 +7,12 @@ const useActionDispatch = () => {
     const dispatch = useDispatch()
 
     return ({
-        setError: (e) => dispatch(setError(e)),
+        setError: (e) => {
+            if (e?.response?.data?.msg) {
+                alert(e.response.data.msg)
+            }
+            dispatch(setError(e))
+        },
         setSuccess: (e) => dispatch(setSuccess(e)),
         resetValidation: (e) => dispatch(resetValidation(e)),
 

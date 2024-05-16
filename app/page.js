@@ -47,7 +47,7 @@ function SingInPages() {
           <div className="row">
             <div className="col-12">
               <Link href={pageRoutes.FORGOT_PASSWORD()}>
-                <button className={`btn btn-link w-100 mt-2`}>Forgotten password?</button>
+                <button className={`btn btn-link w-100 mt-2`}>Forgotten your password?</button>
               </Link>
 
             </div>
