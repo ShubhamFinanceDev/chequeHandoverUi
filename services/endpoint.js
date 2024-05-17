@@ -1,11 +1,12 @@
-const BASEURL = process.env.NEXT_PUBLIC_BASE_URL
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 const endpoint = {
-    login: () => BASEURL + `/handover-service/login`,
-    generateOTPResetPwd: () => BASEURL + `/handover-service/generate-otp`,
-    validateOTP: () => BASEURL + `/handover-service/validate-otp`,
-    resetPassword: () => BASEURL + `/handover-service/reset-password`,
-    fetchBankList: () => BASEURL + `/user/get-all-branches`,
+    login: () => BASE_URL + `/handover-service/login`,
+    generateOTPResetPwd: () => BASE_URL + `/handover-service/generate-otp`,
+    validateOTP: () => BASE_URL + `/handover-service/validate-otp`,
+    resetPassword: () => BASE_URL + `/handover-service/reset-password`,
+    fetchBankList: () => BASE_URL + `/user/get-all-branches`,
+    userCreate: () => BASE_URL + `/admin/create-user`
 }
 
 export default endpoint;   

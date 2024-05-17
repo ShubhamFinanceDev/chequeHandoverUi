@@ -3,6 +3,25 @@ const changeHandlerHelper = (e, state, setState, customChangesFn = () => { }) =>
 
     let { name, value, checked, type, files } = e.target;
 
+    if (type == "checkbox") {
+        let checkboxValueArray = prevState[name]
+        if (Array.isArray(checkboxValueArray)) {
+            if (!checked) {
+                prevState[name] = [...checkboxValueArray.filter((d) => d != value)]
+                debugger
+            } else {
+                prevState[name] = [...checkboxValueArray, value]
+                debugger
+            }
+        } else {
+            prevState[name] = checked
+        }
+
+        customChangesFn(prevState, e.target)
+        setState(prevState)
+        return
+    }
+
     if (type === "number") {
         value *= 1
     }

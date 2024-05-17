@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 const defaultClassNameArray = ["row mb-2", "col-12", "col-12"]
 
-const MultiCheckboxWithLabel = (props) => {
+const BankCheckboxWithlabel = (props) => {
     const [query, setQuery] = useState("")
 
     const {
@@ -31,7 +31,6 @@ const MultiCheckboxWithLabel = (props) => {
                 <label>{label} {isRequired && <span />}</label>
             </div>}
 
-
             {isFilter && (
                 <div className="col-12 mt-2 mb-3">
                     <input type="text" className='form-control' value={query} onChange={(e) => setQuery(e.target.value)} />
@@ -39,14 +38,14 @@ const MultiCheckboxWithLabel = (props) => {
                 </div>
             )}
 
-            {options.filter((d) => d?.name?.includes(query))?.map((o, idx) => (
-                <div className={className[2]} key={`checkbox_${name}_${idx}`}>
+            {options.filter((d) => state?.[name]?.includes(d.value))?.map((o) => (
+                <div className={className[2]} key={`checkbox_${name}_${o.value}`}>
                     <div className="form-check">
 
                         <input
                             type="checkbox"
                             className="form-check-input"
-                            id={`checkbox_${name}_${idx}`}
+                            id={`checkbox_${name}_${o.value}`}
                             name={name}
                             value={o.value}
                             checked={state?.[name]?.includes(o.value)}
@@ -60,13 +59,42 @@ const MultiCheckboxWithLabel = (props) => {
                             hidden={isHidden}
                             required={isRequired}
                         />
-                        <label className="form-check-label" htmlFor={`checkbox_${name}_${idx}`}>{o.name}</label>
+                        <label className="form-check-label" htmlFor={`checkbox_${name}_${o.value}`}>{o.name}</label>
                     </div>
                 </div>
             ))}
+
+            {query && options.filter((d) => d?.name?.toLowerCase()?.includes(query) && !state?.[name]?.includes(d.value))?.map((o) => (
+                <div className={className[2]} key={`checkbox_${name}_${o.value}`}>
+                    <div className="form-check">
+
+                        <input
+                            type="checkbox"
+                            className="form-check-input"
+                            id={`checkbox_${name}_${o.value}`}
+                            name={name}
+                            value={o.value}
+                            checked={state?.[name]?.includes(o.value)}
+                            onChange={(e) => {
+                                e.target.value = additinalValidation(e.target.value)
+                                onChangeHandler(e)
+                            }}
+
+                            readOnly={isReadOnly}
+                            disabled={isDisabled}
+                            hidden={isHidden}
+                            required={isRequired}
+                        />
+                        <label className="form-check-label" htmlFor={`checkbox_${name}_${o.value}`}>{o.name}</label>
+                    </div>
+                </div>
+            ))}
+
+            {/* {JSON.stringify(state?.[name])} */}
+
 
 
         </div>)
 }
 
-export default MultiCheckboxWithLabel
+export default BankCheckboxWithlabel
