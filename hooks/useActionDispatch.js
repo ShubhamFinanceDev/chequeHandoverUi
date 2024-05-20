@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 
 import { setError, setSuccess, resetValidation } from '@/redux/slice/validation.slice'
 import { removeUserAuthCred, setUserAuthCred } from '@/redux/slice/auth.slice'
-import { setBankList } from '@/redux/slice/global.slice'
+import { setApplicationDetails, setBankList } from '@/redux/slice/global.slice'
 
 const useActionDispatch = () => {
     const dispatch = useDispatch()
@@ -21,7 +21,7 @@ const useActionDispatch = () => {
         setUserAuthCred: (e) => dispatch(setUserAuthCred(e)),
         removeUserAuthCred: (e) => dispatch(removeUserAuthCred(e)),
         setBankList: (e) => dispatch(setBankList(e)),
-
+        setApplicationDetails: (e) => dispatch(setApplicationDetails(e)),
 
     })
 }

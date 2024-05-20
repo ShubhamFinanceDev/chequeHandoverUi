@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    bankList: []
+    bankList: [],
+    userDetails: { applicationDetails: [] }
 }
+
 
 const globalSlice = createSlice({
     name: "global",
@@ -11,9 +13,11 @@ const globalSlice = createSlice({
         setBankList: (state, action) => {
             state.bankList = action.payload
         },
-
+        setApplicationDetails: (state, action) => {
+            state.userDetails = action.payload
+        }
     },
 })
 
-export const { setBankList } = globalSlice.actions
+export const { setBankList, setApplicationDetails } = globalSlice.actions
 export default globalSlice.reducer
