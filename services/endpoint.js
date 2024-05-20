@@ -8,6 +8,7 @@ const endpoint = {
     fetchBankList: () => BASE_URL + `/user/get-all-branches`,
     userCreate: () => BASE_URL + `/admin/create-user`,
     dataExcelUpload: () => BASE_URL + `/admin/cheque-handover-excel`,
+    userData: (email = "") => BASE_URL + `/user/fetch-excel-data?emailId=${email}`
 }
 
 export default endpoint;   

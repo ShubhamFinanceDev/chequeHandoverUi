@@ -1,15 +1,24 @@
 import React from 'react'
 
 import useActionDispatch from './useActionDispatch';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+
 
 // Services
 import axios from '@/services/axios';
 import endpoint from '@/services/endpoint';
-import pageRoutes from '@/utils/pageRoutes';
+import { changeHandlerHelper } from './helper/changeHandler';
 
+const searchQueryInitialState = {
+    applicationNumber: "",
+}
 
 const useFetchDataHooks = () => {
-    const { setError, setBankList } = useActionDispatch()
+    const { setError, setBankList, setApplicationDetails } = useActionDispatch()
+    const { email } = useSelector((state) => state.authSlice)
+    const [searchQuery, setSearchQuery] = useState({ ...searchQueryInitialState })
+
 
     const fetchBranchList = async () => {
         try {
@@ -25,7 +34,27 @@ const useFetchDataHooks = () => {
 
     }
 
-    return ({ fetchBranchList })
+    const searchUserData = async (e) => {
+        e.preventDefault()
+        try {
+            const { data } = await axios.get(endpoint.userData(email));
+            setApplicationDetails(data)
+        } catch (error) {
+            setError(error)
+        }
+
+    }
+
+    const searchQueryChangeHandler = (e) => changeHandlerHelper(e, searchQuery, setSearchQuery)
+
+
+    return ({
+        searchQuery,
+        fetchBranchList,
+        searchUserData,
+        searchQueryChangeHandler
+
+    })
 }
 
 export default useFetchDataHooks
