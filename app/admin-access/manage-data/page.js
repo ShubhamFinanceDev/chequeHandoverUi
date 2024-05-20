@@ -1,8 +1,11 @@
+import DataExcelUploadForm from '@/components/page/manage-data/DataExcelUploadForm'
 import React from 'react'
 
 const Page = () => {
     return (
-        <div>Page</div>
+        <div>
+            <DataExcelUploadForm />
+        </div>
     )
 }
 

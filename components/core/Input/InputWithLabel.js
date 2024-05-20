@@ -23,10 +23,13 @@ const InputWithLabel = (props) => {
         isDisabled = false,
         isReadOnly = false,
         isRequired = false,
+        isMultiple = false,
         isHidden = false,
         maxLength = null,
 
     } = feilds
+
+    const value = type == 'file' ? null : state?.[name]
 
     return (
         <div className={className[0]}>
@@ -43,12 +46,17 @@ const InputWithLabel = (props) => {
 
                     className='form-control'
 
-                    value={state?.[name]}
+                    value={value}
                     onChange={(e) => {
-                        e.target.value = additinalValidation(e.target.value)
+                        if (type == "file") {
+                            e.target.files = additinalValidation(e.target.files)
+                        } else {
+                            e.target.value = additinalValidation(e.target.value)
+                        }
                         onChangeHandler(e)
                     }}
 
+                    multiple={isMultiple}
                     readOnly={isReadOnly}
                     disabled={isDisabled}
                     hidden={isHidden}

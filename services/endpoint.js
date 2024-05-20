@@ -6,7 +6,8 @@ const endpoint = {
     validateOTP: () => BASE_URL + `/handover-service/validate-otp`,
     resetPassword: () => BASE_URL + `/handover-service/reset-password`,
     fetchBankList: () => BASE_URL + `/user/get-all-branches`,
-    userCreate: () => BASE_URL + `/admin/create-user`
+    userCreate: () => BASE_URL + `/admin/create-user`,
+    dataExcelUpload: () => BASE_URL + `/admin/cheque-handover-excel`,
 }
 
 export default endpoint;   

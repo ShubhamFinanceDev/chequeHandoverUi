@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useRouter } from "next/navigation";
 import Cookies from 'js-cookie';
 // Services
@@ -8,6 +8,7 @@ import pageRoutes from '@/utils/pageRoutes';
 // Hooks
 import { changeHandlerHelper } from '@/hooks/helper/changeHandler';
 import { requiredFields } from '@/hooks/helper/requiredFields';
+import { formDataParser } from '@/hooks/helper/formDataParser';
 
 
 
@@ -35,11 +36,20 @@ const userBodyInitialState = {
     // ...userTestState
 }
 
+const dataBodyInitialState = {
+    file: []
+}
+
+
+
 const useAdminFormHooks = () => {
+    const formRef = useRef()
     const [userBody, setUserBody] = useState({ ...userBodyInitialState })
+    const [dataBody, setDataBody] = useState({ ...dataBodyInitialState })
 
     // onchange handlers
     const userBodyChangeHandler = (e) => changeHandlerHelper(e, userBody, setUserBody)
+    const dataBodyChangeHandler = (e) => changeHandlerHelper(e, dataBody, setDataBody)
 
     // submit handlers
     const userBodySubmitHandler = async (e) => {
@@ -65,8 +75,28 @@ const useAdminFormHooks = () => {
         }
     }
 
+    const dataBodySubmitHandler = async (e) => {
+        e.preventDefault()
+        try {
+            const body = { ...dataBody }
+            const formData = formDataParser(body)
+            const { data } = await axios.post(endpoint.dataExcelUpload(), formData)
+
+            if (data.code === "1111") {
+                alert(data.msg)
+                return
+            } else {
+                alert(data.msg)
+                setDataBody({ ...dataBodyInitialState })
+            }
+        } catch (error) {
+            setError(error)
+        }
+    }
+
     return ({
-        userBody, userBodyChangeHandler, userBodySubmitHandler
+        userBody, userBodyChangeHandler, userBodySubmitHandler,
+        dataBody, dataBodyChangeHandler, dataBodySubmitHandler,
 
     })
 }
