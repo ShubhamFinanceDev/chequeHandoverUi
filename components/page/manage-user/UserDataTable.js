@@ -10,12 +10,11 @@ function UserDataTable() {
 
     return (
         <div className='container-fluid'>
-            <div className='row mt-3'>
+            <div className='row mt-3 mb-4'>
                 <div>
                     <SearchInput />
                 </div>
             </div>
-            <hr className='mt-4' />
             <Table header={["Applicant Name", "Branch Name", "Region", "Hub Name", "Application Number", "Product Name", "Loan Amount", "Sanction Date", "Disbursal date", "Cheque Amount", "Cheque Status"]} >
                 {applicationDetails?.map((m) => {
                     return (
