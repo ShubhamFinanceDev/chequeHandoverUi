@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import Header from '@/components/core/Header'
 import pageRoutes, { adminNavitem } from '@/utils/pageRoutes'
 import Link from 'next/link'
+import ValidationMsg from '@/components/core/ValidationMsg'
 
 function LayoutPage({ children }) {
     const router = useRouter()
@@ -22,6 +23,7 @@ function LayoutPage({ children }) {
     return (
         <>
             <Header />
+            <ValidationMsg />
             <main className="container-fluid">
                 <div className="row">
                     <div className="col-2 mb-4">

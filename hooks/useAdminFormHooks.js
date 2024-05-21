@@ -46,7 +46,7 @@ const dataBodyInitialState = {
 
 const useAdminFormHooks = () => {
     const formRef = useRef()
-    const { setError } = useActionDispatch()
+    const { setError, setSuccess } = useActionDispatch()
     const { email } = useSelector(state => state.authSlice)
     const [userBody, setUserBody] = useState({ ...userBodyInitialState })
     const [dataBody, setDataBody] = useState({ ...dataBodyInitialState })
@@ -69,10 +69,10 @@ const useAdminFormHooks = () => {
             const { data } = await axios.post(endpoint.userCreate(), body)
 
             if (data.code === "1111") {
-                alert(data.msg)
+                setError(data.msg)
                 return
             } else {
-                alert(data.msg)
+                setSuccess(data.msg)
                 setUserBody({ ...userBodyInitialState })
             }
         } catch (error) {
@@ -88,10 +88,10 @@ const useAdminFormHooks = () => {
             const { data } = await axios.post(endpoint.dataExcelUpload(), formData)
 
             if (data.code === "1111") {
-                alert(data.msg)
+                setError(data.msg)
                 return
             } else {
-                alert(data.msg)
+                setSuccess(data.msg)
                 setDataBody({ ...dataBodyInitialState })
             }
         } catch (error) {
