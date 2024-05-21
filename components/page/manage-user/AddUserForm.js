@@ -77,10 +77,11 @@ const AddUserForm = () => {
     return (
         <form className='mb-4' onSubmit={userBodySubmitHandler}>
             <div className="row">
-                {formFeilds.map((f) => {
+                {formFeilds.map((f, idx) => {
                     const InputComponent = input?.[f.type] || InputWithLabel
                     const classNameArray = f?.className || ["col-6 mb-2", "col-12", "col-12"]
                     return (<InputComponent
+                        key={`feild__${idx}`}
                         feilds={f}
                         className={classNameArray}
                         state={userBody}

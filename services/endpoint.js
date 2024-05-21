@@ -7,7 +7,7 @@ const endpoint = {
     resetPassword: () => BASE_URL + `/handover-service/reset-password`,
     fetchBankList: () => BASE_URL + `/user/get-all-branches`,
     userCreate: () => BASE_URL + `/admin/create-user`,
-    dataExcelUpload: () => BASE_URL + `/admin/cheque-handover-excel`,
+    dataExcelUpload: () => BASE_URL + `/admin/import-data`,
     userData: (email = "") => BASE_URL + `/user/fetch-excel-data?emailId=${email}`
 }
 
