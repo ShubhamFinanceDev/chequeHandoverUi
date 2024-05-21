@@ -1,9 +1,12 @@
+import BranchExcelUploadForm from '@/components/page/manage-branch/BranchExcelUploadForm'
 import React from 'react'
 
-const Page = () => {
+const BranchManagePage = () => {
     return (
-        <div>Page</div>
+        <div>
+            <BranchExcelUploadForm />
+        </div>
     )
 }
 
-export default Page
+export default BranchManagePage

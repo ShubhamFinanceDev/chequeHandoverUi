@@ -50,10 +50,12 @@ const useAdminFormHooks = () => {
     const { email } = useSelector(state => state.authSlice)
     const [userBody, setUserBody] = useState({ ...userBodyInitialState })
     const [dataBody, setDataBody] = useState({ ...dataBodyInitialState })
+    const [branchDataBody, setBranchDataBody] = useState({ ...dataBodyInitialState })
 
     // onchange handlers
     const userBodyChangeHandler = (e) => changeHandlerHelper(e, userBody, setUserBody)
     const dataBodyChangeHandler = (e) => changeHandlerHelper(e, dataBody, setDataBody)
+    const branchDataBodyChangeHandler = (e) => changeHandlerHelper(e, branchDataBody, setBranchDataBody)
 
     // submit handlers
     const userBodySubmitHandler = async (e) => {
@@ -99,9 +101,29 @@ const useAdminFormHooks = () => {
         }
     }
 
+    const branchDataBodySubmitHandler = async (e) => {
+        e.preventDefault()
+        try {
+            const body = { ...branchDataBody }
+            const formData = formDataParser(body)
+            const { data } = await axios.post(endpoint.branchDataExcelUpload(), formData)
+
+            if (data.code === "1111") {
+                setError(data.msg)
+                return
+            } else {
+                setSuccess(data.msg)
+                setDataBody({ ...dataBodyInitialState })
+            }
+        } catch (error) {
+            setError(error)
+        }
+    }
+
     return ({
         userBody, userBodyChangeHandler, userBodySubmitHandler,
         dataBody, dataBodyChangeHandler, dataBodySubmitHandler,
+        branchDataBody, branchDataBodyChangeHandler, branchDataBodySubmitHandler
 
     })
 }
