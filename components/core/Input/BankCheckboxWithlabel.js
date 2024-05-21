@@ -19,6 +19,7 @@ const BankCheckboxWithlabel = (props) => {
         options = [],
         name = "",
         label = "",
+        placeholder = "",
         isRequired = false,
         isDisabled = false,
         isHidden = false,
@@ -33,7 +34,7 @@ const BankCheckboxWithlabel = (props) => {
 
             {isFilter && (
                 <div className="col-12 mt-2 mb-3">
-                    <input type="text" className='form-control' value={query} onChange={(e) => setQuery(e.target.value)} />
+                    <input type="text" className='form-control' value={query} onChange={(e) => setQuery(e.target.value)} placeholder={placeholder} />
 
                 </div>
             )}

@@ -63,6 +63,7 @@ const AddUserForm = () => {
             isFilter: true,
             label: "Branch",
             name: "assignBranches",
+            placeholder: "Search branch by name",
             options: bankList,
             type: "multiCheckbox",
             className: ["row mb-2", "col-12", "col-2"]

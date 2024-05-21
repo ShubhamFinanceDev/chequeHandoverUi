@@ -1,15 +1,20 @@
 export const requiredFields = (requiredInputArray = [], state = {}) => {
-    const error = (k) => {
-        throw new Error('Please fill in all required fields marked with an asterisk (*) to proceed.');
-    }
+    const errorArr = []
+    const setError = (k) => errorArr.push(k)
+
     for (const k of requiredInputArray) {
         if (Array.isArray(state[k]) && state[k].length === 0) {
-            error(k)
+            setError(k)
         } else if (typeof state[k] === 'object' && Object.keys(state[k]).length === 0) {
-            error(k)
+            setError(k)
         } else if (state[k] === null || state[k] === undefined || state[k] === "") {
-            error(k)
+            setError(k)
         }
+    }
+
+    if (errorArr.length > 0) {
+        console.log('+++ Required Fields Error', errorArr.join(","));
+        throw new Error('Please fill in all required fields marked with an asterisk (*) to proceed.');
     }
 }
 

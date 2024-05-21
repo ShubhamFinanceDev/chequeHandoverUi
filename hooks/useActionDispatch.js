@@ -11,6 +11,8 @@ const useActionDispatch = () => {
         setError: (e) => {
             if (e?.response?.data?.msg) {
                 dispatch(setError(e.response.data.msg))
+            } else if (e?.message) {
+                dispatch(setError(e.message))
             } else {
                 dispatch(setError(e))
             }

@@ -9,6 +9,8 @@ import pageRoutes from '@/utils/pageRoutes';
 import { changeHandlerHelper } from '@/hooks/helper/changeHandler';
 import { requiredFields } from '@/hooks/helper/requiredFields';
 import { formDataParser } from '@/hooks/helper/formDataParser';
+import useActionDispatch from './useActionDispatch';
+import { useSelector } from 'react-redux';
 
 
 
@@ -44,6 +46,8 @@ const dataBodyInitialState = {
 
 const useAdminFormHooks = () => {
     const formRef = useRef()
+    const { setError } = useActionDispatch()
+    const { email } = useSelector(state => state.authSlice)
     const [userBody, setUserBody] = useState({ ...userBodyInitialState })
     const [dataBody, setDataBody] = useState({ ...dataBodyInitialState })
 
@@ -59,6 +63,7 @@ const useAdminFormHooks = () => {
             body.roleMasters = {
                 role: body.roleMasters
             }
+            body.createdBy = email
             body.assignBranches = body.assignBranches.map((d) => ({ branchCode: d }))
             requiredFields(["firstname", "lastName", "emailId", "mobileNo", "password", "createdBy", "roleMasters", "assignBranches"], body)
             const { data } = await axios.post(endpoint.userCreate(), body)
