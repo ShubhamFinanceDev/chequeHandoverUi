@@ -49,7 +49,14 @@ const useFetchDataHooks = () => {
                 return
             } else {
                 const { applicationDetails, nextPage, totalCount } = data
-                setApplicationDetails({ applications: applicationDetails, applicationMeta: { nextPage, totalCount } })
+                setApplicationDetails({
+                    applications: applicationDetails,
+                    applicationMeta: {
+                        totalPages: Math.ceil(totalCount / 100),
+                        currentPage: page,
+                        isNextPage: nextPage,
+                    }
+                })
             }
         } catch (error) {
             setError(error)

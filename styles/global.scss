@@ -295,6 +295,21 @@ hr {
   }
 }
 
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  * {
+    font-weight: 600;
+    color: $text-color;
+    font-size: 0.9rem;
+  }
+  button {
+    background: transparent;
+  }
+}
+
 @import "./core.style.scss";
 @import "./page.styles.scss";
 @import "./header.styles.scss";
