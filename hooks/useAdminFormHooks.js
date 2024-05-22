@@ -12,8 +12,6 @@ import { formDataParser } from '@/hooks/helper/formDataParser';
 import useActionDispatch from './useActionDispatch';
 import { useSelector } from 'react-redux';
 
-
-
 const userTestState = {
     firstname: "saurabh",
     lastName: "singh",

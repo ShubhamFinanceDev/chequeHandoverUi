@@ -34,10 +34,10 @@ const useFetchDataHooks = () => {
 
     }
 
-    const searchUserData = async (e) => {
+    const searchUserData = async (e, page) => {
         e.preventDefault()
         try {
-            const { data } = await axios.get(endpoint.userData(email));
+            const { data } = await axios.get(endpoint.userData(email, page, searchQuery.applicationNumber));
             setApplicationDetails(data)
         } catch (error) {
             setError(error)

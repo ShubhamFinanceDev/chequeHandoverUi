@@ -1,10 +1,10 @@
 'use client'
+import UserDataTable from '@/components/page/manage-user/UserDataTable'
 import React from 'react'
-import UserPage from '@/components/page/normal-user/page'
 
 function UserDashboardPage() {
     return (
-        <div><UserPage /></div>
+        <div><UserDataTable /></div>
     )
 }
 

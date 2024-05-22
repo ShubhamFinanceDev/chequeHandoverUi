@@ -4,8 +4,9 @@ import React from 'react'
 import Table from '@/components/core/Input/Table'
 import SearchInput from '@/components/core/Input/SearchInput'
 import { useSelector } from 'react-redux'
+import ModelHOC from '@/hooks/helper/modelHoc'
 
-function UserDataTable() {
+function UserDataTable(props) {
     const { userDetails: { applicationDetails } } = useSelector((state) => state.globalSlice)
 
     return (
@@ -31,8 +32,9 @@ function UserDataTable() {
                             <td>{m.disbursalDate}</td>
                             <td>{m.chequeAmount}</td>
                             <td>
-                                <button className='btn btn-primary'>Yes</button>
-                                <button className='btn btn-primary'>No</button>
+                                <button className='btn btn-outline-primary' disabled>Yes</button>
+                                <button className='btn btn-outline-primary' onClick={() => props?.openModel({ key: "CHEQUE_STATUS_MODEL" })}>No</button>
+
                             </td>
                         </tr>
                     )
@@ -44,4 +46,4 @@ function UserDataTable() {
     )
 }
 
-export default UserDataTable
+export default ModelHOC(UserDataTable)
