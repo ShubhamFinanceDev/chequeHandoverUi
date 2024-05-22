@@ -44,7 +44,9 @@ const dataBodyInitialState = {
 
 const useAdminFormHooks = () => {
     const formRef = useRef()
-    const { setError, setSuccess } = useActionDispatch()
+    const {
+        setError, setSuccess
+    } = useActionDispatch()
     const { email } = useSelector(state => state.authSlice)
     const [userBody, setUserBody] = useState({ ...userBodyInitialState })
     const [dataBody, setDataBody] = useState({ ...dataBodyInitialState })

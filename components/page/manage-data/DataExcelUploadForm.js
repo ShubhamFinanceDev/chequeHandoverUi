@@ -4,7 +4,7 @@ import { InputWithLabel } from '@/components/core/Input'
 import useAdminFormHooks from '@/hooks/useAdminFormHooks'
 import React from 'react'
 
-const DataExcelUploadForm = () => {
+const DataExcelUploadForm = ({ toggleFormVisibility }) => {
     const { dataBody, dataBodyChangeHandler, dataBodySubmitHandler } = useAdminFormHooks()
     return (
         <div>
@@ -21,9 +21,10 @@ const DataExcelUploadForm = () => {
                     state={dataBody}
                     onChangeHandler={dataBodyChangeHandler}
                 />
+
+                <button className='btn' onClick={toggleFormVisibility} type='reset'>Cancel</button>
                 <button className='btn btn-primary'>Upload</button>
             </form>
-
         </div>
     )
 }

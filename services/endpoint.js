@@ -9,10 +9,11 @@ const endpoint = {
     userCreate: () => BASE_URL + `/admin/create-user`,
     dataExcelUpload: () => BASE_URL + `/admin/import-data`,
     branchDataExcelUpload: () => BASE_URL + `/admin/add-new-branch`,
+    invokeStatusProcedure: () => BASE_URL + `/admin/invoke-status-procedure`,
     userData: (email = "", page = 1, applicationNo = '') => BASE_URL + `/user/fetch-excel-data?emailId=${email}&pageNo=${page}&applicationNo=${applicationNo}`,
-    dataExcelUpload: () => BASE_URL + `/admin/cheque-handover-excel`,
     updateStatusCheque: () => BASE_URL + `/user/update-application-flag`,
 
+    generateMISReport: (email = "") => BASE_URL + `/user/generate-mis-report?emailId=${email}`
 }
 
 export default endpoint;   

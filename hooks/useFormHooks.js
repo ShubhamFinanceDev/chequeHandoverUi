@@ -19,13 +19,12 @@ const ChequeInitialState = {
 
 const useFormHooks = () => {
     const fileInputRef = useRef(null);
-    const { setError, resetValidation, setSuccess } = useActionDispatch()
+    const { setError, resetValidation, setSuccess, updateApplicationStatus } = useActionDispatch()
     const [ChequeStatus, setChequeStatus] = useState({ ...ChequeInitialState })
 
 
     const ChequeStatusSubmitHandler = async (e, next = () => { }) => {
         e.preventDefault()
-        console.log(ChequeStatus)
         try {
             const body = { ...ChequeStatus }
             const formdata = formDataParser(body)
@@ -35,6 +34,7 @@ const useFormHooks = () => {
                 return
             } else {
                 setSuccess(data.msg)
+                updateApplicationStatus(body.applicationNo)
                 setChequeStatus({ ...ChequeInitialState })
                 next()
 
@@ -47,10 +47,11 @@ const useFormHooks = () => {
     }
 
     const ChequeStatusChangeHandler = (e) => changeHandlerHelper(e, ChequeStatus, setChequeStatus)
+    //  default state handler
+    const ChequeStatusDefaultStateHandler = (e) => setChequeStatus(state => ({ ...state, ...e }))
+
     return ({
-        ChequeStatus,
-        ChequeStatusChangeHandler,
-        ChequeStatusSubmitHandler
+        ChequeStatus, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler
     })
 }
 
