@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    bankList: [],
+    branchList: [],
     applications: [],
     applicationMeta: {}
 }
@@ -17,8 +17,8 @@ const globalSlice = createSlice({
                 ...initialState
             };
         },
-        setBankList: (state, action) => {
-            state.bankList = action.payload
+        setBranchList: (state, action) => {
+            state.branchList = action.payload
         },
         setApplicationDetails: (state, action) => {
             return {
@@ -39,5 +39,5 @@ const globalSlice = createSlice({
     },
 })
 
-export const { setBankList, setApplicationDetails, updateApplicationStatus, resetGlobalState } = globalSlice.actions
+export const { setBranchList, setApplicationDetails, updateApplicationStatus, resetGlobalState } = globalSlice.actions
 export default globalSlice.reducer

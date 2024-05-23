@@ -17,7 +17,7 @@ const searchQueryInitialState = {
 }
 
 const useFetchDataHooks = () => {
-    const { setError, setSuccess, setBankList, setApplicationDetails, resetGlobalState } = useActionDispatch()
+    const { setError, setSuccess, setBranchList, setApplicationDetails, resetGlobalState } = useActionDispatch()
     const { email } = useSelector((state) => state.authSlice)
     const [searchQuery, setSearchQuery] = useState({ ...searchQueryInitialState })
 
@@ -27,9 +27,9 @@ const useFetchDataHooks = () => {
 
     const fetchBranchList = async () => {
         try {
-            const { data: { branchMasters = [], commanResponse = {} } } = await axios.get(endpoint.fetchBankList())
+            const { data: { branchMasters = [], commanResponse = {} } } = await axios.get(endpoint.fetchBranchList())
             if (commanResponse?.code == "0000") {
-                setBankList(branchMasters.map(({ branchName, branchCode }) => ({ name: branchName, value: branchCode })))
+                setBranchList(branchMasters.map(({ branchName, branchCode, state }) => ({ name: branchName, state: state, value: branchCode })))
                 return
             }
         } catch (error) {
