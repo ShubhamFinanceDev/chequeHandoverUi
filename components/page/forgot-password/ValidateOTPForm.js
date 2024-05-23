@@ -1,8 +1,9 @@
 import icons from '@/env/icons'
 import { InputWithLabel } from '@/components/core/Input'
+import ValidationMsg from '@/components/core/ValidationMsg'
 
 const ValidateOTPForm = ({ useAuthHooksFn }) => {
-    const { passwordReset, passwordResetChangeHandler, passwordResetOTPValidate } = useAuthHooksFn
+    const { passwordReset, passwordResetChangeHandler, passwordResetOTPValidate, passwordResetOTPGenerate } = useAuthHooksFn
 
     return (
         <div className="container">
@@ -10,7 +11,9 @@ const ValidateOTPForm = ({ useAuthHooksFn }) => {
                 <form className="login-form-inner-container" onSubmit={passwordResetOTPValidate}>
 
                     <img src={icons.LOGO} alt="Logo" />
+
                     <h2>Reset your password</h2>
+                    <ValidationMsg />
 
                     <InputWithLabel
                         feilds={{
@@ -37,6 +40,7 @@ const ValidateOTPForm = ({ useAuthHooksFn }) => {
                     <div className="row mt-2">
                         <div className="col-12">
                             <button type="submit" className={`btn btn-primary w-100`}>Validate OTP</button>
+                            <button type="button" className={`btn w-100`} onClick={passwordResetOTPGenerate}>Didn't receive the code? Resend OTP</button>
                         </div>
                     </div>
                 </form>

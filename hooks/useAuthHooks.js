@@ -32,7 +32,7 @@ const passwordResetInitialState = {
 
 function useAuthHooks() {
     const router = useRouter();
-    const { setError, setUserAuthCred, removeUserAuthCred } = useActionDispatch()
+    const { setError, setSuccess, setUserAuthCred, removeUserAuthCred } = useActionDispatch()
 
     const [authBody, setAuthBody] = useState({ ...authIninitalBody })
     const [passwordReset, setPasswordReset] = useState({ ...passwordResetInitialState })
@@ -71,6 +71,10 @@ function useAuthHooks() {
         try {
             const body = { ...passwordReset }
             const { data } = await axios.post(endpoint.generateOTPResetPwd(), { emailId: body.emailId })
+            if (data.code == "1111") {
+                setError(data.msg)
+                return
+            }
             body.otpCode = data?.otpCode || ""
             setPasswordReset(body)
             setPasswordResetSection("VALIDATE_OTP")
@@ -87,8 +91,8 @@ function useAuthHooks() {
                 emailId: body.emailId, otpCode: body.otpCode
             })
 
-            if (data.code === "1111") {
-                alert(data.msg)
+            if (data.code == "1111") {
+                setError(data.msg)
                 return
             }
 
@@ -108,11 +112,11 @@ function useAuthHooks() {
             })
 
             if (data.code === "0000") {
-                alert(data.msg)
+                setSuccess("Your password has been successfully reset!")
                 router.push(pageRoutes.SIGIN_PAGE())
                 return
             } else {
-                alert(data.msg)
+                setError(data.msg)
             }
         } catch (error) {
             setError(error)

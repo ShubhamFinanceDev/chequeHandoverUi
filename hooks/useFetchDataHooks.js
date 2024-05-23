@@ -44,7 +44,7 @@ const useFetchDataHooks = () => {
                 return
             }
             const { data } = await axios.get(endpoint.userData(email, page, searchQuery.applicationNumber));
-            if (data.code === "0000") {
+            if (data?.commonResponse?.code === "0000") {
                 const { applicationDetails, nextPage, totalCount } = data
                 setApplicationDetails({
                     applications: applicationDetails,
