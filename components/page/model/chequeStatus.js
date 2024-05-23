@@ -8,16 +8,14 @@ const ChequeStatusModel = (props) => {
     const { ChequeStatus, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler } = useFormHooks()
     const { closeModel, applicationNo } = props
 
-    const onConfirmAction = () => {
-        closeModel()
-    }
     useEffect(() => {
         ChequeStatusDefaultStateHandler({ applicationNo })
     }, [applicationNo])
+
     return (
         <div className='model-container'>
             <p className='mb-3'>Upload Acknowledgement</p>
-            <form onSubmit={e => ChequeStatusSubmitHandler(e, onConfirmAction)} className='row'>
+            <form onSubmit={e => ChequeStatusSubmitHandler(e, closeModel)} className='row'>
                 <InputWithLabel
                     feilds={{
                         label: "Application No",
@@ -72,7 +70,7 @@ const ChequeStatusModel = (props) => {
                 />
 
                 <div className='mt-2 d-flex justify-content-end'>
-                    <button className='btn' onClick={onConfirmAction}>Cancel</button>
+                    <button className='btn' onClick={closeModel}>Cancel</button>
                     <button className='btn btn-primary' type='submit'>Submit</button>
                 </div>
             </form>

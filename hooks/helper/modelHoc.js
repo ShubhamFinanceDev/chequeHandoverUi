@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ChequeStatusModel from '@/components/page/model/chequeStatus'
 import { Modal } from 'react-bootstrap'
+
 const initialState = {
     show: false,
     key: null,
