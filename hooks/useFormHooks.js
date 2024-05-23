@@ -29,15 +29,14 @@ const useFormHooks = () => {
             const body = { ...ChequeStatus }
             const formdata = formDataParser(body)
             const { data } = await axios.post(endpoint.updateStatusCheque(), formdata)
-            if (data.code === "1111") {
-                setError(data.msg)
-                return
-            } else {
-                setSuccess(data.msg)
+            if (data.code === "0000") {
+                setSuccess("Acknowledgement has been received!")
                 updateApplicationStatus(body.applicationNo)
                 setChequeStatus({ ...ChequeInitialState })
                 next()
-
+                return
+            } else {
+                setError(data.msg)
             }
 
         } catch (error) {

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    type: '',
-    msg: ''
+    type: 'success',
+    msg: 'Data Save Successfully'
 }
 
 const validationSlice = createSlice({

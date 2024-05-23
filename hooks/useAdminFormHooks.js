@@ -70,12 +70,12 @@ const useAdminFormHooks = () => {
             requiredFields(["firstname", "lastName", "emailId", "mobileNo", "password", "createdBy", "roleMasters", "assignBranches"], body)
             const { data } = await axios.post(endpoint.userCreate(), body)
 
-            if (data.code === "1111") {
-                setError(data.msg)
-                return
-            } else {
+            if (data.code === "0000") {
                 setSuccess(data.msg)
                 setUserBody({ ...userBodyInitialState })
+                return
+            } else {
+                setError(data.msg)
             }
         } catch (error) {
             setError(error)
@@ -89,12 +89,12 @@ const useAdminFormHooks = () => {
             const formData = formDataParser(body)
             const { data } = await axios.post(endpoint.dataExcelUpload(), formData)
 
-            if (data.code === "1111") {
-                setError(data.msg)
-                return
-            } else {
+            if (data.code === "0000") {
                 setSuccess(data.msg)
                 setDataBody({ ...dataBodyInitialState })
+                return
+            } else {
+                setError(data.msg)
             }
         } catch (error) {
             setError(error)
@@ -108,12 +108,12 @@ const useAdminFormHooks = () => {
             const formData = formDataParser(body)
             const { data } = await axios.post(endpoint.branchDataExcelUpload(), formData)
 
-            if (data.code === "1111") {
-                setError(data.msg)
-                return
-            } else {
+            if (data.code === "0000") {
                 setSuccess(data.msg)
                 setDataBody({ ...dataBodyInitialState })
+                return
+            } else {
+                setError(data.msg)
             }
         } catch (error) {
             setError(error)

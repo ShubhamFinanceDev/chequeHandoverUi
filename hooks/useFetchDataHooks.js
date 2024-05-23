@@ -44,10 +44,7 @@ const useFetchDataHooks = () => {
                 return
             }
             const { data } = await axios.get(endpoint.userData(email, page, searchQuery.applicationNumber));
-            if (data.code === "1111") {
-                setError(data.msg)
-                return
-            } else {
+            if (data.code === "0000") {
                 const { applicationDetails, nextPage, totalCount } = data
                 setApplicationDetails({
                     applications: applicationDetails,
@@ -57,6 +54,9 @@ const useFetchDataHooks = () => {
                         isNextPage: nextPage,
                     }
                 })
+                return
+            } else {
+                setError(data.msg)
             }
         } catch (error) {
             setError(error)

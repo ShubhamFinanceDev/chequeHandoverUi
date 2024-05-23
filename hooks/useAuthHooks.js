@@ -107,12 +107,12 @@ function useAuthHooks() {
                 emailId, newPassword, confirmNewPassword
             })
 
-            if (data.code === "1111") {
+            if (data.code === "0000") {
                 alert(data.msg)
+                router.push(pageRoutes.SIGIN_PAGE())
                 return
             } else {
                 alert(data.msg)
-                router.push(pageRoutes.SIGIN_PAGE())
             }
         } catch (error) {
             setError(error)

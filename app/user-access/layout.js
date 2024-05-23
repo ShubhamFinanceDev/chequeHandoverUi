@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 
 import Header from '@/components/core/Header'
 import pageRoutes from '@/utils/pageRoutes'
+import ValidationMsg from '@/components/core/ValidationMsg'
 
 function LayoutPage({ children }) {
     const router = useRouter()
@@ -21,7 +22,9 @@ function LayoutPage({ children }) {
     return (
         <>
             <Header />
-            <main className="container-fluid">{children}
+            <main className="container-fluid pt-2">
+                <ValidationMsg />
+                {children}
             </main>
         </>
 
