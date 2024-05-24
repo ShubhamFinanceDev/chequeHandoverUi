@@ -2,27 +2,29 @@
 
 import useFetchDataHooks from '@/hooks/useFetchDataHooks'
 import React from 'react'
+import InputWithLabel from './InputWithLabel'
 
-function SearchInput(props) {
-    const { state = "", setState = () => { } } = props
+function SearchInput() {
     const { searchQuery, searchUserData, searchQueryChangeHandler } = useFetchDataHooks()
+
     return (
-        <div className='row'>
-            <div className="col-2">
-                <label>Application Number</label>
-                <input type="string"
-                    className='form-control'
-                    name='applicationNumber'
+        <form onSubmit={searchUserData} className='row'>
+            <div className="col-10">
+                <InputWithLabel
+                    feilds={{
+                        label: "Application Number :",
+                        name: "applicationNumber",
+                        // isRequired: true,
+                    }}
                     state={searchQuery}
-                    onChange={searchQueryChangeHandler} />
+                    onChangeHandler={searchQueryChangeHandler}
+                    className={['row', 'col-4', 'col-8']}
+                />
             </div>
-            <div className='col-2'>
-                <button type='button' className='btn btn-primary mt-4' onClick={searchUserData}>Search</button>
+            <div className="col-2">
+                <button type='submit' className='btn btn-primary w-100'>Search</button>
             </div>
-            <div className='col-8'></div>
-        </div>
-
-
+        </form>
     )
 }
 

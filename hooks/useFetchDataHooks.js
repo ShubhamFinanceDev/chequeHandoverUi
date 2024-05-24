@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect } from 'react'
 
 import useActionDispatch from './useActionDispatch';
 import { useSelector } from 'react-redux';
@@ -15,30 +17,101 @@ const searchQueryInitialState = {
 }
 
 const useFetchDataHooks = () => {
-    const { setError, setBankList, setApplicationDetails } = useActionDispatch()
+    const { setError, setSuccess, setBranchList, setApplicationDetails, resetGlobalState } = useActionDispatch()
     const { email } = useSelector((state) => state.authSlice)
     const [searchQuery, setSearchQuery] = useState({ ...searchQueryInitialState })
 
+    useEffect(() => {
+        return () => resetGlobalState()
+    }, [])
 
     const fetchBranchList = async () => {
         try {
-            const { data: { branchMasters = [], commanResponse = {} } } = await axios.get(endpoint.fetchBankList())
+            const { data: { branchMasters = [], commanResponse = {} } } = await axios.get(endpoint.fetchBranchList())
             if (commanResponse?.code == "0000") {
-                setBankList(branchMasters.map(({ branchName, branchCode }) => ({ name: branchName, value: branchCode })))
+                setBranchList(branchMasters.map(({ branchName, branchCode, state }) => ({ name: branchName, state: state, value: branchCode })))
                 return
             }
+        } catch (error) {
+            setError(error)
+        }
+    }
 
+    const searchUserData = async (e, page = 1) => {
+        e.preventDefault()
+        try {
+            if (!email) {
+                return
+            }
+            const { data } = await axios.get(endpoint.userData(email, page, searchQuery.applicationNumber));
+            if (data?.commonResponse?.code === "0000") {
+                const { applicationDetails, nextPage, totalCount } = data
+                setApplicationDetails({
+                    applications: applicationDetails,
+                    applicationMeta: {
+                        totalPages: Math.ceil(totalCount / 100),
+                        currentPage: page,
+                        isNextPage: nextPage,
+                    }
+                })
+                return
+            } else {
+                setError(data.msg)
+            }
         } catch (error) {
             setError(error)
         }
 
     }
 
-    const searchUserData = async (e) => {
-        e.preventDefault()
+    const generateMISReport = async () => {
+        if (!email) {
+            return
+        }
+        axios({
+            url: endpoint.generateMISReport(email),
+            method: 'GET',
+            responseType: 'blob',
+        })
+            .then(response => {
+                const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                const contentDisposition = response.headers['content-disposition'];
+                let filename = 'download.xlsx';
+                if (contentDisposition) {
+                    const match = contentDisposition.match(/filename="?([^"]+)"?/);
+                    if (match && match[1]) {
+                        filename = match[1];
+                    }
+                }
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                console.error('Error downloading the file:', error);
+            });
+    }
+
+    const removeRecordHandler = async () => {
         try {
-            const { data } = await axios.get(endpoint.userData(email));
-            setApplicationDetails(data)
+            if (!email) {
+                return
+            }
+            const { data } = await axios.post(endpoint.invokeStatusProcedure(), {
+                emailId: email
+            });
+            if (data.code === "0000") {
+                setSuccess(data.msg)
+                searchUserData({ preventDefault: () => { } })
+                return
+            } else {
+                setError(data.msg)
+            }
         } catch (error) {
             setError(error)
         }
@@ -52,7 +125,9 @@ const useFetchDataHooks = () => {
         searchQuery,
         fetchBranchList,
         searchUserData,
-        searchQueryChangeHandler
+        searchQueryChangeHandler,
+        generateMISReport,
+        removeRecordHandler
 
     })
 }

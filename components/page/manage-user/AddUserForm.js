@@ -17,7 +17,7 @@ const input = {
 
 const AddUserForm = () => {
     const { fetchBranchList } = useFetchDataHooks()
-    const { bankList } = useSelector(state => state.globalSlice)
+    const { branchList } = useSelector(state => state.globalSlice)
     const { userBody, userBodyChangeHandler, userBodySubmitHandler } = useAdminFormHooks()
 
     const formFeilds = [
@@ -64,7 +64,7 @@ const AddUserForm = () => {
             label: "Branch",
             name: "assignBranches",
             placeholder: "Search branch by name",
-            options: bankList,
+            options: branchList,
             type: "multiCheckbox",
             className: ["row mb-2", "col-12", "col-2"]
         },

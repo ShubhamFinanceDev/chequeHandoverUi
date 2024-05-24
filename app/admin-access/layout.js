@@ -23,7 +23,6 @@ function LayoutPage({ children }) {
     return (
         <>
             <Header />
-            <ValidationMsg />
             <main className="container-fluid">
                 <div className="row">
                     <div className="col-2 mb-4">
@@ -35,7 +34,10 @@ function LayoutPage({ children }) {
                             ))}
                         </div>
                     </div>
-                    <div className="col-10 pt-4">{children}</div>
+                    <div className="col-10 pt-4">
+                        <ValidationMsg />
+                        {children}
+                    </div>
                 </div>
             </main>
         </>

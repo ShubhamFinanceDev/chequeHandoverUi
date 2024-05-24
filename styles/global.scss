@@ -121,7 +121,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
 p.error,
 p.success {
-  margin-top: 0.5rem;
   font-size: 0.95rem;
   color: #dc3545;
   text-align: center;
@@ -129,7 +128,6 @@ p.success {
 }
 
 .text-center {
-  position: absolute;
   width: 100%;
   text-transform: capitalize;
 }
@@ -293,6 +291,21 @@ hr {
         }
       }
     }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  * {
+    font-weight: 600;
+    color: $text-color;
+    font-size: 0.9rem;
+  }
+  button {
+    background: transparent;
   }
 }
 
