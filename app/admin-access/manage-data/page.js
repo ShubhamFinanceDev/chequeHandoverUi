@@ -23,7 +23,8 @@ const Page = () => {
                         <div className="col-6">
                             <SearchInput />
                         </div>
-                        <div className="col-6">
+                        <div className='col'></div>
+                        <div className="col-5">
                             <div className="d-flex gap-2">
                                 <button className='btn btn-primary' onClick={toggleFormVisibility} hidden={showForm}>Upload Excel Data</button>
                                 <button className='btn btn-primary' onClick={generateMISReport} hidden={showForm}>Generate Report</button>

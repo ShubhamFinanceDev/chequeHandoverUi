@@ -1,5 +1,6 @@
 import icons from '@/env/icons'
 import { InputWithLabel } from '@/components/core/Input'
+import ValidationMsg from '@/components/core/ValidationMsg'
 
 const NewPasswordForm = ({ useAuthHooksFn }) => {
     const { passwordReset, passwordResetChangeHandler, passwordResetSubmitHandler } = useAuthHooksFn
@@ -11,6 +12,7 @@ const NewPasswordForm = ({ useAuthHooksFn }) => {
 
                     <img src={icons.LOGO} alt="Logo" />
                     <h2>Reset your password</h2>
+                    <ValidationMsg />
 
                     <InputWithLabel
                         feilds={{

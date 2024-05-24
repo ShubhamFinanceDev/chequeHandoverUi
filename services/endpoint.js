@@ -13,7 +13,9 @@ const endpoint = {
     userData: (email = "", page = 1, applicationNo = '') => BASE_URL + `/user/fetch-excel-data?emailId=${email}&pageNo=${page}&applicationNo=${applicationNo}`,
     updateStatusCheque: () => BASE_URL + `/user/update-application-flag`,
 
-    generateMISReport: (email = "") => BASE_URL + `/user/generate-mis-report?emailId=${email}`
+    generateMISReport: (email = "") => BASE_URL + `/user/generate-mis-report?emailId=${email}`,
+    assignBranch: (email = "") => BASE_URL + `/user/get-list-of-assign-branches?emailId=${email}`,
+
 }
 
 export default endpoint;   

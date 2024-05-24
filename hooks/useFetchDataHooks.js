@@ -14,10 +14,11 @@ import { changeHandlerHelper } from './helper/changeHandler';
 
 const searchQueryInitialState = {
     applicationNumber: "",
+    branch: ""
 }
 
 const useFetchDataHooks = () => {
-    const { setError, setSuccess, setBranchList, setApplicationDetails, resetGlobalState } = useActionDispatch()
+    const { setError, setSuccess, setBranchList, setApplicationDetails, resetGlobalState, setAssingBranch } = useActionDispatch()
     const { email } = useSelector((state) => state.authSlice)
     const [searchQuery, setSearchQuery] = useState({ ...searchQueryInitialState })
 
@@ -118,6 +119,16 @@ const useFetchDataHooks = () => {
 
     }
 
+    const fetchassingBranch = async () => {
+        try {
+            const { data } = await axios.get(endpoint.assignBranch(email, searchQuery.branch));
+            setAssingBranch(data)
+            // console.log(data)
+        } catch (error) {
+            setError(error)
+        }
+    }
+
     const searchQueryChangeHandler = (e) => changeHandlerHelper(e, searchQuery, setSearchQuery)
 
 
@@ -127,7 +138,8 @@ const useFetchDataHooks = () => {
         searchUserData,
         searchQueryChangeHandler,
         generateMISReport,
-        removeRecordHandler
+        removeRecordHandler,
+        fetchassingBranch
 
     })
 }
