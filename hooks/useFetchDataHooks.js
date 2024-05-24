@@ -44,7 +44,7 @@ const useFetchDataHooks = () => {
             if (!email) {
                 return
             }
-            const { data } = await axios.get(endpoint.userData(email, page, searchQuery.applicationNumber));
+            const { data } = await axios.get(endpoint.userData(email, page, searchQuery.applicationNumber, searchQuery.branch));
             if (data?.commonResponse?.code === "0000") {
                 const { applicationDetails, nextPage, totalCount } = data
                 setApplicationDetails({
@@ -121,9 +121,16 @@ const useFetchDataHooks = () => {
 
     const fetchassingBranch = async () => {
         try {
-            const { data } = await axios.get(endpoint.assignBranch(email, searchQuery.branch));
-            setAssingBranch(data)
-            // console.log(data)
+            if (!email) {
+                return
+            }
+            const { data } = await axios.get(endpoint.assignBranch(email));
+            if (data.code === "0000") {
+                setAssingBranch(data.assignBranchList)
+                return
+            } else {
+                setError(data.msg)
+            }
         } catch (error) {
             setError(error)
         }

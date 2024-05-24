@@ -10,7 +10,7 @@ const endpoint = {
     dataExcelUpload: () => BASE_URL + `/admin/import-data`,
     branchDataExcelUpload: () => BASE_URL + `/admin/add-new-branch`,
     invokeStatusProcedure: () => BASE_URL + `/admin/invoke-status-procedure`,
-    userData: (email = "", page = 1, applicationNo = '') => BASE_URL + `/user/fetch-excel-data?emailId=${email}&pageNo=${page}&applicationNo=${applicationNo}`,
+    userData: (email = "", page = 1, applicationNo = '', branch = '') => BASE_URL + `/user/fetch-excel-data?emailId=${email}&pageNo=${page}&applicationNo=${applicationNo}&branchName=${branch}`,
     updateStatusCheque: () => BASE_URL + `/user/update-application-flag`,
 
     generateMISReport: (email = "") => BASE_URL + `/user/generate-mis-report?emailId=${email}`,

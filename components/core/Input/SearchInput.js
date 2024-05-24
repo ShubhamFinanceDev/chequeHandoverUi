@@ -1,17 +1,20 @@
 "use client"
 
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+
 import useFetchDataHooks from '@/hooks/useFetchDataHooks'
-import React from 'react'
 import InputWithLabel from './InputWithLabel'
 import SelectWithLabel from './SelectWithLabel'
-import { useEffect } from 'react'
 
 function SearchInput() {
+    const { email } = useSelector((state) => state.authSlice)
+    const { assingBranch } = useSelector((state) => state.globalSlice)
     const { searchQuery, searchUserData, searchQueryChangeHandler, fetchassingBranch } = useFetchDataHooks()
 
     useEffect(() => {
         fetchassingBranch()
-    }, [])
+    }, [email])
 
     return (
         <form onSubmit={searchUserData} className='row' >
@@ -32,10 +35,9 @@ function SearchInput() {
                     <div className="col-6">
                         <SelectWithLabel
                             feilds={{
-                                label: "Branch List",
+                                label: "Branch",
                                 name: "branch",
-                                type: "select",
-                                options: []
+                                options: assingBranch.map((d) => ({ name: d, value: d }))
                             }}
                             state={searchQuery}
                             onChangeHandler={searchQueryChangeHandler}
