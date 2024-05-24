@@ -40,7 +40,7 @@ const ValidateOTPForm = ({ useAuthHooksFn }) => {
                     <div className="row mt-2">
                         <div className="col-12">
                             <button type="submit" className={`btn btn-primary w-100`}>Validate OTP</button>
-                            <button type="button" className={`btn w-100`} onClick={passwordResetOTPGenerate}>Didn't receive the code? Resend OTP</button>
+                            <button type="button" className={`btn w-100`} onClick={passwordResetOTPGenerate}>Didn&apos;t receive the code? Resend OTP</button>
                         </div>
                     </div>
                 </form>
