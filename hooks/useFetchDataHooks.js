@@ -57,7 +57,15 @@ const useFetchDataHooks = () => {
                 })
                 return
             } else {
-                setError(data.msg)
+                setApplicationDetails({
+                    applications: [],
+                    applicationMeta: {
+                        totalPages: 0,
+                        currentPage: 1,
+                        isNextPage: false,
+                    }
+                })
+                // setError(data.commonResponse.msg)
             }
         } catch (error) {
             setError(error)
@@ -107,11 +115,11 @@ const useFetchDataHooks = () => {
                 emailId: email
             });
             if (data.code === "0000") {
-                setSuccess(data.msg)
+                setSuccess(data.commonResponse.msg)
                 searchUserData({ preventDefault: () => { } })
                 return
             } else {
-                setError(data.msg)
+                setError(data.commonResponse.msg)
             }
         } catch (error) {
             setError(error)
@@ -127,13 +135,18 @@ const useFetchDataHooks = () => {
             const { data } = await axios.get(endpoint.assignBranch(email));
             if (data.code === "0000") {
                 setAssingBranch(data.assignBranchList)
+                // setSuccess(data.commonResponse.msg)
                 return
             } else {
-                setError(data.msg)
+                setError(data.commonResponse.msg)
             }
         } catch (error) {
             setError(error)
         }
+    }
+
+    const resetSearchInputHandler = () => {
+        setSearchQuery({ ...searchQueryInitialState })
     }
 
     const searchQueryChangeHandler = (e) => changeHandlerHelper(e, searchQuery, setSearchQuery)
@@ -146,7 +159,8 @@ const useFetchDataHooks = () => {
         searchQueryChangeHandler,
         generateMISReport,
         removeRecordHandler,
-        fetchassingBranch
+        fetchassingBranch,
+        resetSearchInputHandler,
 
     })
 }
