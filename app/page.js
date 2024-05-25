@@ -6,6 +6,7 @@ import icons from '@/env/icons'
 import Link from 'next/link'
 import pageRoutes from '@/utils/pageRoutes'
 import useAuthHooks from '@/hooks/useAuthHooks'
+import ValidationMsg from '@/components/core/ValidationMsg'
 
 
 function SingInPages() {
@@ -16,7 +17,9 @@ function SingInPages() {
         <form
           onSubmit={siginSubmitHandler}
           className="login-form-inner-container">
-          <img src={icons.LOGO} alt="Logo" />
+          <img src={icons.LOGO} alt="Logo" className='mb-3' />
+
+          <ValidationMsg />
 
           <InputWithLabel
             feilds={{

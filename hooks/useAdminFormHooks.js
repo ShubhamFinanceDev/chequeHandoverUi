@@ -12,8 +12,6 @@ import { formDataParser } from '@/hooks/helper/formDataParser';
 import useActionDispatch from './useActionDispatch';
 import { useSelector } from 'react-redux';
 
-
-
 const userTestState = {
     firstname: "saurabh",
     lastName: "singh",
@@ -46,7 +44,9 @@ const dataBodyInitialState = {
 
 const useAdminFormHooks = () => {
     const formRef = useRef()
-    const { setError, setSuccess } = useActionDispatch()
+    const {
+        setError, setSuccess
+    } = useActionDispatch()
     const { email } = useSelector(state => state.authSlice)
     const [userBody, setUserBody] = useState({ ...userBodyInitialState })
     const [dataBody, setDataBody] = useState({ ...dataBodyInitialState })
@@ -70,12 +70,12 @@ const useAdminFormHooks = () => {
             requiredFields(["firstname", "lastName", "emailId", "mobileNo", "password", "createdBy", "roleMasters", "assignBranches"], body)
             const { data } = await axios.post(endpoint.userCreate(), body)
 
-            if (data.code === "1111") {
-                setError(data.msg)
-                return
-            } else {
+            if (data.code === "0000") {
                 setSuccess(data.msg)
                 setUserBody({ ...userBodyInitialState })
+                return
+            } else {
+                setError(data.msg)
             }
         } catch (error) {
             setError(error)
@@ -89,12 +89,12 @@ const useAdminFormHooks = () => {
             const formData = formDataParser(body)
             const { data } = await axios.post(endpoint.dataExcelUpload(), formData)
 
-            if (data.code === "1111") {
-                setError(data.msg)
-                return
-            } else {
+            if (data.code === "0000") {
                 setSuccess(data.msg)
                 setDataBody({ ...dataBodyInitialState })
+                return
+            } else {
+                setError(data.msg)
             }
         } catch (error) {
             setError(error)
@@ -108,12 +108,12 @@ const useAdminFormHooks = () => {
             const formData = formDataParser(body)
             const { data } = await axios.post(endpoint.branchDataExcelUpload(), formData)
 
-            if (data.code === "1111") {
-                setError(data.msg)
-                return
-            } else {
+            if (data.code === "0000") {
                 setSuccess(data.msg)
                 setDataBody({ ...dataBodyInitialState })
+                return
+            } else {
+                setError(data.msg)
             }
         } catch (error) {
             setError(error)

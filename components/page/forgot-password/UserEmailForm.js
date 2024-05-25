@@ -2,6 +2,7 @@ import icons from '@/env/icons'
 import { InputWithLabel } from '@/components/core/Input'
 import Link from 'next/link'
 import pageRoutes from '@/utils/pageRoutes'
+import ValidationMsg from '@/components/core/ValidationMsg'
 
 const UserEmailForm = ({ useAuthHooksFn }) => {
     const { passwordReset, passwordResetChangeHandler, passwordResetOTPGenerate } = useAuthHooksFn
@@ -12,7 +13,10 @@ const UserEmailForm = ({ useAuthHooksFn }) => {
                 <form className="login-form-inner-container" onSubmit={passwordResetOTPGenerate}>
 
                     <img src={icons.LOGO} alt="Logo" />
+
                     <h2>Reset your password</h2>
+
+                    <ValidationMsg />
 
                     <InputWithLabel
                         feilds={{

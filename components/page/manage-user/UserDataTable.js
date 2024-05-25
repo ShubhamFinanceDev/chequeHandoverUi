@@ -2,45 +2,47 @@
 
 import React from 'react'
 import Table from '@/components/core/Input/Table'
-import SearchInput from '@/components/core/Input/SearchInput'
 import { useSelector } from 'react-redux'
+import ModelHOC from '@/hooks/helper/modelHoc'
+import Pagination from '@/components/core/Pagination'
+import useFetchDataHooks from '@/hooks/useFetchDataHooks'
 
-function UserDataTable() {
-    const { userDetails: { applicationDetails } } = useSelector((state) => state.globalSlice)
+function UserDataTable(props) {
+    const { applications, applicationMeta } = useSelector((state) => state.globalSlice)
+    const { searchUserData } = useFetchDataHooks()
 
     return (
-        <div className='container-fluid'>
-            <div className='row mt-3 mb-4'>
-                <div>
-                    <SearchInput />
-                </div>
-            </div>
-            <Table header={["Applicant Name", "Branch Name", "Region", "Hub Name", "Application Number", "Product Name", "Loan Amount", "Sanction Date", "Disbursal date", "Cheque Amount", "Cheque Status"]} >
-                {applicationDetails?.map((m) => {
+        <>
+            <Table header={["Application No.", "Applicant Name", "Branch", "Region", "Hub", "Product Name", "Loan Amount", "Sanction Date", "Disbursal date", "Amount", "Status", ""]} >
+                {applications?.map((m) => {
+                    const isIssued = m.chequeStatus == "Y"
                     return (
                         <tr key={`userdata__` + m.id}>
+                            <td>{m.applicationNumber}</td>
                             <td>{m.applicantName}</td>
                             <td>{m.branchName}</td>
                             <td>{m.region}</td>
                             <td>{m.hubName}</td>
-                            <td>{m.applicationNumber}</td>
                             <td>{m.productName}</td>
                             <td>{m.loanAmount}</td>
                             <td>{m.sanctionDate}</td>
                             <td>{m.disbursalDate}</td>
                             <td>{m.chequeAmount}</td>
+                            <td>{isIssued ? 'Issued' : 'Not Issued'}</td>
                             <td>
-                                <button className='btn btn-primary'>Yes</button>
-                                <button className='btn btn-primary'>No</button>
+                                <button className='btn btn-outline-primary' onClick={() => props?.openModel({
+                                    key: "CHEQUE_STATUS_MODEL",
+                                    applicationNo: m.applicationNumber
+                                })} disabled={isIssued}>Update</button>
                             </td>
                         </tr>
                     )
                 })}
 
             </Table>
-
-        </div>
+            <Pagination meta={applicationMeta} next={(page) => searchUserData({ preventDefault: () => { } }, page)} />
+        </>
     )
 }
 
-export default UserDataTable
+export default ModelHOC(UserDataTable)

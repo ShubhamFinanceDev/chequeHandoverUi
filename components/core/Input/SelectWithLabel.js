@@ -2,7 +2,7 @@
 
 
 import React from 'react'
-const defaultClassNameArray = ["row mt-3", "col-12", "col-12"]
+const defaultClassNameArray = ["row", "col-12", "col-12"]
 
 const SelectWithLabel = (props) => {
     const {

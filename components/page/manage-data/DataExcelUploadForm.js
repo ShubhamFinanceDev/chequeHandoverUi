@@ -25,9 +25,6 @@ const DataExcelUploadForm = ({ toggleFormVisibility }) => {
                 <button className='btn' onClick={toggleFormVisibility} type='reset'>Cancel</button>
                 <button className='btn btn-primary'>Upload</button>
             </form>
-
-            <hr />
-
         </div>
     )
 }
