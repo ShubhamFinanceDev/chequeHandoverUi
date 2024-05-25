@@ -8,7 +8,7 @@ function UserDashboardPage() {
     const { generateMISReport } = useFetchDataHooks()
     return (
         <div>
-            <div className="row mt-2 mb-3">
+            <div className="row mt-2 mb-3 d-flex align-items-end">
                 <div className="col-8">
                     <SearchInput />
                 </div>
