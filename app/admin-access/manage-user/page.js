@@ -1,14 +1,21 @@
-import React from 'react'
-import AddUserForm from '@/components/page/manage-user/AddUserForm'
+"use client";
+
+import React, { useEffect, useState } from "react";
+import AddUserForm from "@/components/page/manage-user/AddUserForm";
+import useFetchDataHooks from "@/hooks/useFetchDataHooks";
+import UserTable from "@/components/page/manage-user/UserTable";
 
 const ManageUserPage = () => {
-    return (
-        <div>
-            <p className='mb-3'>Manage User Page</p>
-            <AddUserForm />
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
+  const { fetchUserDetails } = useFetchDataHooks();
 
-        </div>
-    )
-}
+  const showFormHandler = () => setShowAddUserForm((state) => !state)
 
-export default ManageUserPage
+  useEffect(() => {
+    if(!showAddUserForm) fetchUserDetails();
+  }, [showAddUserForm]);
+
+  return <div>{showAddUserForm ? <AddUserForm showFormHandler={showFormHandler} /> : <UserTable showFormHandler={showFormHandler} />}</div>;
+};
+
+export default ManageUserPage;

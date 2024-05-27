@@ -18,9 +18,12 @@ const searchQueryInitialState = {
 }
 
 const useFetchDataHooks = () => {
-    const { setError, setSuccess, setBranchList, setApplicationDetails, resetGlobalState, setAssingBranch } = useActionDispatch()
+    const { setError, setSuccess, setBranchList, setApplicationDetails, resetGlobalState, setAssingBranch,setUserDetails } = useActionDispatch()
     const { email } = useSelector((state) => state.authSlice)
     const [searchQuery, setSearchQuery] = useState({ ...searchQueryInitialState })
+
+    const [query, setQuery] = useState("");
+
 
     useEffect(() => {
         return () => resetGlobalState()
@@ -37,6 +40,20 @@ const useFetchDataHooks = () => {
             setError(error)
         }
     }
+
+    const fetchUserDetails = async () => {
+        try {
+            const { data} = await axios.get(endpoint.userDetails())
+            setUserDetails(data)
+        } catch (error) {
+            setError(error)
+        }
+    }
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+      };
 
     const searchUserData = async (e, page = 1) => {
         e.preventDefault()
@@ -149,11 +166,29 @@ const useFetchDataHooks = () => {
         setSearchQuery({ ...searchQueryInitialState })
     }
 
+    const UserStatusUpdate = async () => {
+        try {
+         const  {data} = await axios.put(endpoint.updateUserStatus(email))
+         if (data.code === "0000") {
+            setSuccess(data.msg)
+            return
+        } else {
+            setError(data.commonResponse.msg)
+        }
+    } catch (error) {
+        setError(error)
+    }
+}
+ 
+
+
     const searchQueryChangeHandler = (e) => changeHandlerHelper(e, searchQuery, setSearchQuery)
 
 
     return ({
         searchQuery,
+        
+        query,
         fetchBranchList,
         searchUserData,
         searchQueryChangeHandler,
@@ -161,6 +196,11 @@ const useFetchDataHooks = () => {
         removeRecordHandler,
         fetchassingBranch,
         resetSearchInputHandler,
+        fetchUserDetails,
+        
+        formatDate, 
+        setQuery,
+        UserStatusUpdate,
 
     })
 }
