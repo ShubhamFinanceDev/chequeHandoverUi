@@ -4,7 +4,8 @@ const initialState = {
     branchList: [],
     applications: [],
     applicationMeta: {},
-    assingBranch: []
+    assingBranch: [],
+    userDetails: []
 
 }
 
@@ -42,9 +43,12 @@ const globalSlice = createSlice({
         setAssingBranch: (state, action) => {
             state.assingBranch = action.payload
         },
+        setUserDetails: (state, action) => {
+            state.userDetails = action.payload
+        },
 
     },
 })
 
-export const { setBranchList, setApplicationDetails, updateApplicationStatus, resetGlobalState, setAssingBranch } = globalSlice.actions
+export const { setBranchList, setApplicationDetails, updateApplicationStatus, resetGlobalState, setAssingBranch, setUserDetails } = globalSlice.actions
 export default globalSlice.reducer

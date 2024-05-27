@@ -15,7 +15,9 @@ const input = {
     multiCheckbox: BankCheckboxWithlabel,
 }
 
-const AddUserForm = () => {
+const AddUserForm = (props) => {
+    const {showFormHandler} = props
+
     const { fetchBranchList } = useFetchDataHooks()
     const { branchList } = useSelector(state => state.globalSlice)
     const { userBody, userBodyChangeHandler, userBodySubmitHandler } = useAdminFormHooks()
@@ -34,8 +36,8 @@ const AddUserForm = () => {
         {
             label: "Mobile No.",
             name: "mobileNo",
-            type: "number",
             isRequired: true,
+            maxLength : 10,
         },
         {
             label: "Email",
@@ -90,6 +92,8 @@ const AddUserForm = () => {
                 })}
             </div>
             <button type='submit' className='btn btn-primary'>Submit</button>
+            <button 
+           type='reset' className='btn btn-secoundry' onClick={showFormHandler}>Cancel</button>
         </form>
     )
 }
