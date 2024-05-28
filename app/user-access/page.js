@@ -9,15 +9,15 @@ function UserDashboardPage() {
     return (
         <div>
             <div className="row mt-2 mb-3 d-flex align-items-end">
-                <div className="col-8">
+                <div className="col-12">
                     <SearchInput />
                 </div>
-                <div className="col-4">
+                {/* <div className="col-4">
                     <div className="d-flex gap-2">
                         <button className='btn btn-primary' onClick={generateMISReport}>Generate Report</button>
                     </div>
 
-                </div>
+                </div> */}
 
             </div>
             <UserDataTable />
