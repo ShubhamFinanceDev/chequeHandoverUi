@@ -41,9 +41,8 @@ const UserTable = (props) => {
         <Table
           header={[
             "Name",
-            "EmailID",
-            "Creation Date",
-            "Deactivation Date",
+            "Email ID",
+            "LastUpdate Date",
             "Mobile Number",
             "Assign Branch",
             "Last Login",
@@ -66,7 +65,6 @@ const UserTable = (props) => {
                   </td>
                   <td>{m.emailId}</td>
                   <td>{m.createDate}</td>
-                  <td>{m.Deactivationdate}</td>
                   <td>{m.mobileNo}</td>
                   <td>{m.assignBranches.join(", ")}</td>
                   <td>{formatDate(m.lastLogin)}</td>
@@ -74,7 +72,7 @@ const UserTable = (props) => {
                     <Form.Check
                       type="switch"
                       defaultChecked={!m.enabled ? true : false}
-                      onChange={() => UserStatusUpdate(m.email)}
+                      onChange={() => UserStatusUpdate(m.emailId)}
                     />
                   </td>
                 </tr>
