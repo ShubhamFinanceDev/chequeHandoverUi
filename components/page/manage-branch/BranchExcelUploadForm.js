@@ -21,8 +21,10 @@ const BranchExcelUploadForm = ({ toggleFormVisibility }) => {
                     state={branchDataBody}
                     onChangeHandler={branchDataBodyChangeHandler}
                 />
-                <button className='btn' onClick={toggleFormVisibility} type='reset'>Cancel</button>
-                <button className='btn btn-primary'>Upload</button>
+                <div className='d-flex gap-2'>
+                    <button className='btn btn-outline-primary' onClick={toggleFormVisibility} type='reset'>Cancel</button>
+                    <button className='btn btn-primary'>Upload</button>
+                </div>
             </form>
 
         </div>

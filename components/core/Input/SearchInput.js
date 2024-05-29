@@ -45,7 +45,7 @@ function SearchInput() {
                     </div>
                 </div>
             </div>
-            <div className="col-3 d-flex">
+            <div className="col-3 d-flex gap-2">
                 <button type='submit' className='btn btn-primary w-100'>Search</button>
                 <button type='reset' className='btn btn-outline-primary w-100' onClick={resetSearchInputHandler}>Reset</button>
             </div>

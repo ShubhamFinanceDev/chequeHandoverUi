@@ -21,9 +21,11 @@ const DataExcelUploadForm = ({ toggleFormVisibility }) => {
                     state={dataBody}
                     onChangeHandler={dataBodyChangeHandler}
                 />
+                <div className='d-flex gap-2'>
+                    <button className='btn btn-outline-primary' onClick={toggleFormVisibility} type='reset'>Cancel</button>
+                    <button className='btn btn-primary'>Upload</button>
+                </div>
 
-                <button className='btn' onClick={toggleFormVisibility} type='reset'>Cancel</button>
-                <button className='btn btn-primary'>Upload</button>
             </form>
         </div>
     )

@@ -16,7 +16,7 @@ const input = {
 }
 
 const AddUserForm = (props) => {
-    const {showFormHandler} = props
+    const { showFormHandler } = props
 
     const { fetchBranchList } = useFetchDataHooks()
     const { branchList } = useSelector(state => state.globalSlice)
@@ -37,7 +37,7 @@ const AddUserForm = (props) => {
             label: "Mobile No.",
             name: "mobileNo",
             isRequired: true,
-            maxLength : 10,
+            maxLength: 10,
         },
         {
             label: "Email",
@@ -91,9 +91,12 @@ const AddUserForm = (props) => {
                     />)
                 })}
             </div>
-            <button type='submit' className='btn btn-primary'>Submit</button>
-            <button 
-           type='reset' className='btn btn-secoundry' onClick={showFormHandler}>Cancel</button>
+            <div className='d-flex gap-1'>
+                <button type='submit' className='btn btn-primary'>Submit</button>
+                <button
+                    type='reset' className='btn btn-outline-primary ' onClick={showFormHandler}>Cancel</button>
+            </div>
+
         </form>
     )
 }
