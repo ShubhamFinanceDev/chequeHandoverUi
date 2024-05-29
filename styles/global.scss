@@ -280,6 +280,10 @@ hr {
         font-weight: 500;
         font-size: 0.9rem;
         color: $text-color;
+        img{
+          width: 2rem;
+          height: 2rem;
+        }
         a {
           font-size: 0.9rem !important;
           font-weight: 600;

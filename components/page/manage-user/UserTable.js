@@ -3,18 +3,14 @@ import Table from "@/components/core/Input/Table";
 import useFetchDataHooks from "@/hooks/useFetchDataHooks";
 import { useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
+import icons from "@/env/icons";
 
 const UserTable = (props) => {
-    const {showFormHandler} = props
-    const {
-        query,
-        setQuery,
-        formatDate,
-        UserStatusUpdate,
-      } = useFetchDataHooks();
-      const {
-        userDetails: { userDetailResponse },
-      } = useSelector((state) => state.globalSlice);
+  const { showFormHandler } = props;
+  const { query, setQuery, formatDate, UserStatusUpdate } = useFetchDataHooks();
+  const {
+    userDetails: { userDetailResponse },
+  } = useSelector((state) => state.globalSlice);
   return (
     <div>
       <>
@@ -41,9 +37,8 @@ const UserTable = (props) => {
         <Table
           header={[
             "Name",
-            "EmailID",
-            "Creation Date",
-            "Deactivation Date",
+            "Email ID",
+            "Last Updated",
             "Mobile Number",
             "Assign Branch",
             "Last Login",
@@ -66,7 +61,6 @@ const UserTable = (props) => {
                   </td>
                   <td>{m.emailId}</td>
                   <td>{m.createDate}</td>
-                  <td>{m.Deactivationdate}</td>
                   <td>{m.mobileNo}</td>
                   <td>{m.assignBranches.join(", ")}</td>
                   <td>{formatDate(m.lastLogin)}</td>
@@ -74,8 +68,11 @@ const UserTable = (props) => {
                     <Form.Check
                       type="switch"
                       defaultChecked={!m.enabled ? true : false}
-                      onChange={() => UserStatusUpdate(m.email)}
+                      onChange={() => UserStatusUpdate(m.emailId)}
                     />
+                  </td>
+                  <td>
+                        <img src={icons.Icon2} alt="icon" />
                   </td>
                 </tr>
               );
