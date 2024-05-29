@@ -18,7 +18,7 @@ const searchQueryInitialState = {
 }
 
 const useFetchDataHooks = () => {
-    const { setError, setSuccess, setBranchList, setApplicationDetails, resetGlobalState, setAssingBranch,setUserDetails } = useActionDispatch()
+    const { setError, setSuccess, setBranchList, setApplicationDetails, resetGlobalState, setAssingBranch, setUserDetails } = useActionDispatch()
     const { email } = useSelector((state) => state.authSlice)
     const [searchQuery, setSearchQuery] = useState({ ...searchQueryInitialState })
 
@@ -43,17 +43,26 @@ const useFetchDataHooks = () => {
 
     const fetchUserDetails = async () => {
         try {
-            const { data} = await axios.get(endpoint.userDetails())
+            const { data } = await axios.get(endpoint.userDetails())
             setUserDetails(data)
         } catch (error) {
             setError(error)
         }
     }
 
+    // show Date time function
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toISOString().split('T')[0];
-      };
+        return date.toLocaleString("en-US", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "numeric",
+            minute: "numeric",
+            hour12: false,
+        });
+    };
 
     const searchUserData = async (e, page = 1) => {
         e.preventDefault()
@@ -168,18 +177,18 @@ const useFetchDataHooks = () => {
 
     const UserStatusUpdate = async (emailID) => {
         try {
-         const  {data} = await axios.put(endpoint.updateUserStatus(emailID))
-         if (data.code === "0000") {
-            setSuccess(data.msg)
-            return
-        } else {
-            setError(data.commonResponse.msg)
+            const { data } = await axios.put(endpoint.updateUserStatus(emailID))
+            if (data.code === "0000") {
+                setSuccess(data.msg)
+                return
+            } else {
+                setError(data.commonResponse.msg)
+            }
+        } catch (error) {
+            setError(error)
         }
-    } catch (error) {
-        setError(error)
     }
-}
- 
+
 
 
     const searchQueryChangeHandler = (e) => changeHandlerHelper(e, searchQuery, setSearchQuery)
@@ -187,7 +196,7 @@ const useFetchDataHooks = () => {
 
     return ({
         searchQuery,
-        
+
         query,
         fetchBranchList,
         searchUserData,
@@ -197,8 +206,8 @@ const useFetchDataHooks = () => {
         fetchassingBranch,
         resetSearchInputHandler,
         fetchUserDetails,
-        
-        formatDate, 
+
+        formatDate,
         setQuery,
         UserStatusUpdate,
 
