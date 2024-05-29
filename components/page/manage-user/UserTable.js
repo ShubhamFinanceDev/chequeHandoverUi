@@ -46,6 +46,7 @@ const UserTable = (props) => {
             "Creation Date",
             "Mobile Number",
             "Assign Branch",
+            "Updated By",
             "Last Login",
             "Status",
             "Edit",
@@ -68,6 +69,7 @@ const UserTable = (props) => {
                   <td>{formatDate(m.createDate)}</td>
                   <td>{m.mobileNo}</td>
                   <td>{m.assignBranches.join(", ")}</td>
+                  <td>{m.createdBy}</td>
                   <td>{formatDate(m.lastLogin)}</td>
                   <td>
                     <Form.Check

@@ -18,11 +18,12 @@ const BranchManagePage = () => {
     return (
         <div>
             <BranchExcelUploadForm />
-            <Table header={["S/N", "BranchName", "State"]} className='mt-4' >
+            <Table header={["S/N","Branch Code", "Branch Name", "State"]} className='mt-4' >
                 {branchList?.map((m, index) => {
                     return (
                         <tr key={`branchdata__` + m.id}>
                             <td>{index + 1}</td>
+                            <td>{m.value}</td>
                             <td>{m.name}</td>
                             <td>{m.state}</td>
                         </tr>

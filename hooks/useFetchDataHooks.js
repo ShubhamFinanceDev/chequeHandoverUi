@@ -177,7 +177,7 @@ const useFetchDataHooks = () => {
 
     const UserStatusUpdate = async (emailID) => {
         try {
-            const { data } = await axios.put(endpoint.updateUserStatus(emailID))
+            const { data } = await axios.put(endpoint.updateUserStatus(emailID, email))
             if (data.code === "0000") {
                 setSuccess(data.msg)
                 return

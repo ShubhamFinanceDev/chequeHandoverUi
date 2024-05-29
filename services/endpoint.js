@@ -12,7 +12,7 @@ const endpoint = {
     invokeStatusProcedure: () => BASE_URL + `/admin/invoke-status-procedure`,
     userData: (email = "", page = 1, applicationNo = '', branch = '') => BASE_URL + `/user/fetch-excel-data?emailId=${email}&pageNo=${page}&applicationNo=${applicationNo}&branchName=${branch}`,
     userDetails: () => BASE_URL + `/user/get-user-details`,
-    updateUserStatus: (emailID="") => BASE_URL + `/admin/status-update?emailId=${emailID}`,
+    updateUserStatus: (emailID="", email= "") => BASE_URL + `/admin/status-update?emailId=${emailID}&updatedBy=${email}`,
     updateStatusCheque: () => BASE_URL + `/user/update-application-flag`,
 
     generateMISReport: (email = "") => BASE_URL + `/user/generate-mis-report?emailId=${email}`,
