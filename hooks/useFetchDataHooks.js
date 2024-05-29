@@ -166,9 +166,9 @@ const useFetchDataHooks = () => {
         setSearchQuery({ ...searchQueryInitialState })
     }
 
-    const UserStatusUpdate = async () => {
+    const UserStatusUpdate = async (emailID) => {
         try {
-         const  {data} = await axios.put(endpoint.updateUserStatus(email))
+         const  {data} = await axios.put(endpoint.updateUserStatus(emailID))
          if (data.code === "0000") {
             setSuccess(data.msg)
             return
