@@ -6,8 +6,13 @@ import { Form } from "react-bootstrap";
 import icons from "@/env/icons";
 
 const UserTable = (props) => {
-  const { showFormHandler } = props;
-  const { query, setQuery, formatDate, UserStatusUpdate } = useFetchDataHooks();
+  const { showFormHandler } = props
+  const {
+    query,
+    setQuery,
+    formatDate,
+    UserStatusUpdate,
+  } = useFetchDataHooks();
   const {
     userDetails: { userDetailResponse },
   } = useSelector((state) => state.globalSlice);
@@ -37,8 +42,8 @@ const UserTable = (props) => {
         <Table
           header={[
             "Name",
-            "Email ID",
-            "Last Updated",
+            "EmailID",
+            "Creation Date",
             "Mobile Number",
             "Assign Branch",
             "Last Login",
@@ -60,7 +65,7 @@ const UserTable = (props) => {
                     {m.firstname} {m.lastName}
                   </td>
                   <td>{m.emailId}</td>
-                  <td>{m.createDate}</td>
+                  <td>{formatDate(m.createDate)}</td>
                   <td>{m.mobileNo}</td>
                   <td>{m.assignBranches.join(", ")}</td>
                   <td>{formatDate(m.lastLogin)}</td>
@@ -72,7 +77,7 @@ const UserTable = (props) => {
                     />
                   </td>
                   <td>
-                        <img src={icons.Icon2} alt="icon" />
+                    <img src={icons.Icon2} alt="icon" />
                   </td>
                 </tr>
               );
