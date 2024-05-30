@@ -54,6 +54,7 @@ const useFetchDataHooks = () => {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
+        if(dateString!=null){
         return date.toLocaleString("en-US", {
             year: "numeric",
             month: "2-digit",
@@ -63,6 +64,7 @@ const useFetchDataHooks = () => {
             hour12: false,
         });
     };
+}
 
     const searchUserData = async (e, page = 1) => {
         e.preventDefault()
