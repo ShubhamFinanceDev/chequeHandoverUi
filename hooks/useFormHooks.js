@@ -14,19 +14,22 @@ const ChequeInitialState = {
     applicationNo: "",
     file: "",
     date: '',
-    roleMasters: ""
 }
 
 const useFormHooks = () => {
     const fileInputRef = useRef(null);
     const { setError, resetValidation, setSuccess, updateApplicationStatus } = useActionDispatch()
     const [ChequeStatus, setChequeStatus] = useState({ ...ChequeInitialState })
+    const { email } = useSelector((state) => state.authSlice)
 
 
     const ChequeStatusSubmitHandler = async (e, next = () => { }) => {
         e.preventDefault()
         try {
-            const body = { ...ChequeStatus }
+            if(!email){
+                return
+            }
+            const body = { ...ChequeStatus, emailId: email}
             const formdata = formDataParser(body)
             const { data } = await axios.post(endpoint.updateStatusCheque(), formdata)
             if (data.code === "0000") {
