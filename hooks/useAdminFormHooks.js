@@ -104,7 +104,10 @@ const useAdminFormHooks = () => {
     const branchDataBodySubmitHandler = async (e) => {
         e.preventDefault()
         try {
-            const body = { ...branchDataBody }
+            if(!email){
+                return
+            }
+            const body = { ...branchDataBody, emailId: email  }
             const formData = formDataParser(body)
             const { data } = await axios.post(endpoint.branchDataExcelUpload(), formData)
 

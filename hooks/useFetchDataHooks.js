@@ -33,7 +33,7 @@ const useFetchDataHooks = () => {
         try {
             const { data: { branchMasters = [], commanResponse = {} } } = await axios.get(endpoint.fetchBranchList())
             if (commanResponse?.code == "0000") {
-                setBranchList(branchMasters.map(({ branchName, branchCode, state }) => ({ name: branchName, state: state, value: branchCode })))
+                setBranchList(branchMasters.map(({ branchName, branchCode, state, uploadedDate,uploadedBy }) => ({ name: branchName, state: state, value: branchCode, addedDate: uploadedDate, addedBy: uploadedBy })))
                 return
             }
         } catch (error) {

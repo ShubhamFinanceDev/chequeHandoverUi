@@ -9,7 +9,7 @@ const BranchManagePage = () => {
     const { branchList } = useSelector((state) => state.globalSlice)
 
 
-    const { fetchBranchList } = useFetchDataHooks()
+    const { fetchBranchList, formatDate } = useFetchDataHooks()
 
     useEffect(() => {
         fetchBranchList()
@@ -18,7 +18,7 @@ const BranchManagePage = () => {
     return (
         <div>
             <BranchExcelUploadForm />
-            <Table header={["S/N","Branch Code", "Branch Name", "State"]} className='mt-4' >
+            <Table header={["S/N","Branch Code", "Branch Name", "State","Added Date","Added By"]} className='mt-4' >
                 {branchList?.map((m, index) => {
                     return (
                         <tr key={`branchdata__` + m.id}>
@@ -26,6 +26,9 @@ const BranchManagePage = () => {
                             <td>{m.value}</td>
                             <td>{m.name}</td>
                             <td>{m.state}</td>
+                            <td>{formatDate(m.addedDate)}</td>
+                            <td>{m.addedBy}</td>
+
                         </tr>
                     )
                 })}
