@@ -46,7 +46,7 @@ const UserTable = (props) => {
             "Creation Date",
             "Mobile Number",
             "Assign Branch",
-            "Updated By",
+            "Created By",
             "Last Login",
             "Status",
             "Edit",
