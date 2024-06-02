@@ -48,6 +48,8 @@ const useAdminFormHooks = () => {
         setError, setSuccess
     } = useActionDispatch()
     const { email } = useSelector(state => state.authSlice)
+    const { userDetails: { userDetailResponse }, } = useSelector((state) => state.globalSlice);
+
     const [userBody, setUserBody] = useState({ ...userBodyInitialState })
     const [dataBody, setDataBody] = useState({ ...dataBodyInitialState })
     const [branchDataBody, setBranchDataBody] = useState({ ...dataBodyInitialState })
@@ -123,10 +125,27 @@ const useAdminFormHooks = () => {
         }
     }
 
+    const fetchUserByID = async (emailId) => {
+        try {
+            const userData = userDetailResponse.filter((d) => d.emailId === emailId);
+            if (userData.length > 0) {
+                const { firstname, lastName, emailId, mobileNo, roleMaster } = userData[0];
+                const modifiedUserData = { firstname, lastName, emailId, mobileNo: mobileNo, roleMaster };
+                setUserBody(modifiedUserData);
+                console.log(modifiedUserData);
+            } else {
+                console.log("User not found");
+            }
+        } catch (error) {
+            setError(error);
+        }
+    };
+
+
     return ({
         userBody, userBodyChangeHandler, userBodySubmitHandler,
         dataBody, dataBodyChangeHandler, dataBodySubmitHandler,
-        branchDataBody, branchDataBodyChangeHandler, branchDataBodySubmitHandler
+        branchDataBody, branchDataBodyChangeHandler, branchDataBodySubmitHandler, fetchUserByID
 
     })
 }
