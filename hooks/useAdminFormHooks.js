@@ -44,21 +44,27 @@ const dataBodyInitialState = {
 
 const useAdminFormHooks = () => {
     const formRef = useRef()
-    const {
-        setError, setSuccess
-    } = useActionDispatch()
+    const { setError, setSuccess } = useActionDispatch()
     const { email } = useSelector(state => state.authSlice)
+
     const [userBody, setUserBody] = useState({ ...userBodyInitialState })
     const [dataBody, setDataBody] = useState({ ...dataBodyInitialState })
     const [branchDataBody, setBranchDataBody] = useState({ ...dataBodyInitialState })
+    const [isUpdate, setIsUpdate] = useState(false)
 
     // onchange handlers
     const userBodyChangeHandler = (e) => changeHandlerHelper(e, userBody, setUserBody)
     const dataBodyChangeHandler = (e) => changeHandlerHelper(e, dataBody, setDataBody)
     const branchDataBodyChangeHandler = (e) => changeHandlerHelper(e, branchDataBody, setBranchDataBody)
 
+    const userBodyDefaultHandler = (e) => {
+        setIsUpdate(state => !state)
+        const { firstname = "", lastName = "", emailId = "", roleMaster = "", encodedMobileNo = "", branchesCode = [] } = e
+        setUserBody({ firstname, lastName, emailId, mobileNo: atob(encodedMobileNo), roleMasters: roleMaster, assignBranches: branchesCode.map((d) => d.toString()) })
+    }
+
     // submit handlers
-    const userBodySubmitHandler = async (e) => {
+    const userBodySubmitHandler = async (e, isUpdate) => {
         e.preventDefault()
         try {
             const body = { ...userBody }
@@ -67,16 +73,32 @@ const useAdminFormHooks = () => {
             }
             body.createdBy = email
             body.assignBranches = body.assignBranches.map((d) => ({ branchCode: d }))
-            requiredFields(["firstname", "lastName", "emailId", "mobileNo", "password", "createdBy", "roleMasters", "assignBranches"], body)
-            const { data } = await axios.post(endpoint.userCreate(), body)
 
-            if (data.code === "0000") {
-                setSuccess(data.msg)
-                setUserBody({ ...userBodyInitialState })
-                return
+            requiredFields(["firstname", "lastName", "emailId", "mobileNo", "createdBy", "roleMasters", "assignBranches"], body)
+
+            if (!isUpdate) {
+                requiredFields(["password"], body)
+                const { data } = await axios.post(endpoint.userCreate(), body)
+                if (data.code === "0000") {
+                    setSuccess(data.msg)
+                    setUserBody({ ...userBodyInitialState })
+                    return
+                } else {
+                    setError(data.msg)
+                }
             } else {
-                setError(data.msg)
+                delete body.password
+                const { data } = await axios.put(endpoint.updateUserDetails(), body)
+                if (data.code === "0000") {
+                    setSuccess(data.msg)
+                    setUserBody({ ...userBodyInitialState })
+                    return
+                } else {
+                    setError(data.msg)
+                }
+
             }
+
         } catch (error) {
             setError(error)
         }
@@ -104,10 +126,10 @@ const useAdminFormHooks = () => {
     const branchDataBodySubmitHandler = async (e) => {
         e.preventDefault()
         try {
-            if(!email){
+            if (!email) {
                 return
             }
-            const body = { ...branchDataBody, emailId: email  }
+            const body = { ...branchDataBody, emailId: email }
             const formData = formDataParser(body)
             const { data } = await axios.post(endpoint.branchDataExcelUpload(), formData)
 
@@ -124,9 +146,10 @@ const useAdminFormHooks = () => {
     }
 
     return ({
-        userBody, userBodyChangeHandler, userBodySubmitHandler,
+        isUpdate,
+        userBody, userBodyChangeHandler, userBodySubmitHandler, userBodyDefaultHandler,
         dataBody, dataBodyChangeHandler, dataBodySubmitHandler,
-        branchDataBody, branchDataBodyChangeHandler, branchDataBodySubmitHandler
+        branchDataBody, branchDataBodyChangeHandler, branchDataBodySubmitHandler,
 
     })
 }

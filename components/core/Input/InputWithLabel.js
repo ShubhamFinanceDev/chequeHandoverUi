@@ -31,7 +31,7 @@ const InputWithLabel = (props) => {
 
     const value = type == 'file' ? null : state?.[name]
 
-    return (
+    return (isHidden ? <></> :
         <div className={className[0]}>
             {label &&
                 <div className={className[1]}>
@@ -59,7 +59,7 @@ const InputWithLabel = (props) => {
                     multiple={isMultiple}
                     readOnly={isReadOnly}
                     disabled={isDisabled}
-                    hidden={isHidden}
+                    // hidden={isHidden}
                     maxLength={maxLength}
                     required={isRequired}
                 />

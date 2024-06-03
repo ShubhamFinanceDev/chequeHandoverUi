@@ -4,9 +4,10 @@ import useFetchDataHooks from "@/hooks/useFetchDataHooks";
 import { useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import icons from "@/env/icons";
+import useAdminFormHooks from "@/hooks/useAdminFormHooks";
 
 const UserTable = (props) => {
-  const { showFormHandler } = props
+  const { showFormHandler, userBodyDefaultHandler } = props
   const {
     query,
     setQuery,
@@ -16,6 +17,7 @@ const UserTable = (props) => {
   const {
     userDetails: { userDetailResponse },
   } = useSelector((state) => state.globalSlice);
+  const { fetchUserByID } = useAdminFormHooks()
   return (
     <div>
       <>
@@ -78,7 +80,10 @@ const UserTable = (props) => {
                       onChange={() => UserStatusUpdate(m.emailId)}
                     />
                   </td>
-                  <td>
+                  <td onClick={() => {
+                    showFormHandler();
+                    userBodyDefaultHandler(JSON.parse(JSON.stringify(m)))
+                  }}>
                     <img src={icons.Icon2} alt="icon" />
                   </td>
                 </tr>

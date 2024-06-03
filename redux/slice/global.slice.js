@@ -5,7 +5,9 @@ const initialState = {
     applications: [],
     applicationMeta: {},
     assingBranch: [],
-    userDetails: []
+    userDetails: {
+        userDetailResponse: []
+    }
 
 }
 
