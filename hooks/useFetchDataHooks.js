@@ -107,11 +107,13 @@ const useFetchDataHooks = () => {
     }
 
     const generateMISReport = async () => {
-        if (!email) {
+        if (!email || !genrateReportBody?.reportType ) {
             return
         }
+        setGenrateReportBody({...genrateReportInitialState})
+        const reportRecipient = genrateReportBody?.email || genrateReportBody?.branchName;
         axios({
-            url: endpoint.generateMISReport(email),
+            url: endpoint.generateMISReport(email, genrateReportBody?.reportType, reportRecipient),
             method: 'GET',
             responseType: 'blob',
         })
