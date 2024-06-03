@@ -88,7 +88,7 @@ const useAdminFormHooks = () => {
                 }
             } else {
                 delete body.password
-                const { data } = await axios.put(endpoint.userUpdate(), body)
+                const { data } = await axios.put(endpoint.updateUserDetails(), body)
                 if (data.code === "0000") {
                     setSuccess(data.msg)
                     setUserBody({ ...userBodyInitialState })
