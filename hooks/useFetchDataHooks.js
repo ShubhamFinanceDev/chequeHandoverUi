@@ -16,11 +16,16 @@ const searchQueryInitialState = {
     applicationNumber: "",
     branch: ""
 }
+const genrateReportInitialState = {
+    email: "",
+    branchName: ""
+}
 
 const useFetchDataHooks = () => {
     const { setError, setSuccess, setBranchList, setApplicationDetails, resetGlobalState, setAssingBranch, setUserDetails } = useActionDispatch()
     const { email } = useSelector((state) => state.authSlice)
     const [searchQuery, setSearchQuery] = useState({ ...searchQueryInitialState })
+    const [ genrateReportBody, setGenrateReportBody] = useState({ ...genrateReportInitialState })
 
     const [query, setQuery] = useState("");
 
@@ -194,12 +199,15 @@ const useFetchDataHooks = () => {
 
 
     const searchQueryChangeHandler = (e) => changeHandlerHelper(e, searchQuery, setSearchQuery)
+    const genrateReportChangeHandler = (e) => changeHandlerHelper(e, genrateReportBody, setGenrateReportBody)
 
 
     return ({
         searchQuery,
 
         query,
+        genrateReportBody,
+        genrateReportChangeHandler,
         fetchBranchList,
         searchUserData,
         searchQueryChangeHandler,
