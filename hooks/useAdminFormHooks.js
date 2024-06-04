@@ -75,10 +75,10 @@ const useAdminFormHooks = () => {
             body.createdBy = email
             body.assignBranches = body.assignBranches.map((d) => ({ branchCode: d }))
 
-            requiredFields(["firstname", "lastName", "emailId", "mobileNo", "createdBy", "empCode", "roleMasters", "assignBranches"], body)
+            requiredFields(["firstname", "lastName", "emailId", "mobileNo", "createdBy", "roleMasters", "assignBranches"], body)
 
             if (!isUpdate) {
-                requiredFields(["password"], body)
+                requiredFields(["password", "empCode"], body)
                 const { data } = await axios.post(endpoint.userCreate(), body)
                 if (data.code === "0000") {
                     setSuccess(data.msg)
@@ -89,7 +89,11 @@ const useAdminFormHooks = () => {
                 }
             } else {
                 delete body.password
-                const { data } = await axios.put(endpoint.updateUserDetails(), body)
+                delete body.empCode
+                delete body.createdBy
+
+                const { data } = await axios.put(endpoint.updateUserDetails(body.emailId
+                ), body)
                 if (data.code === "0000") {
                     setSuccess(data.msg)
                     setUserBody({ ...userBodyInitialState })
