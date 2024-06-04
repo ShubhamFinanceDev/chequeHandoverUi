@@ -51,6 +51,13 @@ const AddUserForm = (props) => {
             isHidden: isUpdate
         },
         {
+            label: "Employee code",
+            name: "empCode",
+            isRequired: true,
+            maxLength: 5,
+        },
+
+        {
             label: "Role",
             name: "roleMasters",
             type: "select",

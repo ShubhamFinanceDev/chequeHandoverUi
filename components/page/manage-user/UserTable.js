@@ -43,6 +43,7 @@ const UserTable = (props) => {
 
         <Table
           header={[
+            "EmployeeCode",
             "Name",
             "EmailID",
             "Creation Date",
@@ -64,6 +65,10 @@ const UserTable = (props) => {
             .map((m) => {
               return (
                 <tr key={`userdata__${m.id}`}>
+                  <td>
+                    {m.empCode}
+                  </td>
+
                   <td>
                     {m.firstname} {m.lastName}
                   </td>

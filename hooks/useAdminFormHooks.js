@@ -31,6 +31,7 @@ const userBodyInitialState = {
     password: "",
     createdBy: "",
     roleMasters: "",
+    empCode: "",
     assignBranches: [],
 
     // ...userTestState
@@ -74,7 +75,7 @@ const useAdminFormHooks = () => {
             body.createdBy = email
             body.assignBranches = body.assignBranches.map((d) => ({ branchCode: d }))
 
-            requiredFields(["firstname", "lastName", "emailId", "mobileNo", "createdBy", "roleMasters", "assignBranches"], body)
+            requiredFields(["firstname", "lastName", "emailId", "mobileNo", "createdBy", "empCode", "roleMasters", "assignBranches"], body)
 
             if (!isUpdate) {
                 requiredFields(["password"], body)
