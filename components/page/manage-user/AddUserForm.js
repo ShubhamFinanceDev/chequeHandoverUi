@@ -16,11 +16,9 @@ const input = {
 }
 
 const AddUserForm = (props) => {
-    const { showFormHandler } = props
-
+    const { showFormHandler, userBody, userBodyChangeHandler, userBodySubmitHandler, isUpdate } = props
     const { fetchBranchList } = useFetchDataHooks()
     const { branchList } = useSelector(state => state.globalSlice)
-    const { userBody, userBodyChangeHandler, userBodySubmitHandler } = useAdminFormHooks()
 
     const formFeilds = [
         {
@@ -50,7 +48,15 @@ const AddUserForm = (props) => {
             name: "password",
             type: "password",
             isRequired: true,
+            isHidden: isUpdate
         },
+        {
+            label: "Employee code",
+            name: "empCode",
+            isRequired: true,
+            maxLength: 5,
+        },
+
         {
             label: "Role",
             name: "roleMasters",
@@ -77,7 +83,8 @@ const AddUserForm = (props) => {
     }, [])
 
     return (
-        <form className='mb-4' onSubmit={userBodySubmitHandler}>
+        <form className='mb-4' onSubmit={(e) => userBodySubmitHandler(e, isUpdate)}>
+            {/* {JSON.stringify(userBody)} */}
             <div className="row">
                 {formFeilds.map((f, idx) => {
                     const InputComponent = input?.[f.type] || InputWithLabel
