@@ -16,7 +16,7 @@ const input = {
 }
 
 const AddUserForm = (props) => {
-    const { showFormHandler, userBody, userBodyChangeHandler, userBodySubmitHandler, isUpdate } = props
+    const { showFormHandler, userBody, userBodyChangeHandler, userBodySubmitHandler, isUpdate, resetUpdateUserBody } = props
     const { fetchBranchList } = useFetchDataHooks()
     const { branchList } = useSelector(state => state.globalSlice)
 
@@ -55,6 +55,7 @@ const AddUserForm = (props) => {
             name: "empCode",
             isRequired: true,
             maxLength: 5,
+            isHidden: isUpdate
         },
 
         {
@@ -101,7 +102,10 @@ const AddUserForm = (props) => {
             <div className='d-flex gap-1'>
                 <button type='submit' className='btn btn-primary'>Submit</button>
                 <button
-                    type='reset' className='btn btn-outline-primary ' onClick={showFormHandler}>Cancel</button>
+                    type='reset' className='btn btn-outline-primary ' onClick={() => {
+                        showFormHandler()
+                        resetUpdateUserBody()
+                    }}>Cancel</button>
             </div>
 
         </form>
