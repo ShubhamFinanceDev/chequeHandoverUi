@@ -63,7 +63,6 @@ const useAdminFormHooks = () => {
         const { firstname = "", lastName = "", emailId = "", roleMaster = "", encodedMobileNo = "", branchesCode = [] } = e
         setUserBody({ firstname, lastName, emailId, mobileNo: atob(encodedMobileNo), roleMasters: roleMaster, assignBranches: branchesCode.map((d) => d.toString()) })
     }
-
     // submit handlers
     const userBodySubmitHandler = async (e, isUpdate) => {
         e.preventDefault()
@@ -109,6 +108,10 @@ const useAdminFormHooks = () => {
         }
     }
 
+    const cancelUserBody = () => {
+        setUserBody({ ...userBodyInitialState })
+    }
+
     const dataBodySubmitHandler = async (e) => {
         e.preventDefault()
         try {
@@ -152,6 +155,7 @@ const useAdminFormHooks = () => {
 
     return ({
         isUpdate,
+        cancelUserBody,
         userBody, userBodyChangeHandler, userBodySubmitHandler, userBodyDefaultHandler,
         dataBody, dataBodyChangeHandler, dataBodySubmitHandler,
         branchDataBody, branchDataBodyChangeHandler, branchDataBodySubmitHandler,
