@@ -108,7 +108,8 @@ const useAdminFormHooks = () => {
         }
     }
 
-    const cancelUserBody = () => {
+    const resetUpdateUserBody = () => {
+        setIsUpdate(false)
         setUserBody({ ...userBodyInitialState })
     }
 
@@ -155,7 +156,7 @@ const useAdminFormHooks = () => {
 
     return ({
         isUpdate,
-        cancelUserBody,
+        resetUpdateUserBody,
         userBody, userBodyChangeHandler, userBodySubmitHandler, userBodyDefaultHandler,
         dataBody, dataBodyChangeHandler, dataBodySubmitHandler,
         branchDataBody, branchDataBodyChangeHandler, branchDataBodySubmitHandler,

@@ -18,14 +18,15 @@ const searchQueryInitialState = {
 }
 const genrateReportInitialState = {
     email: "",
-    branchName: ""
+    branchName: "",
+    reportType: ""
 }
 
 const useFetchDataHooks = () => {
     const { setError, setSuccess, setBranchList, setApplicationDetails, resetGlobalState, setAssingBranch, setUserDetails } = useActionDispatch()
     const { email } = useSelector((state) => state.authSlice)
     const [searchQuery, setSearchQuery] = useState({ ...searchQueryInitialState })
-    const [ genrateReportBody, setGenrateReportBody] = useState({ ...genrateReportInitialState })
+    const [genrateReportBody, setGenrateReportBody] = useState({ ...genrateReportInitialState })
 
     const [query, setQuery] = useState("");
 
@@ -38,7 +39,7 @@ const useFetchDataHooks = () => {
         try {
             const { data: { branchMasters = [], commanResponse = {} } } = await axios.get(endpoint.fetchBranchList())
             if (commanResponse?.code == "0000") {
-                setBranchList(branchMasters.map(({ branchName, branchCode, state, uploadedDate,uploadedBy }) => ({ name: branchName, state: state, value: branchCode, addedDate: uploadedDate, addedBy: uploadedBy })))
+                setBranchList(branchMasters.map(({ branchName, branchCode, state, uploadedDate, uploadedBy }) => ({ name: branchName, state: state, value: branchCode, addedDate: uploadedDate, addedBy: uploadedBy })))
                 return
             }
         } catch (error) {
@@ -59,17 +60,17 @@ const useFetchDataHooks = () => {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        if(dateString!=null){
-        return date.toLocaleString("en-US", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "numeric",
-            minute: "numeric",
-            hour12: false,
-        });
-    };
-}
+        if (dateString != null) {
+            return date.toLocaleString("en-US", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: false,
+            });
+        };
+    }
 
     const searchUserData = async (e, page = 1) => {
         e.preventDefault()
@@ -107,10 +108,9 @@ const useFetchDataHooks = () => {
     }
 
     const generateMISReport = async () => {
-        if (!email || !genrateReportBody?.reportType ) {
+        if (!email || !genrateReportBody?.reportType) {
             return
         }
-        setGenrateReportBody({...genrateReportInitialState})
         const reportRecipient = genrateReportBody?.email || genrateReportBody?.branchName;
         axios({
             url: endpoint.generateMISReport(email, genrateReportBody?.reportType, reportRecipient),
@@ -135,6 +135,7 @@ const useFetchDataHooks = () => {
                 a.click();
                 a.remove();
                 window.URL.revokeObjectURL(url);
+                setGenrateReportBody({ ...genrateReportInitialState })
             })
             .catch(error => {
                 console.error('Error downloading the file:', error);
@@ -199,9 +200,15 @@ const useFetchDataHooks = () => {
     }
 
 
+    const reportChangeHandlerCase = (state, { name }) => {
+        if (name == "reportType") {
+            state.email = ""
+            state.branchName = ""
+        }
+    }
 
     const searchQueryChangeHandler = (e) => changeHandlerHelper(e, searchQuery, setSearchQuery)
-    const genrateReportChangeHandler = (e) => changeHandlerHelper(e, genrateReportBody, setGenrateReportBody)
+    const genrateReportChangeHandler = (e) => changeHandlerHelper(e, genrateReportBody, setGenrateReportBody, reportChangeHandlerCase)
 
 
     return ({

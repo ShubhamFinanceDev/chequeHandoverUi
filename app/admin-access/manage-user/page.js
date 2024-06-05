@@ -10,9 +10,8 @@ const ManageUserPage = () => {
   const [showAddUserForm, setShowAddUserForm] = useState(false);
   const { fetchUserDetails } = useFetchDataHooks();
   const adminFormHooks = useAdminFormHooks()
-  const { cancelUserBody } = adminFormHooks
 
-  const showFormHandler = () => { cancelUserBody(), setShowAddUserForm((state) => !state) }
+  const showFormHandler = () => setShowAddUserForm((state) => !state)
 
   useEffect(() => {
     if (!showAddUserForm) fetchUserDetails();
