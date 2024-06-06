@@ -63,6 +63,12 @@ const useAdminFormHooks = () => {
         const { firstname = "", lastName = "", emailId = "", roleMaster = "", encodedMobileNo = "", branchesCode = [] } = e
         setUserBody({ firstname, lastName, emailId, mobileNo: atob(encodedMobileNo), roleMasters: roleMaster, assignBranches: branchesCode.map((d) => d.toString()) })
     }
+    // mobile number validation check
+    const isMobileValid = (mobileNo) => {
+        const regex = /^\d{10}$/;
+        return regex.test(mobileNo);
+    };
+
     // submit handlers
     const userBodySubmitHandler = async (e, isUpdate) => {
         e.preventDefault()
@@ -70,6 +76,12 @@ const useAdminFormHooks = () => {
             const body = { ...userBody }
             body.roleMasters = {
                 role: body.roleMasters
+            }
+            if (!isMobileValid(userBody.mobileNo)) {
+                setError("Mobile number is not correct");
+                return;
+            } else {
+                setUserBody({ ...userBodyInitialState })
             }
             body.createdBy = email
             body.assignBranches = body.assignBranches.map((d) => ({ branchCode: d }))
