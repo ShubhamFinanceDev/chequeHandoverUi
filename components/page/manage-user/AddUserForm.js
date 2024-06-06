@@ -55,7 +55,7 @@ const AddUserForm = (props) => {
             name: "empCode",
             isRequired: true,
             maxLength: 5,
-            isHidden: isUpdate
+            isDisabled: isUpdate
         },
 
         {

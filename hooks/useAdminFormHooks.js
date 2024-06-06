@@ -13,7 +13,7 @@ import useActionDispatch from './useActionDispatch';
 import { useSelector } from 'react-redux';
 
 const userTestState = {
-    firstname: "saurabh",
+    firstName: "saurabh",
     lastName: "singh",
     emailId: "chintu5@shubham.com",
     mobileNo: "8160041657",
@@ -60,8 +60,8 @@ const useAdminFormHooks = () => {
 
     const userBodyDefaultHandler = (e) => {
         setIsUpdate(state => !state)
-        const { firstName = "", lastName = "", emailId = "", roleMaster = "", encodedMobileNo = "", branchesCode = [] } = e
-        setUserBody({ firstName, lastName, emailId, mobileNo: atob(encodedMobileNo), roleMasters: roleMaster, assignBranches: branchesCode.map((d) => d.toString()) })
+        const { firstName = "", lastName = "", emailId = "", roleMaster = "", encodedMobileNo = "", empCode = "", branchesCode = [] } = e
+        setUserBody({ firstName, lastName, emailId, mobileNo: atob(encodedMobileNo), roleMasters: roleMaster, empCode, assignBranches: branchesCode.map((d) => d.toString()) })
     }
     // mobile number validation check
     const isMobileValid = (mobileNo) => {
