@@ -58,7 +58,7 @@ const UserTable = (props) => {
         >
           {userDetailResponse
             ?.filter((m) =>
-              `${m.firstname} ${m.lastName}`
+              `${m.firstName} ${m.lastName}`
                 .toLowerCase()
                 .includes(query.toLowerCase())
             )
@@ -70,7 +70,7 @@ const UserTable = (props) => {
                   </td>
 
                   <td>
-                    {m.firstname} {m.lastName}
+                    {m.firstName} {m.lastName}
                   </td>
                   <td>{m.emailId}</td>
                   <td>{formatDate(m.createDate)}</td>

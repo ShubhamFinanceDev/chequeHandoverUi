@@ -23,7 +23,7 @@ const AddUserForm = (props) => {
     const formFeilds = [
         {
             label: "First Name",
-            name: "firstname",
+            name: "firstName",
             isRequired: true,
         },
         {

@@ -24,7 +24,7 @@ const userTestState = {
 }
 
 const userBodyInitialState = {
-    firstname: "",
+    firstName: "",
     lastName: "",
     emailId: "",
     mobileNo: "",
@@ -60,8 +60,8 @@ const useAdminFormHooks = () => {
 
     const userBodyDefaultHandler = (e) => {
         setIsUpdate(state => !state)
-        const { firstname = "", lastName = "", emailId = "", roleMaster = "", encodedMobileNo = "", branchesCode = [] } = e
-        setUserBody({ firstname, lastName, emailId, mobileNo: atob(encodedMobileNo), roleMasters: roleMaster, assignBranches: branchesCode.map((d) => d.toString()) })
+        const { firstName = "", lastName = "", emailId = "", roleMaster = "", encodedMobileNo = "", branchesCode = [] } = e
+        setUserBody({ firstName, lastName, emailId, mobileNo: atob(encodedMobileNo), roleMasters: roleMaster, assignBranches: branchesCode.map((d) => d.toString()) })
     }
     // mobile number validation check
     const isMobileValid = (mobileNo) => {
@@ -86,7 +86,7 @@ const useAdminFormHooks = () => {
             body.createdBy = email
             body.assignBranches = body.assignBranches.map((d) => ({ branchCode: d }))
 
-            requiredFields(["firstname", "lastName", "emailId", "mobileNo", "createdBy", "roleMasters", "assignBranches"], body)
+            requiredFields(["firstName", "lastName", "emailId", "mobileNo", "createdBy", "roleMasters", "assignBranches"], body)
 
             if (!isUpdate) {
                 requiredFields(["password", "empCode"], body)
