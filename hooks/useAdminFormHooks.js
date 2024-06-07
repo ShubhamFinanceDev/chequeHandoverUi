@@ -60,8 +60,8 @@ const useAdminFormHooks = () => {
 
     const userBodyDefaultHandler = (e) => {
         setIsUpdate(state => !state)
-        const { firstName = "", lastName = "", emailId = "", roleMaster = "", encodedMobileNo = "", empCode = "", branchesCode = [] } = e
-        setUserBody({ firstName, lastName, emailId, mobileNo: atob(encodedMobileNo), roleMasters: roleMaster, empCode, assignBranches: branchesCode.map((d) => d.toString()) })
+        const { firstName = "", lastName = "", emailId = "", roleMaster = "", encodedMobileNo = "", empCode = "", userId = "", branchesCode = [] } = e
+        setUserBody({ firstName, lastName, emailId, mobileNo: atob(encodedMobileNo), roleMasters: roleMaster, empCode, userId, assignBranches: branchesCode.map((d) => d.toString()) })
     }
     // mobile number validation check
     const isMobileValid = (mobileNo) => {
@@ -101,7 +101,7 @@ const useAdminFormHooks = () => {
                 delete body.empCode
                 delete body.createdBy
 
-                const { data } = await axios.put(endpoint.updateUserDetails(body.emailId
+                const { data } = await axios.put(endpoint.updateUserDetails(body.userId
                 ), body)
                 if (data.code === "0000") {
                     setSuccess(data.msg)

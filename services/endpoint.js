@@ -15,9 +15,9 @@ const endpoint = {
     userDetails: () => BASE_URL + `/user/get-user-details`,
     updateUserStatus: (emailID = "", email = "") => BASE_URL + `/admin/status-update?emailId=${emailID}&updatedBy=${email}`,
     updateStatusCheque: () => BASE_URL + `/user/update-application-flag`,
-    updateUserDetails: (email = '') => BASE_URL + `/admin/update-user/${email}`,
+    updateUserDetails: (userId = '') => BASE_URL + `/admin/update-user/${userId}`,
 
-    generateMISReport: (email = "",reportType ="", branchName= "") => BASE_URL + `/user/generate-mis-report?emailId=${email}&reportType=${reportType}&selectedType=${branchName}`,
+    generateMISReport: (email = "", reportType = "", branchName = "") => BASE_URL + `/user/generate-mis-report?emailId=${email}&reportType=${reportType}&selectedType=${branchName}`,
     assignBranch: (email = "") => BASE_URL + `/user/get-list-of-assign-branches?emailId=${email}`,
 
 }
