@@ -139,6 +139,7 @@ const useFetchDataHooks = () => {
             })
             .catch(error => {
                 console.error('Error downloading the file:', error);
+                setError('Data not found', error)
             });
     }
 
