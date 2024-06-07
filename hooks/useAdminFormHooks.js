@@ -80,8 +80,6 @@ const useAdminFormHooks = () => {
             if (!isMobileValid(userBody.mobileNo)) {
                 setError("Mobile number is not correct");
                 return;
-            } else {
-                setUserBody({ ...userBodyInitialState })
             }
             body.createdBy = email
             body.assignBranches = body.assignBranches.map((d) => ({ branchCode: d }))
