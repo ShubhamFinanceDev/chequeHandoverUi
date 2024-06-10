@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 
 import store from '@/redux/store';
 import { startLoaderAct, stopLoaderAct } from '@/redux/slice/loader.slice';
+import { removeUserCookies } from '@/hooks/useRemoveCookies';
 
 const axios = request.create();
 
@@ -20,6 +21,7 @@ axios.interceptors.request.use(
         store.dispatch(stopLoaderAct())
         return Promise.reject(error);
     }
+
 );
 
 axios.interceptors.response.use(
@@ -29,8 +31,14 @@ axios.interceptors.response.use(
     },
     (error) => {
         store.dispatch(stopLoaderAct())
+        const status = error?.response?.status || 400
+        if (status === 401) {
+            alert('Session Expired!')
+            removeUserCookies()
+        }
         return Promise.reject(error);
     }
 )
+
 
 export default axios;
