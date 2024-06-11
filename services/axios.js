@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import store from '@/redux/store';
 import { startLoaderAct, stopLoaderAct } from '@/redux/slice/loader.slice';
 import { removeUserCookies } from '@/hooks/useRemoveCookies';
+import pageRoutes from '@/utils/pageRoutes';
+import SingInPages from '@/app/page';
 
 const axios = request.create();
 
@@ -35,6 +37,8 @@ axios.interceptors.response.use(
         if (status === 401) {
             alert('Session Expired!')
             removeUserCookies()
+            // pageRoutes.SIGIN_PAGE()
+            window.location.replace(pageRoutes.SIGIN_PAGE())
         }
         return Promise.reject(error);
     }
