@@ -6,11 +6,11 @@ import useFormHooks from '@/hooks/useFormHooks'
 
 const ChequeStatusModel = (props) => {
     const { ChequeStatus, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler } = useFormHooks()
-    const { closeModel, applicationNo } = props
+    const { closeModel, applicationNo, chequeId } = props
 
     useEffect(() => {
-        ChequeStatusDefaultStateHandler({ applicationNo })
-    }, [applicationNo])
+        ChequeStatusDefaultStateHandler({ applicationNo, chequeId })
+    }, [applicationNo, chequeId])
 
     return (
         <div className='model-container'>
