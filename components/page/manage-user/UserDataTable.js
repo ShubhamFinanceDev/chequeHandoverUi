@@ -13,7 +13,7 @@ function UserDataTable(props) {
 
     return (
         <>
-            <Table header={["Application No.", "Applicant Name", "Branch", "Region", "Hub", "Product Name", "Loan Amount", "Sanction Date", "Disbursal date", "Amount", "Status", ""]} >
+            <Table header={["Application No.", "Applicant Name", "Branch", "Region", "In Favour Of", "Product Name", "Loan Amount", "Sanction Date", "Disbursal date", "Amount", "Status", ""]} >
                 {applications?.map((m) => {
                     const isIssued = m.chequeStatus == "Y"
                     return (
