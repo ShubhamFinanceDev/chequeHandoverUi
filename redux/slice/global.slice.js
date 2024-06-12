@@ -34,7 +34,7 @@ const globalSlice = createSlice({
         updateApplicationStatus: (state, action) => {
             state.applications = [
                 ...state.applications.filter((d) => {
-                    if (d.applicationNumber == action.payload) {
+                    if (d.id == action.payload) {
                         d.chequeStatus = 'Y'
                         return d
                     }
