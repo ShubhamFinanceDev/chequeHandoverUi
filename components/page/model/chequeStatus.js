@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { InputWithLabel, SelectWithLabel } from '../../core/Input'
 import useFormHooks from '@/hooks/useFormHooks'
+import ValidationMsg from '@/components/core/ValidationMsg'
 
 const ChequeStatusModel = (props) => {
     const { ChequeStatus, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler } = useFormHooks()
@@ -16,6 +17,7 @@ const ChequeStatusModel = (props) => {
         <div className='model-container'>
             <p className='mb-3'>Upload Acknowledgement</p>
             <form onSubmit={e => ChequeStatusSubmitHandler(e, closeModel)} className='row'>
+                <ValidationMsg/>
                 <InputWithLabel
                     feilds={{
                         label: "Application No",

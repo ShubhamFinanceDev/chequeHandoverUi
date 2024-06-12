@@ -9,7 +9,7 @@ import useFetchDataHooks from '@/hooks/useFetchDataHooks'
 
 function UserDataTable(props) {
     const { applications, applicationMeta } = useSelector((state) => state.globalSlice)
-    const { searchUserData } = useFetchDataHooks()
+    const { searchUserData } = useFetchDataHooks(false)
 
     return (
         <>
