@@ -21,13 +21,7 @@ module.exports = {
       env: {
 
         NODE_ENV: 'production',
-
-<<<<<<< HEAD
-        PORT: 6000
-=======
         PORT: 5500
->>>>>>> 0c5e75e2a916350a505d1c9727ea417d0d3a48f4
-
       },
 
     },
