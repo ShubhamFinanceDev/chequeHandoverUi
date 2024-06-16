@@ -208,7 +208,7 @@ const useFetchDataHooks = (isResetGlobalState = true) => {
         return;
       }
       const { data } = await axios.get(endpoint.assignBranch(email));
-      if (data.code === "0000") {
+      if (data.commonResponse.code === "0000") {
         setAssingBranch(data.assignBranchList);
         // setSuccess(data.commonResponse.msg)
         return;
