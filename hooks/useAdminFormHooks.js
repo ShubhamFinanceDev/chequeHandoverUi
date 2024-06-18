@@ -126,7 +126,7 @@ const useAdminFormHooks = () => {
     const dataBodySubmitHandler = async (e) => {
         e.preventDefault()
         try {
-            const body = { ...dataBody }
+            const body = { ...dataBody, emailId: email }
             const formData = formDataParser(body)
             const { data } = await axios.post(endpoint.dataExcelUpload(), formData)
 
