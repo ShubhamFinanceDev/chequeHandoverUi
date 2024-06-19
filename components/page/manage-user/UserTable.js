@@ -81,10 +81,9 @@ const UserTable = (props) => {
                     {displayBranches}
                     {branches.length > 2 && (
                       <button
-                        className="btn btn-link p-0"
+                        className="btn btn- p-0 seemore"
                         onClick={() => handleSeeMore(branches)}
-                      >
-                        see more
+                      >.see more
                       </button>
                     )}
                   </td>
