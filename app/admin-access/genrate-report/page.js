@@ -4,13 +4,13 @@ import React, { useState, useEffect } from "react";
 import useFetchDataHooks from "@/hooks/useFetchDataHooks";
 import { SelectWithLabel } from "@/components/core/Input";
 import { useSelector } from "react-redux";
+import { InputWithLabel } from "@/components/core/Input";
 
 const GenerateReport = () => {
   const { email } = useSelector((state) => state.authSlice);
-  const {assingBranch, userDetails: { userDetailResponse },} = useSelector((state) => state.globalSlice);
-  const { genrateReportBody, genrateReportChangeHandler, generateMISReport, fetchUserDetails } = useFetchDataHooks();
+  const { assingBranch, userDetails: { userDetailResponse } } = useSelector((state) => state.globalSlice);
+  const { genrateReportBody, genrateReportChangeHandler, generateMISReport, fetchUserDetails, fetchassingBranch } = useFetchDataHooks();
   const [reportType, setReportType] = useState("");
-  const { fetchassingBranch } = useFetchDataHooks();
 
   useEffect(() => {
     fetchassingBranch();
@@ -18,8 +18,8 @@ const GenerateReport = () => {
   }, [email]);
 
   const handleReportTypeChange = (e) => {
-     setReportType(e.target.value);
-      genrateReportChangeHandler(e); 
+    setReportType(e.target.value);
+    genrateReportChangeHandler(e);
   };
 
   return (
@@ -36,13 +36,17 @@ const GenerateReport = () => {
                   { name: "Daily Report", value: "daily-report" },
                   { name: "User-wise Report", value: "user-wise" },
                   { name: "Branch-wise Report", value: "branch-wise" },
+                  { name: "From-date To-date", value: "fromdate-todate" },
+                  { name: "Date-wise Report", value: "selected-date" },
+                  { name: "issued Report", value: "issued" },
+                  { name: "Not issued  Report", value: "not-issued" },
                 ],
                 isRequired: true,
               }}
               state={genrateReportBody}
               onChangeHandler={handleReportTypeChange}
               className={["col-12 mb-2", "col-12", "col-12"]}
-            ></SelectWithLabel>
+            />
           </div>
         </div>
 
@@ -81,6 +85,53 @@ const GenerateReport = () => {
               />
             </div>
           </div>
+        )}
+
+        {reportType === "fromdate-todate" && (
+          <>
+            <div className="col-md-2">
+              <InputWithLabel
+                feilds={{
+                  label: "From",
+                  name: "fromDate",
+                  type: "date",
+                  isRequired: true,
+                }}
+                state={genrateReportBody}
+                onChangeHandler={genrateReportChangeHandler}
+              />
+            </div>
+            <div className="col-md-2">
+              <InputWithLabel
+                feilds={{
+                  label: "To",
+                  name: "toDate",
+                  type: "date",
+                  isRequired: true,
+                }}
+                state={genrateReportBody}
+                onChangeHandler={genrateReportChangeHandler}
+              />
+            </div>
+          </>
+        )}
+
+        {reportType === "selected-date" && (
+          <>
+
+            <div className="col-md-2">
+              <InputWithLabel
+                feilds={{
+                  label: "Selected Date",
+                  name: "selectedDate",
+                  type: "date",
+                  isRequired: true,
+                }}
+                state={genrateReportBody}
+                onChangeHandler={genrateReportChangeHandler}
+              />
+            </div>
+          </>
         )}
 
         <div className="col-md-4 mt-4">

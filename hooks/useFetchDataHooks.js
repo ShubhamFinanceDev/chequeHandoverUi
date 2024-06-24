@@ -19,6 +19,9 @@ const genrateReportInitialState = {
   email: "",
   branchName: "",
   reportType: "",
+  fromDate: "",
+  toDate: "",
+  selectedDate: "",
 };
 
 const useFetchDataHooks = (isResetGlobalState = true) => {
@@ -144,12 +147,16 @@ const useFetchDataHooks = (isResetGlobalState = true) => {
       return;
     }
     const reportRecipient =
-      genrateReportBody?.email || genrateReportBody?.branchName;
+      genrateReportBody?.email || genrateReportBody?.branchName
+    const { fromDate, toDate, selectedDate } = genrateReportBody;
     axios({
       url: endpoint.generateMISReport(
         email,
         genrateReportBody?.reportType,
-        reportRecipient
+        reportRecipient,
+        fromDate,
+        toDate,
+        selectedDate
       ),
       method: "GET",
       responseType: "blob",
@@ -192,7 +199,7 @@ const useFetchDataHooks = (isResetGlobalState = true) => {
       });
       if (data.code === "0000") {
         setSuccess(data.commonResponse.msg);
-        searchUserData({ preventDefault: () => {} });
+        searchUserData({ preventDefault: () => { } });
         return;
       } else {
         setError(data.commonResponse.msg);
