@@ -36,10 +36,10 @@ const GenerateReport = () => {
                   { name: "Daily Report", value: "daily-report" },
                   { name: "User-wise Report", value: "user-wise" },
                   { name: "Branch-wise Report", value: "branch-wise" },
-                  { name: "From-date To-date", value: "fromdate-todate" },
-                  { name: "Date-wise Report", value: "selected-date" },
-                  { name: "issued Report", value: "issued" },
-                  { name: "Not issued  Report", value: "not-issued" },
+                  // { name: "From-date To-date", value: "fromdate-todate" },
+                  // { name: "Date-wise Report", value: "selected-date" },
+                  // { name: "issued Report", value: "issued" },
+                  // { name: "Not issued  Report", value: "not-issued" },
                 ],
                 isRequired: true,
               }}
@@ -87,7 +87,7 @@ const GenerateReport = () => {
           </div>
         )}
 
-        {reportType === "fromdate-todate" && (
+        {/* {reportType === "fromdate-todate" && (
           <>
             <div className="col-md-2">
               <InputWithLabel
@@ -133,7 +133,7 @@ const GenerateReport = () => {
             </div>
           </>
         )}
-
+ */}
         <div className="col-md-4 mt-4">
           <button className="btn btn-primary" onClick={generateMISReport}>
             Generate Report
