@@ -14,10 +14,13 @@ const UserTable = (props) => {
     formatDate,
     UserStatusUpdate,
   } = useFetchDataHooks();
-  const {
-    userDetails: { userDetailResponse },
-  } = useSelector((state) => state.globalSlice);
-  const { fetchUserByID } = useAdminFormHooks()
+  const { userDetails: { userDetailResponse }, } = useSelector((state) => state.globalSlice);
+  const { fetchUserByID } = useAdminFormHooks();
+
+  const handleSeeMore = (branches) => {
+    alert(`Assigned Branches: ${branches.join(", ")}`);
+  };
+
   return (
     <div>
       <>
@@ -43,11 +46,11 @@ const UserTable = (props) => {
 
         <Table
           header={[
-            "EmployeeCode",
+            "Employee Code",
             "Name",
             "EmailID",
             "Creation Date",
-            "Mobile Number",
+            // "Mobile Number",
             "Assign Branch",
             "Created By",
             "Last Login",
@@ -63,19 +66,27 @@ const UserTable = (props) => {
                 .includes(query.toLowerCase())
             )
             .map((m) => {
+              const branches = m.assignBranches;
+              const displayBranches = branches.length > 2 ?
+                `${branches.slice(0, 2).join(", ")}` :
+                branches.join(",");
               return (
                 <tr key={`userdata__${m.id}`}>
-                  <td>
-                    {m.empCode}
-                  </td>
-
-                  <td>
-                    {m.firstName} {m.lastName}
-                  </td>
+                  <td>{m.empCode}</td>
+                  <td>{m.firstName} {m.lastName}</td>
                   <td>{m.emailId}</td>
                   <td>{formatDate(m.createDate)}</td>
-                  <td>{m.mobileNo}</td>
-                  <td>{m.assignBranches.join(", ")}</td>
+                  {/* <td>{m.mobileNo}</td> */}
+                  <td>
+                    {displayBranches}
+                    {branches.length > 2 && (
+                      <button
+                        className="btn btn- p-0 seemore"
+                        onClick={() => handleSeeMore(branches)}
+                      >.see more
+                      </button>
+                    )}
+                  </td>
                   <td>{m.createdBy}</td>
                   <td>{formatDate(m.lastLogin)}</td>
                   <td>
@@ -87,7 +98,7 @@ const UserTable = (props) => {
                   </td>
                   <td onClick={() => {
                     showFormHandler();
-                    userBodyDefaultHandler(JSON.parse(JSON.stringify(m)))
+                    userBodyDefaultHandler(JSON.parse(JSON.stringify(m)));
                   }}>
                     <img src={icons.Icon2} alt="icon" />
                   </td>

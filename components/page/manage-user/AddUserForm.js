@@ -4,10 +4,8 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import useFetchDataHooks from '@/hooks/useFetchDataHooks'
-import useAdminFormHooks from '@/hooks/useAdminFormHooks'
 import BankCheckboxWithlabel from '@/components/core/Input/BankCheckboxWithlabel'
 import { InputWithLabel, SelectWithLabel, TextAreaWithLabel } from '@/components/core/Input'
-
 
 const input = {
     select: SelectWithLabel,
@@ -57,7 +55,6 @@ const AddUserForm = (props) => {
             maxLength: 5,
             isDisabled: isUpdate
         },
-
         {
             label: "Role",
             name: "roleMasters",
@@ -83,6 +80,12 @@ const AddUserForm = (props) => {
         fetchBranchList()
     }, [])
 
+    const handleSelectAllChange = (e) => {
+        const checked = e.target.checked
+        const allBranchValues = checked ? branchList.map(branch => branch.value) : []
+        userBodyChangeHandler({ target: { name: 'assignBranches', value: allBranchValues } })
+    }
+
     return (
         <form className='mb-4' onSubmit={(e) => userBodySubmitHandler(e, isUpdate)}>
             {/* {JSON.stringify(userBody)} */}
@@ -99,6 +102,20 @@ const AddUserForm = (props) => {
                     />)
                 })}
             </div>
+            <div className='row mb-2'>
+                <div className='col-12'>
+                    <div className="form-check">
+                        <input
+                            type="checkbox"
+                            className="form-check-input"
+                            id="select_all_branches"
+                            checked={userBody.assignBranches?.length === branchList.length}
+                            onChange={handleSelectAllChange}
+                        />
+                        <label className>Select All Branches</label>
+                    </div>
+                </div>
+            </div>
             <div className='d-flex gap-1'>
                 <button type='submit' className='btn btn-primary'>Submit</button>
                 <button
@@ -107,7 +124,6 @@ const AddUserForm = (props) => {
                         resetUpdateUserBody()
                     }}>Cancel</button>
             </div>
-
         </form>
     )
 }
