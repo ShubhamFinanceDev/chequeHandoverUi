@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const GenerateReport = () => {
   const { email } = useSelector((state) => state.authSlice);
   const { assingBranch, userDetails: { userDetailResponse } } = useSelector((state) => state.globalSlice);
-  const { genrateReportBody, genrateReportChangeHandler, setGenrateReportBody, generateMISReport, fetchUserDetails, fetchassingBranch } = useFetchDataHooks();
+  const { genrateReportBody, genrateReportChangeHandler, genrateReportInitialState, setGenrateReportBody, generateMISReport, fetchUserDetails, fetchassingBranch } = useFetchDataHooks();
   const [reportType, setReportType] = useState("");
   const [formErrors, setFormErrors] = useState({});
 
@@ -34,33 +34,32 @@ const GenerateReport = () => {
   };
   const handleReset = () => {
     setReportType("");
-    // genrateReportBody("");
-    // setGenrateReportBody("");
-    genrateReportChangeHandler({ target: { name: "reportType", value: "" } });
+    setGenrateReportBody({
+      ...genrateReportInitialState
+    });
     setFormErrors({});
   };
 
   const validateForm = () => {
     const errors = {};
 
+    const checkRequiredField = (field, message) => {
+      if (!genrateReportBody[field]) {
+        errors[field] = message;
+      }
+    };
+
     switch (reportType) {
       case "daily-report":
-        if (!genrateReportBody.selectedDate) {
-          errors.selectedDate = "Selected date is required.";
-        }
+        checkRequiredField('selectedDate', 'Selected date is required.');
         break;
       case "user-wise":
-        if (!genrateReportBody.email) {
-          errors.email = "Email is required.";
-        }
+        checkRequiredField('email', 'Email is required.');
+        checkRequiredField('status', 'Issued type is required.');
         break;
       case "branch-wise":
-        if (!genrateReportBody.status) {
-          errors.status = "Issued type is required.";
-        }
-        if (!genrateReportBody.branchName) {
-          errors.branchName = "Branch name is required.";
-        }
+        checkRequiredField('status', 'Issued type is required.');
+        checkRequiredField('branchName', 'Branch name is required.');
         if (!genrateReportBody.selectedDate && (!genrateReportBody.fromDate || !genrateReportBody.toDate)) {
           errors.selectedDate = "Either select a date or specify from and to dates.";
         }
@@ -76,9 +75,9 @@ const GenerateReport = () => {
 
 
 
+
   return (
     <div className="container">
-      {/* {JSON.stringify(genrateReportBody)} */}
       <div className="row">
         <form onSubmit={handleSubmit}>
           <div className="row">
@@ -130,8 +129,8 @@ const GenerateReport = () => {
                     { name: "Issued", value: "issued" },
                     { name: "Not Issued", value: "not-issued" },
                   ],
-                  isDisabled: reportType === "user-wise" || reportType === "daily-report",
-                  isReadOnly: reportType === "user-wise" || reportType === "daily-report"
+                  isDisabled: reportType === "daily-report",
+                  isReadOnly: reportType === "daily-report"
                 }}
                 state={genrateReportBody}
                 onChangeHandler={genrateReportChangeHandler}
