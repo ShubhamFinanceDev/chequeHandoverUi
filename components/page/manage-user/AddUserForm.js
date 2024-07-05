@@ -111,6 +111,7 @@ const AddUserForm = (props) => {
                             id="select_all_branches"
                             checked={userBody.assignBranches?.length === branchList.length}
                             onChange={handleSelectAllChange}
+                            disabled={userBody.roleMasters === 'ROLE_USER'}
                         />
                         <label className>Select All Branches</label>
                     </div>
