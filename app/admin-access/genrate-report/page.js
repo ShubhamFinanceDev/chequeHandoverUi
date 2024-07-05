@@ -24,8 +24,11 @@ const GenerateReport = () => {
   const handleReportTypeChange = (e) => {
     setReportType(e.target.value);
     genrateReportChangeHandler(e);
+    setGenrateReportBody((prevState) => ({
+      ...prevState,
+      status: ""
+    }))
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -60,7 +63,7 @@ const GenerateReport = () => {
       case "branch-wise":
         checkRequiredField('status', 'Issued type is required.');
         checkRequiredField('branchName', 'Branch name is required.');
-        if (!genrateReportBody.selectedDate && (!genrateReportBody.fromDate || !genrateReportBody.toDate)) {
+        if (genrateReportBody.status !== 'not-issued' && !genrateReportBody.selectedDate && (!genrateReportBody.fromDate || !genrateReportBody.toDate)) {
           errors.selectedDate = "Either select a date or specify from and to dates.";
         }
         break;
