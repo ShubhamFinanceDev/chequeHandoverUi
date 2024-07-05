@@ -70,6 +70,9 @@ const GenerateReport = () => {
       default:
         break;
     }
+    if ((genrateReportBody.fromDate && !genrateReportBody.toDate) || (!genrateReportBody.fromDate && genrateReportBody.toDate)) {
+      errors.dateRange = "Both From Date and To Date are required.";
+    }
 
     setFormErrors(errors);
 
@@ -202,8 +205,10 @@ const GenerateReport = () => {
               />
             </div>
 
-            {!genrateReportBody.selectedDate && !genrateReportBody.fromDate && !genrateReportBody.toDate && formErrors.selectedDate && (
-              <span className="text-danger">{formErrors.selectedDate}</span>
+            {formErrors.dateRange && (
+              <div className="col-12">
+                <span className="text-danger">{formErrors.dateRange}</span>
+              </div>
             )}
 
 
