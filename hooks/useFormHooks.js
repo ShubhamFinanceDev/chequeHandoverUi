@@ -15,21 +15,28 @@ const ChequeInitialState = {
     file: "",
     date: '',
 }
+const UpdatePasswordInititalState = {
+    email: "",
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: ""
+}
 
 const useFormHooks = () => {
     const fileInputRef = useRef(null);
     const { setError, resetValidation, setSuccess, updateApplicationStatus } = useActionDispatch()
     const [ChequeStatus, setChequeStatus] = useState({ ...ChequeInitialState })
+    const [updatePassword, setUpdatePassword] = useState({ ...UpdatePasswordInititalState })
     const { email } = useSelector((state) => state.authSlice)
 
 
     const ChequeStatusSubmitHandler = async (e, next = () => { }) => {
         e.preventDefault()
         try {
-            if(!email){
+            if (!email) {
                 return
             }
-            const body = { ...ChequeStatus, emailId: email}
+            const body = { ...ChequeStatus, emailId: email }
             const formdata = formDataParser(body)
             const { data } = await axios.post(endpoint.updateStatusCheque(), formdata)
             if (data.code === "0000") {
@@ -48,12 +55,42 @@ const useFormHooks = () => {
 
     }
 
+    const UpdatePasswordSubmitHandler = async (e) => {
+        e.preventDefault();
+
+        try {
+            const body = {
+                email: updatePassword.email,
+                oldPassword: updatePassword.oldPassword,
+                newPassword: updatePassword.newPassword,
+                confirmNewPassword: updatePassword.confirmNewPassword
+            };
+
+            const { data } = await axios.put(endpoint.updatePassword(), body);
+            if (data.code === "0000") {
+                setSuccess("Password updated successfully")
+                setUpdatePassword({ ...UpdatePasswordInititalState })
+                return
+            } else {
+                setError(data.msg)
+            }
+
+            console.log("API Response:", data);
+
+        } catch (error) {
+            setError(error);
+        }
+    };
+
+
     const ChequeStatusChangeHandler = (e) => changeHandlerHelper(e, ChequeStatus, setChequeStatus)
+    const UpdatePasswordChangeHandler = (e) => changeHandlerHelper(e, updatePassword, setUpdatePassword)
+
     //  default state handler
     const ChequeStatusDefaultStateHandler = (e) => setChequeStatus(state => ({ ...state, ...e }))
 
     return ({
-        ChequeStatus, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler
+        ChequeStatus, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler, updatePassword, UpdatePasswordChangeHandler, UpdatePasswordSubmitHandler
     })
 }
 
