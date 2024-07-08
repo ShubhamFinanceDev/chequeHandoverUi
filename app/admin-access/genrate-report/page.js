@@ -22,12 +22,20 @@ const GenerateReport = () => {
   }, [reportType]);
 
   const handleReportTypeChange = (e) => {
-    setReportType(e.target.value);
+    const { value } = e.target;
+    setReportType(value);
     genrateReportChangeHandler(e);
-    setGenrateReportBody((prevState) => ({
-      ...prevState,
-      status: ""
-    }))
+    setGenrateReportBody({
+      ...genrateReportInitialState,
+      reportType: value,
+      fromDate: "",
+      toDate: "",
+      selectedDate: "",
+      email: "",
+      status: "",
+      branchName: "",
+    });
+    setFormErrors({});
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,6 +50,9 @@ const GenerateReport = () => {
       fromDate: "",
       toDate: "",
       selectedDate: "",
+      email: "",
+      status: "",
+      branchName: "",
     });
     setFormErrors({});
   };
@@ -205,10 +216,11 @@ const GenerateReport = () => {
               />
             </div>
 
+            {formErrors.selectedDate && (
+              <span className="text-danger">{formErrors.selectedDate}</span>
+            )}
             {formErrors.dateRange && (
-              <div className="col-12">
-                <span className="text-danger">{formErrors.dateRange}</span>
-              </div>
+              <span className="text-danger">{formErrors.dateRange}</span>
             )}
 
 
