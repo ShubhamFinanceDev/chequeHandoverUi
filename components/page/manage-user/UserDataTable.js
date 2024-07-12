@@ -33,7 +33,7 @@ function UserDataTable(props) {
                                 <button className='btn btn-outline-primary' onClick={() => props?.openModel({
                                     key: "CHEQUE_STATUS_MODEL",
                                     applicationNo: m.applicationNumber,
-                                    chequeId: m.id,
+                                    chequeId: m.chequeId,
                                 })} disabled={isIssued}>Update</button>
                             </td>
                         </tr>
