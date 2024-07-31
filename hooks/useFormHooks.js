@@ -17,7 +17,7 @@ const ChequeInitialState = {
 }
 const UpdatePasswordInititalState = {
     email: "",
-    oldPassword: "",
+    // oldPassword: "",
     newPassword: "",
     confirmNewPassword: ""
 }
@@ -61,7 +61,7 @@ const useFormHooks = () => {
         try {
             const body = {
                 email: updatePassword.email,
-                oldPassword: updatePassword.oldPassword,
+                // oldPassword: updatePassword.oldPassword,
                 newPassword: updatePassword.newPassword,
                 confirmNewPassword: updatePassword.confirmNewPassword
             };

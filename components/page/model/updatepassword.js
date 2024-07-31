@@ -26,7 +26,7 @@ const UpdatePasswordModel = () => {
                         state={updatePassword}
                         onChangeHandler={UpdatePasswordChangeHandler}
                     />
-                    <InputWithLabel
+                    {/* <InputWithLabel
                         feilds={{
                             label: "Old Password",
                             name: "oldPassword",
@@ -37,7 +37,7 @@ const UpdatePasswordModel = () => {
                         state={updatePassword}
                         onChangeHandler={UpdatePasswordChangeHandler}
                         isRequired={true}
-                    />
+                    /> */}
                     <InputWithLabel
                         feilds={{
                             label: "New Password",
