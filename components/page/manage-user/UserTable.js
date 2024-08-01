@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import icons from "@/env/icons";
 import useAdminFormHooks from "@/hooks/useAdminFormHooks";
+import Drawer from "@/hooks/helper/drawerHoc";
 
 const UserTable = (props) => {
   const { showFormHandler, userBodyDefaultHandler } = props
@@ -34,13 +35,23 @@ const UserTable = (props) => {
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
-          <div className="col-7 d-flex justify-content-end">
+          <div className="col-7 d-flex gap-2 justify-content-end">
             <button
               className="btn btn-outline-primary"
               onClick={showFormHandler}
             >
               Add Users
             </button>
+
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => props.openDrawer({
+                component: "UPDATE_PASSWORD",
+                title: "Update Password",
+
+
+              })}
+            >Update Password</button>
           </div>
         </div>
 
@@ -111,4 +122,4 @@ const UserTable = (props) => {
   );
 };
 
-export default UserTable;
+export default Drawer(UserTable);
