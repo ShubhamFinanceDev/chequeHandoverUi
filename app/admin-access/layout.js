@@ -35,7 +35,7 @@ function LayoutPage({ children }) {
                         </div>
                     </div>
                     <div className="col-10 pt-4">
-                        {/* <ValidationMsg /> */}
+                        {<ValidationMsg /> }
                         {children}
                     </div>
                 </div>
