@@ -88,17 +88,51 @@ const useFormHooks = () => {
         }
     };
 
-    const reportSubmitHandler = async (e)=>{
-         e.preventDefault()
-         try {
-            const body = { ...reportState}
-            const { data } = await axios.get(endpoint.reportGenerateUser(body.applicationNo))
-            setSuccess(data.msg)
-            setreportState({applicationNo:''}) 
-         } catch (error) {
-            setError(error)
-         }
-    }
+    const reportSubmitHandler = async (e) => {
+        e.preventDefault();
+    
+        if (!reportState.applicationNo) {
+            return; // Ensure applicationNo is provided
+        }
+    
+        try {
+            const body = { ...reportState };
+            const response = await axios({
+                url: endpoint.reportGenerateUser(body.applicationNo),
+                method: "GET",
+                responseType: "blob",
+            });
+    
+            const blob = new Blob([response.data], {
+                type: response.headers["content-type"],
+            });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            const contentDisposition = response.headers["content-disposition"];
+            let filename = "report.xlsx";
+    
+            if (contentDisposition) {
+                const match = contentDisposition.match(/filename="?([^"]+)"?/);
+                if (match && match[1]) {
+                    filename = match[1]; 
+                }
+            }
+    
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+    
+            setSuccess("Report downloaded successfully!");
+            setreportState({ applicationNo: '' }); 
+        } catch (error) {
+            console.error("Error downloading the report:", error);
+            setError("Error downloading the report", error);
+        }
+    };
+    
 
     const ChequeStatusChangeHandler = (e) => changeHandlerHelper(e, ChequeStatus, setChequeStatus)
     const UpdatePasswordChangeHandler = (e) => changeHandlerHelper(e, updatePassword, setUpdatePassword)
