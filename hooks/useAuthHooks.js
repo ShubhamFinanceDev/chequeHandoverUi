@@ -43,17 +43,24 @@ function useAuthHooks() {
         try {
             const body = { ...authBody }
             const { data } = await axios.post(endpoint.login(), body)
-            const { token, emailId: email, role: isAdmin } = data
-            const user = { token, email, isAdmin }
+            const { token, emailId: email, role} = data
+            const user = { token, email, role }
             setUserAuthCred(user)
             Cookies.set("user", JSON.stringify(user || {}))
             Cookies.set("token", token)
 
-            if (isAdmin) {
-                router.push(pageRoutes.MANAGE_USER_PAGE())
-            } else {
-                router.push(pageRoutes.DASHBOARD_PAGE())
-            }
+            switch (role) {
+            case 0:
+                router.push(pageRoutes.MANAGE_USER_PAGE());
+                break;
+            case 1:
+                router.push(pageRoutes.DASHBOARD_PAGE());
+                break;
+            case 2:
+                router.push(pageRoutes.REPORT_DASHBOARD_PAGE());
+                break;
+            default:
+        }
         } catch (error) {
             setError(error)
         }

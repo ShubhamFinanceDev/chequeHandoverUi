@@ -7,6 +7,7 @@ const pageRoutes = {
     MANAGE_DATA_PAGE: () => `/admin-access/manage-data`,
     GENRATE_REPORT_PAGE: () => `/admin-access/genrate-report`,
     MANAGE_BRANCH_PAGE: () => `/admin-access/manage-branch`,
+    REPORT_DASHBOARD_PAGE: () => `/report-user-access`,
 
 }
 
