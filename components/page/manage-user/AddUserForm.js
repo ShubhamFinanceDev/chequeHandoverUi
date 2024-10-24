@@ -62,6 +62,8 @@ const AddUserForm = (props) => {
             options: [
                 { name: "Admin", value: "ROLE_ADMIN" },
                 { name: "User", value: "ROLE_USER" },
+                { name: "Report User", value: "ROLE_REPORT_USER" },
+
             ],
             isRequired: true,
         },

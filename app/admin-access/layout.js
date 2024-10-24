@@ -12,10 +12,10 @@ import ValidationMsg from '@/components/core/ValidationMsg'
 function LayoutPage({ children }) {
     const router = useRouter()
     const pathname = usePathname()
-    const { isAdmin, token } = useSelector(state => state.authSlice)
+    const { role, token } = useSelector(state => state.authSlice)
 
     useEffect(() => {
-        if (token && !isAdmin) {
+        if (token && role !==0) {
             router.push(pageRoutes.SIGIN_PAGE())
         }
     }, [token])

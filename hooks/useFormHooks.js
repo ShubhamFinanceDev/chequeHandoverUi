@@ -22,11 +22,17 @@ const UpdatePasswordInititalState = {
     confirmNewPassword: ""
 }
 
+const ReportInitialState = {
+    applicationNo:''
+}
+
 const useFormHooks = () => {
     const fileInputRef = useRef(null);
     const { setError, resetValidation, setSuccess, updateApplicationStatus } = useActionDispatch()
     const [ChequeStatus, setChequeStatus] = useState({ ...ChequeInitialState })
     const [updatePassword, setUpdatePassword] = useState({ ...UpdatePasswordInititalState })
+    const [reportState, setreportState] = useState({ ...ReportInitialState })
+
     const { email } = useSelector((state) => state.authSlice)
 
 
@@ -82,15 +88,28 @@ const useFormHooks = () => {
         }
     };
 
+    const reportSubmitHandler = async (e)=>{
+         e.preventDefault()
+         try {
+            const body = { ...reportState}
+            const { data } = await axios.get(endpoint.reportGenerateUser(body.applicationNo))
+            setSuccess(data.msg)
+            setreportState({applicationNo:''}) 
+         } catch (error) {
+            setError(error)
+         }
+    }
 
     const ChequeStatusChangeHandler = (e) => changeHandlerHelper(e, ChequeStatus, setChequeStatus)
     const UpdatePasswordChangeHandler = (e) => changeHandlerHelper(e, updatePassword, setUpdatePassword)
+    const reportChangeHandler = (e) => changeHandlerHelper(e, reportState, setreportState)
 
     //  default state handler
     const ChequeStatusDefaultStateHandler = (e) => setChequeStatus(state => ({ ...state, ...e }))
 
     return ({
-        ChequeStatus, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler, updatePassword, UpdatePasswordChangeHandler, UpdatePasswordSubmitHandler
+        ChequeStatus, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler, updatePassword, UpdatePasswordChangeHandler, UpdatePasswordSubmitHandler,
+        reportState,reportSubmitHandler,reportChangeHandler
     })
 }
 
