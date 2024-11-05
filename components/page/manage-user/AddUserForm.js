@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import useFetchDataHooks from '@/hooks/useFetchDataHooks'
 import BankCheckboxWithlabel from '@/components/core/Input/BankCheckboxWithlabel'
 import { InputWithLabel, SelectWithLabel, TextAreaWithLabel } from '@/components/core/Input'
+import ValidationMsg from '@/components/core/ValidationMsg'
 
 const input = {
     select: SelectWithLabel,
@@ -62,6 +63,8 @@ const AddUserForm = (props) => {
             options: [
                 { name: "Admin", value: "ROLE_ADMIN" },
                 { name: "User", value: "ROLE_USER" },
+                { name: "Report User", value: "ROLE_REPORT_USER" },
+
             ],
             isRequired: true,
         },
@@ -90,6 +93,7 @@ const AddUserForm = (props) => {
         <form className='mb-4' onSubmit={(e) => userBodySubmitHandler(e, isUpdate)}>
             {/* {JSON.stringify(userBody)} */}
             <div className="row">
+                <ValidationMsg/>
                 {formFeilds.map((f, idx) => {
                     const InputComponent = input?.[f.type] || InputWithLabel
                     const classNameArray = f?.className || ["col-6 mb-2", "col-12", "col-12"]
