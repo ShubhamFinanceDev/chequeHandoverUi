@@ -30,7 +30,7 @@ const userBodyInitialState = {
     mobileNo: "",
     password: "",
     createdBy: "",
-    roleMasters: "",
+    roleMasters: [],
     empCode: "",
     assignBranches: [],
 
@@ -74,9 +74,9 @@ const useAdminFormHooks = () => {
         e.preventDefault()
         try {
             const body = { ...userBody }
-            body.roleMasters = {
-                role: body.roleMasters
-            }
+            // body.roleMasters = {
+            //     role: body.roleMasters
+            // }
             if (!isMobileValid(userBody.mobileNo)) {
                 setError("Mobile number is not correct");
                 return;

@@ -8,6 +8,8 @@ const pageRoutes = {
     GENRATE_REPORT_PAGE: () => `/admin-access/genrate-report`,
     MANAGE_BRANCH_PAGE: () => `/admin-access/manage-branch`,
     REPORT_DASHBOARD_PAGE: () => `/report-user-access`,
+    USER_REPORT_DASHBOARD_PAGE: () => `/ura`,
+
 
 }
 
@@ -16,6 +18,14 @@ export const adminNavitem = [
     { label: "Manage Data", path: pageRoutes.MANAGE_DATA_PAGE() },
     { label: "Manage Branch", path: pageRoutes.MANAGE_BRANCH_PAGE() },
     { label: "Genrate Report", path: pageRoutes.GENRATE_REPORT_PAGE() },
+    { label: "Report User", path: pageRoutes.REPORT_DASHBOARD_PAGE() },
+
 ]
+
+export const userReportNavitem = [
+    // { label: "User Access", path: pageRoutes.DASHBOARD_PAGE() },
+    { label: "Report User Access", path: pageRoutes.REPORT_DASHBOARD_PAGE() },
+]
+
 
 export default pageRoutes
