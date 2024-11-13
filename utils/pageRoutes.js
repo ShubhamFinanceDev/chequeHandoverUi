@@ -10,6 +10,7 @@ const pageRoutes = {
     REPORT_DASHBOARD_PAGE: () => `/report-user-access`,
     USER_REPORT_DASHBOARD_PAGE: () => `/ura`,
     USER_REPORT_PAGE: () => `/admin-access/user-report`,
+    REPORT_USER: () =>`/ura/report-user`
 
 
 
@@ -25,8 +26,8 @@ export const adminNavitem = [
 ]
 
 export const userReportNavitem = [
-    // { label: "User Access", path: pageRoutes.DASHBOARD_PAGE() },
-    { label: "Report User Access", path: pageRoutes.REPORT_DASHBOARD_PAGE() },
+    { label: "User Access", path: pageRoutes.USER_REPORT_DASHBOARD_PAGE() },
+    { label: "Report User Access", path: pageRoutes.REPORT_USER() },
 ]
 
 

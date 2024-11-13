@@ -1,7 +1,8 @@
+import ReportUserPage from '@/app/report-user-access/page'
 import ReportUser from '@/components/page/report-user/page'
 import React from 'react'
 
-const reportUserPage = () => {
+const reportUserDashboard = () => {
   return (
     <div>
       <ReportUser/>
@@ -9,4 +10,4 @@ const reportUserPage = () => {
   )
 }
 
-export default reportUserPage
+export default reportUserDashboard

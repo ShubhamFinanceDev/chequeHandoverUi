@@ -9,12 +9,12 @@ const UserReportDashboard = () => {
         <div className="col-12">
             <SearchInput />
         </div>
-        {/* <div className="col-4">
-            <div className="d-flex gap-2">
+        <div className="col-4">
+            {/* <div className="d-flex gap-2">
                 <button className='btn btn-primary' onClick={generateMISReport}>Generate Report</button>
-            </div>
+            </div> */}
 
-        </div> */}
+        </div>
 
     </div>
     <UserDataTable />
