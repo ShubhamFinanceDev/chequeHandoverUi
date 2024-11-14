@@ -26,8 +26,8 @@ export const adminNavitem = [
 ]
 
 export const userReportNavitem = [
-    { label: "cheque Handover user", path: pageRoutes.USER_REPORT_DASHBOARD_PAGE() },
-    { label: "leegality user", path: pageRoutes.REPORT_USER() },
+    { label: "Cheque Handover User", path: pageRoutes.USER_REPORT_DASHBOARD_PAGE() },
+    { label: "Leegality User", path: pageRoutes.REPORT_USER() },
 ]
 
 
