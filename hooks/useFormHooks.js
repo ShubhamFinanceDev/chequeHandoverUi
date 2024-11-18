@@ -24,8 +24,8 @@ const UpdatePasswordInititalState = {
 }
 
 const ReportInitialState = {
-    applicationNo:'',
-    file:[]
+    applicationNo: '',
+    file: []
 }
 
 const useFormHooks = () => {
@@ -95,40 +95,40 @@ const useFormHooks = () => {
         e.preventDefault();
         try {
             const body = { ...reportState };
-            let response        
-            if(selectedOption==="application"){
-             response = await axios.post(endpoint.reportGenerateUser(body.applicationNo),{},{ responseType: 'blob' })
-            }else{
+            let response
+            if (selectedOption === "application") {
+                response = await axios.post(endpoint.reportGenerateUser(body.applicationNo), {}, { responseType: 'blob' })
+            } else {
                 const formdata = formDataParser(body)
-                response = await axios.post(endpoint.reportGenerateUser(),formdata,{ responseType: 'blob' })
+                response = await axios.post(endpoint.reportGenerateUser(), formdata, { responseType: 'blob' })
             }
 
             const blob = new Blob([response.data], { type: response.headers["content-type"] });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
-    
+
             a.href = url;
             a.download = "report.xlsx";
             document.body.appendChild(a);
             a.click();
-            
+
             a.remove();
             window.URL.revokeObjectURL(url);
-    
+
             setSuccess("Report downloaded successfully!");
-            setreportState({ applicationNo: '', file: '' }); 
+            setreportState({ applicationNo: '', file: '' });
         } catch (error) {
             console.error("Error downloading the report:", error);
-            setError("Error downloading the report", error);
+            setError(error?.response?.data?.msg || "Error downloading the report", error);
         }
     };
 
     const handleRadioChange = (e) => {
         setSelectedOption(e.target.value)
-        setreportState({ applicationNo: '', file: '' }); 
+        setreportState({ applicationNo: '', file: '' });
     }
-    
-            
+
+
     const ChequeStatusChangeHandler = (e) => changeHandlerHelper(e, ChequeStatus, setChequeStatus)
     const UpdatePasswordChangeHandler = (e) => changeHandlerHelper(e, updatePassword, setUpdatePassword)
     const reportChangeHandler = (e) => changeHandlerHelper(e, reportState, setreportState)
@@ -137,8 +137,8 @@ const useFormHooks = () => {
     const ChequeStatusDefaultStateHandler = (e) => setChequeStatus(state => ({ ...state, ...e }))
 
     return ({
-        ChequeStatus,selectedOption,handleRadioChange, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler, updatePassword, UpdatePasswordChangeHandler, UpdatePasswordSubmitHandler,
-        reportState,reportSubmitHandler,reportChangeHandler,
+        ChequeStatus, selectedOption, handleRadioChange, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler, updatePassword, UpdatePasswordChangeHandler, UpdatePasswordSubmitHandler,
+        reportState, reportSubmitHandler, reportChangeHandler,
     })
 }
 
