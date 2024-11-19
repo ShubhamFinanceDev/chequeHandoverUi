@@ -119,7 +119,7 @@ const useFormHooks = () => {
             setreportState({ applicationNo: '', file: '' });
         } catch (error) {
             console.error("Error downloading the report:", error);
-            setError(error?.response?.status == 406 ? "The Excel file has duplicate application numbers or the application count is more than 15" : "Error downloading the report", error);
+            setError(error?.response?.status == 406 ? "The Excel file has duplicate application numbers or the application count is more than 25" : "Error downloading the report", error);
             }
     };
 
