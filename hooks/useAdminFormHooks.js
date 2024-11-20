@@ -30,7 +30,7 @@ const userBodyInitialState = {
     mobileNo: "",
     password: "",
     createdBy: "",
-    roleMasters: "",
+    roleMasters: [],
     empCode: "",
     assignBranches: [],
 
@@ -52,9 +52,23 @@ const useAdminFormHooks = () => {
     const [dataBody, setDataBody] = useState({ ...dataBodyInitialState })
     const [branchDataBody, setBranchDataBody] = useState({ ...dataBodyInitialState })
     const [isUpdate, setIsUpdate] = useState(false)
+    
+    const coustomChangeHandler=(prevState, { name, value })=>{
+        if (name === "roleMasters") {
+            if(value==="ROLE_ADMIN"){
+                prevState[name]=[value]
+
+            }else{
+                prevState[name]=prevState[name].filter((d)=>d!=="ROLE_ADMIN")  
+            }
+        }
+    
+    }
+
+
 
     // onchange handlers
-    const userBodyChangeHandler = (e) => changeHandlerHelper(e, userBody, setUserBody)
+    const userBodyChangeHandler = (e) => changeHandlerHelper(e, userBody, setUserBody,coustomChangeHandler)
     const dataBodyChangeHandler = (e) => changeHandlerHelper(e, dataBody, setDataBody)
     const branchDataBodyChangeHandler = (e) => changeHandlerHelper(e, branchDataBody, setBranchDataBody)
 
@@ -74,9 +88,7 @@ const useAdminFormHooks = () => {
         e.preventDefault()
         try {
             const body = { ...userBody }
-            body.roleMasters = {
-                role: body.roleMasters
-            }
+            body.roleMasters=body.roleMasters.map((d)=>({role:d}))
             if (!isMobileValid(userBody.mobileNo)) {
                 setError("Mobile number is not correct");
                 return;

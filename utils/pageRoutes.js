@@ -8,6 +8,11 @@ const pageRoutes = {
     GENRATE_REPORT_PAGE: () => `/admin-access/genrate-report`,
     MANAGE_BRANCH_PAGE: () => `/admin-access/manage-branch`,
     REPORT_DASHBOARD_PAGE: () => `/report-user-access`,
+    USER_REPORT_DASHBOARD_PAGE: () => `/ura`,
+    USER_REPORT_PAGE: () => `/admin-access/user-report`,
+    REPORT_USER: () =>`/ura/report-user`
+
+
 
 }
 
@@ -16,6 +21,14 @@ export const adminNavitem = [
     { label: "Manage Data", path: pageRoutes.MANAGE_DATA_PAGE() },
     { label: "Manage Branch", path: pageRoutes.MANAGE_BRANCH_PAGE() },
     { label: "Genrate Report", path: pageRoutes.GENRATE_REPORT_PAGE() },
+    { label: "Report User", path: pageRoutes.USER_REPORT_PAGE() },
+
 ]
+
+export const userReportNavitem = [
+    { label: "Cheque Handover User", path: pageRoutes.USER_REPORT_DASHBOARD_PAGE() },
+    { label: "Leegality User", path: pageRoutes.REPORT_USER() },
+]
+
 
 export default pageRoutes

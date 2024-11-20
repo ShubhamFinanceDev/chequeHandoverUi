@@ -48,19 +48,28 @@ function useAuthHooks() {
             setUserAuthCred(user)
             Cookies.set("user", JSON.stringify(user || {}))
             Cookies.set("token", token)
+            // role
+            let redirect = {
+                0 : pageRoutes.MANAGE_USER_PAGE,
+                1 : pageRoutes.DASHBOARD_PAGE,
+                2 : pageRoutes.REPORT_DASHBOARD_PAGE,
+                3 : pageRoutes.USER_REPORT_DASHBOARD_PAGE,
+            }
+            redirect = redirect[role]
+            router.push(redirect());
 
-            switch (role) {
-            case 0:
-                router.push(pageRoutes.MANAGE_USER_PAGE());
-                break;
-            case 1:
-                router.push(pageRoutes.DASHBOARD_PAGE());
-                break;
-            case 2:
-                router.push(pageRoutes.REPORT_DASHBOARD_PAGE());
-                break;
-            default:
-        }
+        //     switch (role) {
+        //     case 0:
+        //         router.push(pageRoutes.MANAGE_USER_PAGE());
+        //         break;
+        //     case 1:
+        //         router.push(pageRoutes.DASHBOARD_PAGE());
+        //         break;
+        //     case 2:
+        //         router.push(pageRoutes.REPORT_DASHBOARD_PAGE());
+        //         break;
+        //     default:
+        // }
         } catch (error) {
             setError(error)
         }

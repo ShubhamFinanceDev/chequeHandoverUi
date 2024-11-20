@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { usePathname, useRouter } from 'next/navigation'
 
 import Header from '@/components/core/Header'
-import pageRoutes, { adminNavitem } from '@/utils/pageRoutes'
+import pageRoutes, { userReportNavitem } from '@/utils/pageRoutes'
 import Link from 'next/link'
 import ValidationMsg from '@/components/core/ValidationMsg'
 
@@ -15,7 +15,7 @@ function LayoutPage({ children }) {
     const { role, token } = useSelector(state => state.authSlice)
 
     useEffect(() => {
-        if (token && role !==0) {
+        if (token && role ==0) {
             router.push(pageRoutes.SIGIN_PAGE())
         }
     }, [token])
@@ -27,7 +27,7 @@ function LayoutPage({ children }) {
                 <div className="row">
                     <div className="col-2 mb-4">
                         <div className='p-3'>
-                            {adminNavitem.map((i, idx) => (
+                            {userReportNavitem.map((i, idx) => (
                                 <Link href={i.path} className='row mt-2' key={`navlink__${idx}`}>
                                     <button className={`btn text-start ${pathname.includes(i.path) ? "btn-primary" : "btn-secondary"}`}>{i.label}</button>
                                 </Link>

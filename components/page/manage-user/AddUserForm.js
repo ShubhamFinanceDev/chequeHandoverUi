@@ -1,24 +1,25 @@
 "use client"
-
+ 
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-
+ 
 import useFetchDataHooks from '@/hooks/useFetchDataHooks'
 import BankCheckboxWithlabel from '@/components/core/Input/BankCheckboxWithlabel'
-import { InputWithLabel, SelectWithLabel, TextAreaWithLabel } from '@/components/core/Input'
+import { InputWithLabel, SelectWithLabel, TextAreaWithLabel,MultiCheckboxWithLabel } from '@/components/core/Input'
 import ValidationMsg from '@/components/core/ValidationMsg'
-
+ 
 const input = {
     select: SelectWithLabel,
     textarea: TextAreaWithLabel,
-    multiCheckbox: BankCheckboxWithlabel,
+    bankmultiCheckbox: BankCheckboxWithlabel,
+    mulitcheckbox:MultiCheckboxWithLabel
 }
-
+ 
 const AddUserForm = (props) => {
     const { showFormHandler, userBody, userBodyChangeHandler, userBodySubmitHandler, isUpdate, resetUpdateUserBody } = props
     const { fetchBranchList } = useFetchDataHooks()
     const { branchList } = useSelector(state => state.globalSlice)
-
+ 
     const formFeilds = [
         {
             label: "First Name",
@@ -59,14 +60,14 @@ const AddUserForm = (props) => {
         {
             label: "Role",
             name: "roleMasters",
-            type: "select",
+            type: "mulitcheckbox",
             options: [
                 { name: "Admin", value: "ROLE_ADMIN" },
                 { name: "User", value: "ROLE_USER" },
                 { name: "Report User", value: "ROLE_REPORT_USER" },
-
+ 
             ],
-            isRequired: true,
+            // isRequired: true,
         },
         {
             isFilter: true,
@@ -74,21 +75,21 @@ const AddUserForm = (props) => {
             name: "assignBranches",
             placeholder: "Search branch by name",
             options: branchList,
-            type: "multiCheckbox",
+            type: "bankmultiCheckbox",
             className: ["row mb-2", "col-12", "col-2"]
         },
     ]
-
+ 
     useEffect(() => {
         fetchBranchList()
     }, [])
-
+ 
     const handleSelectAllChange = (e) => {
         const checked = e.target.checked
         const allBranchValues = checked ? branchList.map(branch => branch.value) : []
         userBodyChangeHandler({ target: { name: 'assignBranches', value: allBranchValues } })
     }
-
+ 
     return (
         <form className='mb-4' onSubmit={(e) => userBodySubmitHandler(e, isUpdate)}>
             {/* {JSON.stringify(userBody)} */}
@@ -132,5 +133,6 @@ const AddUserForm = (props) => {
         </form>
     )
 }
-
+ 
 export default AddUserForm
+ 

@@ -10,6 +10,7 @@ import { changeHandlerHelper } from './helper/changeHandler';
 import { formDataParser } from './helper/formDataParser';
 
 
+
 const ChequeInitialState = {
     applicationNo: "",
     file: "",
@@ -23,7 +24,8 @@ const UpdatePasswordInititalState = {
 }
 
 const ReportInitialState = {
-    applicationNo:''
+    applicationNo: '',
+    file: []
 }
 
 const useFormHooks = () => {
@@ -32,6 +34,7 @@ const useFormHooks = () => {
     const [ChequeStatus, setChequeStatus] = useState({ ...ChequeInitialState })
     const [updatePassword, setUpdatePassword] = useState({ ...UpdatePasswordInititalState })
     const [reportState, setreportState] = useState({ ...ReportInitialState })
+    const [selectedOption, setSelectedOption] = useState('application')
 
     const { email } = useSelector((state) => state.authSlice)
 
@@ -90,49 +93,46 @@ const useFormHooks = () => {
 
     const reportSubmitHandler = async (e) => {
         e.preventDefault();
-    
-        if (!reportState.applicationNo) {
-            return; // Ensure applicationNo is provided
-        }
-    
         try {
             const body = { ...reportState };
-            const response = await axios({
-                url: endpoint.reportGenerateUser(body.applicationNo),
-                method: "GET",
-                responseType: "blob",
-            });
-    
-            const blob = new Blob([response.data], {
-                type: response.headers["content-type"],
-            });
+            let response
+            if (selectedOption === "application") {
+                response = await axios.post(endpoint.reportGenerateUser(body.applicationNo), {}, { responseType: 'blob' })
+            } else {
+                const formdata = formDataParser(body)
+                response = await axios.post(endpoint.reportGenerateUser(), formdata, { responseType: 'blob' })
+            }
+
+            const blob = new Blob([response.data], { type: response.headers["content-type"] });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
-            const contentDisposition = response.headers["content-disposition"];
-            let filename = "report.xlsx";
-    
-            if (contentDisposition) {
-                const match = contentDisposition.match(/filename="?([^"]+)"?/);
-                if (match && match[1]) {
-                    filename = match[1]; 
-                }
-            }
-    
+
             a.href = url;
-            a.download = filename;
+            a.download = "report.xlsx";
             document.body.appendChild(a);
             a.click();
+
             a.remove();
             window.URL.revokeObjectURL(url);
-    
+
             setSuccess("Report downloaded successfully!");
-            setreportState({ applicationNo: '' }); 
+            setreportState({ applicationNo: '', file: '' });
         } catch (error) {
             console.error("Error downloading the report:", error);
-            setError("Error downloading the report", error);
-        }
+            const msg = {
+                404 : "Data Not Found",
+                406 : "Excel file exceeds the allowed limit of 25  application numbers",
+                409 : "Excel have duplicate applicationNo"
+            }
+            setError(msg?.[error?.response?.status] || "Error downloading the report", error);
+            }
     };
-    
+
+    const handleRadioChange = (e) => {
+        setSelectedOption(e.target.value)
+        setreportState({ applicationNo: '', file: '' });
+    }
+
 
     const ChequeStatusChangeHandler = (e) => changeHandlerHelper(e, ChequeStatus, setChequeStatus)
     const UpdatePasswordChangeHandler = (e) => changeHandlerHelper(e, updatePassword, setUpdatePassword)
@@ -142,8 +142,8 @@ const useFormHooks = () => {
     const ChequeStatusDefaultStateHandler = (e) => setChequeStatus(state => ({ ...state, ...e }))
 
     return ({
-        ChequeStatus, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler, updatePassword, UpdatePasswordChangeHandler, UpdatePasswordSubmitHandler,
-        reportState,reportSubmitHandler,reportChangeHandler
+        ChequeStatus, selectedOption, handleRadioChange, ChequeStatusChangeHandler, ChequeStatusSubmitHandler, ChequeStatusDefaultStateHandler, updatePassword, UpdatePasswordChangeHandler, UpdatePasswordSubmitHandler,
+        reportState, reportSubmitHandler, reportChangeHandler,
     })
 }
 

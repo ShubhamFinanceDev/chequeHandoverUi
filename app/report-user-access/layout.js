@@ -11,14 +11,14 @@ import Footer from '@/components/core/Footer'
 
 function LayoutPage({ children }) {
     const router = useRouter()
-    const { role, token } = useSelector(state => state.authSlice)
+    // const { role, token } = useSelector(state => state.authSlice)
 
-    useEffect(() => {
-        if (token && role==0) {
-            router.push(pageRoutes.SIGIN_PAGE())
-        }
+    // useEffect(() => {
+    //     if (token && role==0) {
+    //         router.push(pageRoutes.SIGIN_PAGE())
+    //     }
 
-    }, [token])
+    // }, [token])
 
     return (
         <>
