@@ -21,7 +21,7 @@ export const adminNavitem = [
     { label: "Manage Data", path: pageRoutes.MANAGE_DATA_PAGE() },
     { label: "Manage Branch", path: pageRoutes.MANAGE_BRANCH_PAGE() },
     { label: "Genrate Report", path: pageRoutes.GENRATE_REPORT_PAGE() },
-    { label: "Report User", path: pageRoutes.USER_REPORT_PAGE() },
+    { label: "Leegality User", path: pageRoutes.USER_REPORT_PAGE() },
 
 ]
 
